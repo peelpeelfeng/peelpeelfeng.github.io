@@ -1,0 +1,6 @@
+# hexo robots.txt
+User-agent: * Allow: /
+Allow: /
+Disallow: /css/
+Sitemap: http://pupiles.com/sitemap.xml
+Sitemap: http://pupiles.com/baidusitemap.xml

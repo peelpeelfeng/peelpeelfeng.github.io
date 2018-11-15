@@ -1,0 +1,1120 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="9I2ZJGCGSFZ3JOIR2o2ugq8lnm-NLadndUPsCsXXgFc" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="搭建博客 hexo github pages next 自动推送 优化 html渲染出错" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="win下搭建利用hexo和github搭建博客 next主题优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用hexo搭建完博客后的后续SEO优化">
+<meta property="og:url" content="http://pupiles.com/search-engine-optimization.html">
+<meta property="og:site_name" content="Pupiles blog">
+<meta property="og:description" content="win下搭建利用hexo和github搭建博客 next主题优化">
+<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/1.PNG">
+<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/2.PNG">
+<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/3.PNG">
+<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/6.PNG">
+<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/5.PNG">
+<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/XWJ8ZSKMFIRABU%25%60YAW%29~GY.png">
+<meta property="og:updated_time" content="2017-04-26T07:08:04.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用hexo搭建完博客后的后续SEO优化">
+<meta name="twitter:description" content="win下搭建利用hexo和github搭建博客 next主题优化">
+<meta name="twitter:image" content="http://olgkg6ct5.bkt.clouddn.com/1.PNG">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://pupiles.com/search-engine-optimization.html"/>
+
+
+
+
+
+  <title> 用hexo搭建完博客后的后续SEO优化 | Pupiles blog </title>
+</head>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a5cad5e7b7a8b5d3aea9f10d80c9f2b7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Pupiles blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">菜的要死的程序猿和Web狗</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            友链
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://pupiles.com/search-engine-optimization.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Pupil">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://olgkg6ct5.bkt.clouddn.com/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pupiles blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                用hexo搭建完博客后的后续SEO优化
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-16T20:18:14+08:00">
+                2017-02-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hello-World/" itemprop="url" rel="index">
+                    <span itemprop="name">Hello World!</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/search-engine-optimization.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/search-engine-optimization.html" class="leancloud_visitors" data-flag-title="用hexo搭建完博客后的后续SEO优化">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  win下搭建利用hexo和github搭建博客 next主题优化
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><a href="http://www.jianshu.com/p/8c0707ce5da4" target="_blank" rel="external">Hexo博客收录百度和谷歌-基于Next主题</a><br><br><a href="http://blog.csdn.net/justheretobe/article/details/52167068" target="_blank" rel="external">hexo next 主题打开博客过慢的解决办法</a></p>
+<h3 id="本文欢迎大家转载，转载请注明出处用hexo搭建完博客后的后续SEO优化"><a href="#本文欢迎大家转载，转载请注明出处用hexo搭建完博客后的后续SEO优化" class="headerlink" title="本文欢迎大家转载，转载请注明出处用hexo搭建完博客后的后续SEO优化"></a>本文欢迎大家转载，转载请注明出处<a href="http://pupiles.com/search-engine-optimization.html">用hexo搭建完博客后的后续SEO优化</a></h3><h1 id="前言"><a href="#前言" class="headerlink" title="前言:"></a>前言:</h1><p>上篇文章我介绍了如何对next主题进行美化，所以我们离一个真正的博客又更近了一部，现在我们继续对我们的博客进行更进一步的细节处理</p>
+<h1 id="SEO优化"><a href="#SEO优化" class="headerlink" title="SEO优化"></a>SEO优化</h1><h3 id="登陆百度站长进行验证"><a href="#登陆百度站长进行验证" class="headerlink" title="登陆百度站长进行验证"></a>登陆百度站长进行验证</h3><p>先登陆<a href="http://zhanzhang.baidu.com" target="_blank" rel="external">百度站长</a>然后进行进行验证，这里又3种验证方式，一个是文件验证，一个是html标签验证，一个是CNAME验证。。网上一般都会推荐使用文件验证，但这里你要注意，如果你的博客是https即是经过加密的，所以你使用1，2两种方法都会发生未知的301错误，所以在这里介绍一下CNAME验证方法</p>
+<h3 id="登陆dnspod"><a href="#登陆dnspod" class="headerlink" title="登陆dnspod"></a>登陆<a href="https://www.dnspod.cn/" target="_blank" rel="external">dnspod</a></h3><p>添加一条记录如下<br><img src="http://olgkg6ct5.bkt.clouddn.com/1.PNG" alt=""><br>蓝色区域填上百度站长给你的域名前缀即可</p>
+<h3 id="生成sitemap文件"><a href="#生成sitemap文件" class="headerlink" title="生成sitemap文件"></a>生成sitemap文件</h3><p>首先在hexo目录下右键安装两个hexo插件<br><code>npm install hexo-generator-sitemap --save-dev</code><br><code>npm install hexo-generator-baidu-sitemap --save-dev</code><br><br>一个是谷歌的sitemap，一个是百度的sitemap,安装完后再打开hexo目录下的_config.yml,添加如下代码</p>
+<p><pre><code>Plugins:<br> hexo-generator-baidu-sitemap<br> hexo-generator-sitemap</code></pre></p>
+<p><pre><code>sitemap:<br>path:sitemap.xml</code></pre><br>保存后再hexo目录下输入</p>
+<p><pre><code>hexo g<br>hexo s</code></pre><br>然后查看本地hexo/public/应该会出现sitemap.xml和baidusitemap.xml</p>
+<h3 id="确认无误区百度站长提交"><a href="#确认无误区百度站长提交" class="headerlink" title="确认无误区百度站长提交"></a>确认无误区百度站长提交</h3><p><a href="http://zhanzhang.baidu.com/linksubmit/index?" target="_blank" rel="external">百度站长sitemap提交</a><br><img src="http://olgkg6ct5.bkt.clouddn.com/2.PNG" alt=""><br>在地址处输入www.xxxxx.com/baidusitemap.xml（xxxxx不用解释了吧)输入验证码提交即可</p>
+<h2 id="设置百度自动推送"><a href="#设置百度自动推送" class="headerlink" title="设置百度自动推送"></a>设置百度自动推送</h2><p>点击上图的自动推送，把那团百度给的代码复制下来<br>然后打开next主题下的_config.yml把baidu_push：字段改为true<br>然后打开themes\next\layout_scripts\baidu_push.swig把从百度复制下来的代码复制到2个if之间<br>如下图<br><img src="http://olgkg6ct5.bkt.clouddn.com/3.PNG" alt=""><br>保存即可<br><br>一个小时后可在百度搜索框内输入site:你的域名看看有没有被百度收录</p>
+<h1 id="博客打开过慢优化"><a href="#博客打开过慢优化" class="headerlink" title="博客打开过慢优化"></a>博客打开过慢优化</h1><p>由于github采用国外服务器，比国内慢一点是肯定的，但如果我们没有翻墙有时会出现总是正在连接这种情况，这里很大原因是因为我们采用的是谷歌字体。我们可一把他改成用我们国内的字体<br></p>
+<h3 id="打开next主题下的-config-yml查找font字段，按下图所示修改"><a href="#打开next主题下的-config-yml查找font字段，按下图所示修改" class="headerlink" title="打开next主题下的_config.yml查找font字段，按下图所示修改"></a>打开next主题下的_config.yml查找font字段，按下图所示修改</h3><p><img src="http://olgkg6ct5.bkt.clouddn.com/6.PNG" alt=""></p>
+<h3 id="再打开-themes-next-layout-partials-head-external-fonts-swig文件ctrl-f查找fonts-googleapis-com改成-fonts-useso-com-即可"><a href="#再打开-themes-next-layout-partials-head-external-fonts-swig文件ctrl-f查找fonts-googleapis-com改成-fonts-useso-com-即可" class="headerlink" title="再打开\themes\next\layout_partials\head external-fonts.swig文件ctrl+f查找fonts.googleapis.com改成 fonts.useso.com 即可"></a>再打开\themes\next\layout_partials\head external-fonts.swig文件ctrl+f查找fonts.googleapis.com改成 fonts.useso.com 即可</h3><p>我试了一下速度真的可以提高很多</p>
+<h2 id="使next首先只显示文章预览而不显示全文"><a href="#使next首先只显示文章预览而不显示全文" class="headerlink" title="使next首先只显示文章预览而不显示全文"></a>使next首先只显示文章预览而不显示全文</h2><p>同样打开next主题下的_config.yml文件查找auto_excerpt字段修改为如下<br><img src="http://olgkg6ct5.bkt.clouddn.com/5.PNG" alt=""></p>
+<h2 id="解决win下发表文章遇到的问题"><a href="#解决win下发表文章遇到的问题" class="headerlink" title="解决win下发表文章遇到的问题"></a>解决win下发表文章遇到的问题</h2><p>首先我们得知道由于我们用的github pages没有像wordpress那么强大的后台，所以我们得自己用标记语言写文章，但是大家别一听到用代码写文章感动很高大上，起始markdown语言只需10分钟就能上手<br>教程如下<a href="Markdownhttp://sspai.com/25137" target="_blank" rel="external">认识与入门 Markdown</a><br><br>md语言的编译器win下一般都用mp<br><br>百度网盘链接<a href="http://pan.baidu.com/s/1hsidC36" target="_blank" rel="external">http://pan.baidu.com/s/1hsidC36</a> 密码：ynet<br><br>如果是win10用户有一部分人应该像我辛辛苦苦安装后打开后会报错<br><img src="http://olgkg6ct5.bkt.clouddn.com/XWJ8ZSKMFIRABU%25%60YAW%29~GY.png" alt=""><br>这时你还需要安装一款开源代码库进行调试<br>百度网盘链接<a href="http://pan.baidu.com/s/1jII7vi2" target="_blank" rel="external">http://pan.baidu.com/s/1jII7vi2</a> 密码：cfya<br><br>安装完成后恭喜，您已经可以顺利的写文章了</p>
+<h2 id="文章发布一般思路：用-hexo-new-“文章标题”新建一个m然后去hexo-source-posts中用mp打开生成的博客文件进行编辑，编辑完成后再hexo目录下打开git-bash输入命令hexo-clean和hexo-s进行本地预览–-gt-确认服务后输入hexo-g和hexo-d部署"><a href="#文章发布一般思路：用-hexo-new-“文章标题”新建一个m然后去hexo-source-posts中用mp打开生成的博客文件进行编辑，编辑完成后再hexo目录下打开git-bash输入命令hexo-clean和hexo-s进行本地预览–-gt-确认服务后输入hexo-g和hexo-d部署" class="headerlink" title="文章发布一般思路：用 hexo new “文章标题”新建一个m然后去hexo\source_posts中用mp打开生成的博客文件进行编辑，编辑完成后再hexo目录下打开git bash输入命令hexo clean和hexo s进行本地预览–&gt;确认服务后输入hexo g和hexo d部署"></a>文章发布一般思路：用 <pre><code>hexo new “文章标题”</code></pre>新建一个m然后去hexo\source_posts中用mp打开生成的博客文件进行编辑，编辑完成后再hexo目录下打开git bash输入命令<pre><code>hexo clean</code></pre>和<pre><code>hexo s</code></pre>进行本地预览–&gt;确认服务后输入<pre><code>hexo g</code></pre>和<pre><code>hexo d</code></pre>部署</h2><p>#至此恭喜你的个人博客已经完全搭建完毕，开始你个人的github之旅吧</p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    
+     <div>    
+      
+      <ul class="post-copyright">
+         <li class="post-copyright-link">
+          <strong>本文作者：</strong>
+          <a href="/" title="欢迎访问 Pupil 的个人博客">Pupil</a>
+        </li>
+        <li class="post-copyright-link">
+          <strong>本文标题：</strong>
+          <a href="http://pupiles.com/search-engine-optimization.html" title="用hexo搭建完博客后的后续SEO优化">用hexo搭建完博客后的后续SEO优化</a>
+        </li>
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="http://pupiles.com/search-engine-optimization.html" title="用hexo搭建完博客后的后续SEO优化">http://pupiles.com/search-engine-optimization.html</a>
+        </li>
+        <li class="post-copyright-date">
+            <strong>发布时间：</strong>2017年2月16日 - 20时02分
+        </li>  
+        <li class="post-copyright-license">
+          <strong>版权声明： </strong>
+          本文由 Pupil 原创，采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="license" target="_blank">保留署名-非商业性使用-禁止演绎 4.0-国际许可协议</a> </br>转载请保留以上声明信息！
+        </li>
+      </ul>
+    
+  </div>
+
+    <footer class="post-footer">
+		   
+      
+        <div class="post-tags">
+          
+            <a href="/tags/搭建博客/" rel="tag"><i class="fa fa-tag"></i> 搭建博客</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/how-to-optimize-the-theme.html" rel="next" title="win下利用github pages+hexo搭建独立博客加next主题美化全盘详细教程(二)">
+                <i class="fa fa-chevron-left"></i> win下利用github pages+hexo搭建独立博客加next主题美化全盘详细教程(二)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Bugku-Web-writeup.html" rel="prev" title="浅谈BugkuCTF-writeup">
+                浅谈BugkuCTF-writeup <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://olgkg6ct5.bkt.clouddn.com/touxiang.jpg"
+               alt="Pupil" />
+          <p class="site-author-name" itemprop="name">Pupil</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+		 <br><br>
+         <span id="busuanzi_container_site_uv">
+         <b><span id="busuanzi_value_site_uv"></span></b><br>
+		 <span class="site-state-item-name">访客</span>
+         </span><br><br>
+        </nav>
+
+        
+		
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=432506345&auto=0&height=66"></iframe>
+		<div align="left" font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif>
+		<b><h1>个人简介</h1></b>
+		<p >
+		菜鸡Web狗一只，中二病患者，热爱代码审计，被CTF折磨的要死要活，拼命学习中。。。<br>
+		爱好：二次元，web渗透，偶尔会突然很文艺<br>
+		QQ：89335778
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#本文欢迎大家转载，转载请注明出处用hexo搭建完博客后的后续SEO优化"><span class="nav-number">1.</span> <span class="nav-text">本文欢迎大家转载，转载请注明出处用hexo搭建完博客后的后续SEO优化</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number"></span> <span class="nav-text">前言:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SEO优化"><span class="nav-number"></span> <span class="nav-text">SEO优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#登陆百度站长进行验证"><span class="nav-number">1.</span> <span class="nav-text">登陆百度站长进行验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#登陆dnspod"><span class="nav-number">2.</span> <span class="nav-text">登陆dnspod</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成sitemap文件"><span class="nav-number">3.</span> <span class="nav-text">生成sitemap文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#确认无误区百度站长提交"><span class="nav-number">4.</span> <span class="nav-text">确认无误区百度站长提交</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置百度自动推送"><span class="nav-number"></span> <span class="nav-text">设置百度自动推送</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#博客打开过慢优化"><span class="nav-number"></span> <span class="nav-text">博客打开过慢优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#打开next主题下的-config-yml查找font字段，按下图所示修改"><span class="nav-number">1.</span> <span class="nav-text">打开next主题下的_config.yml查找font字段，按下图所示修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#再打开-themes-next-layout-partials-head-external-fonts-swig文件ctrl-f查找fonts-googleapis-com改成-fonts-useso-com-即可"><span class="nav-number">2.</span> <span class="nav-text">再打开\themes\next\layout_partials\head external-fonts.swig文件ctrl+f查找fonts.googleapis.com改成 fonts.useso.com 即可</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使next首先只显示文章预览而不显示全文"><span class="nav-number"></span> <span class="nav-text">使next首先只显示文章预览而不显示全文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决win下发表文章遇到的问题"><span class="nav-number"></span> <span class="nav-text">解决win下发表文章遇到的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文章发布一般思路：用-hexo-new-“文章标题”新建一个m然后去hexo-source-posts中用mp打开生成的博客文件进行编辑，编辑完成后再hexo目录下打开git-bash输入命令hexo-clean和hexo-s进行本地预览–-gt-确认服务后输入hexo-g和hexo-d部署"><span class="nav-number"></span> <span class="nav-text">文章发布一般思路：用 hexo new “文章标题”新建一个m然后去hexo\source_posts中用mp打开生成的博客文件进行编辑，编辑完成后再hexo目录下打开git bash输入命令hexo clean和hexo s进行本地预览–>确认服务后输入hexo g和hexo d部署</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pupil</span>
+</div>
+
+
+<div class="powered-by">
+  技术支持By Pupiles
+</div>
+
+<div class="theme-info">
+  博客 -XDSEC
+</div>
+
+
+<p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "70c8d4b1771e4a19bf986d2a1c098b34",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("YQEVdCwfMShMt1vjaRojsYrr-gzGzoHsz", "APOpeTkajaCsoqVKYvcCMWwt");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+</body>
+</html>
