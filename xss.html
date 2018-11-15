@@ -100,8 +100,8 @@ HTML五大元素
 原始文本元素(Raw text elements)，有&amp;lt;script&amp;gt;和&amp;lt;style&amp;gt;
 
 RCDATA元素(RCDA">
-<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/xss1.PNG">
-<meta property="og:updated_time" content="2017-07-31T03:50:50.000Z">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xss1.PNG">
+<meta property="og:updated_time" content="2018-11-15T04:55:44.739Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈XSS的小技巧与浏览器编码">
 <meta name="twitter:description" content="最近系统学了一下以前一直模糊的浏览器编码概念，顺便总结了一下XSS的原理，在此做一个小笔记首先先介绍一下浏览器的解析概念
@@ -111,7 +111,7 @@ HTML五大元素
 原始文本元素(Raw text elements)，有&amp;lt;script&amp;gt;和&amp;lt;style&amp;gt;
 
 RCDATA元素(RCDA">
-<meta name="twitter:image" content="http://olgkg6ct5.bkt.clouddn.com/xss1.PNG">
+<meta name="twitter:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xss1.PNG">
 
 
 
@@ -487,7 +487,7 @@ RCDATA元素(RCDA">
 <p>所以就可以合理解释下面的payload能不能弹出payload</p>
 <h3 id="再试一下浏览器的解码顺序问题"><a href="#再试一下浏览器的解码顺序问题" class="headerlink" title="再试一下浏览器的解码顺序问题"></a>再试一下浏览器的解码顺序问题</h3><p>浏览器一般的解码顺序是先进行html解码，在进行javascript解码，最后再进行url解码，这样一步一步下来我们就可以实现<br>这样我们就可以理解为什么下面无法弹出payload<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;alert&amp;#40;&apos;1&apos;)&lt;/script&gt;</div></pre></td></tr></table></figure></p>
 <p>因为script标签内无法解析HTML实体编码，因为其不是在data state数据段内，然而下面的payload又是可以弹的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;svg&gt;&lt;script&gt;alert&amp;#40;&apos;1&apos;)&lt;/script&gt;</div></pre></td></tr></table></figure></p>
-<p>有印象的同学应该记得我们在上面说过<code>&lt;svg&gt;</code>属于外部标签，那么我们百度一下SVG到底是一种上面样的标签<br><img src="http://olgkg6ct5.bkt.clouddn.com/xss1.PNG" alt=""><br>这里我们可以发现SVG属于支持XML解析，所以那么我们就很好理解了，因为下xml支持在标签内解析HTML实体字符，所以在在XML中<code>&amp;#40;</code>会被解析成<code>（</code></p>
+<p>有印象的同学应该记得我们在上面说过<code>&lt;svg&gt;</code>属于外部标签，那么我们百度一下SVG到底是一种上面样的标签<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xss1.PNG" alt=""><br>这里我们可以发现SVG属于支持XML解析，所以那么我们就很好理解了，因为下xml支持在标签内解析HTML实体字符，所以在在XML中<code>&amp;#40;</code>会被解析成<code>（</code></p>
 <h3 id="XSS的小技巧"><a href="#XSS的小技巧" class="headerlink" title="XSS的小技巧"></a>XSS的小技巧</h3><p>说了这么多理论的东西，估计同学们都烦了，下面来说一下XSS的一般思路吧，</p>
 <h4 id="确定我们的输入点在哪里"><a href="#确定我们的输入点在哪里" class="headerlink" title="确定我们的输入点在哪里"></a>确定我们的输入点在哪里</h4><h4 id="打入常规的payload如"><a href="#打入常规的payload如" class="headerlink" title="打入常规的payload如"></a>打入常规的payload如</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;alert(&apos;1&apos;)&lt;/script&gt;</div></pre></td></tr></table></figure>
 <h4 id="查看源代码查找我们的输出点在哪里，以及是否有过滤之类的"><a href="#查看源代码查找我们的输出点在哪里，以及是否有过滤之类的" class="headerlink" title="查看源代码查找我们的输出点在哪里，以及是否有过滤之类的"></a>查看源代码查找我们的输出点在哪里，以及是否有过滤之类的</h4><ol>

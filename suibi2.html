@@ -90,17 +90,17 @@
 <meta property="og:site_name" content="Pupiles blog">
 <meta property="og:description" content="为了促进室友一起进步，也为了锻炼一下自己的运维能力，特此用Django和apache反向代理搭了一个CTF平台（具体教程就先不贴了，毕竟用的都是github上的开源CMS）里面分享一些自己平时做过的，绕过的坑，或者是看writeup能复现出来的，觉得不太难，脑洞小，却很有价值的题，同时也为以后的自己行个方便。平台的题我会不定期的写一些writeup，欢迎小伙伴们一起来玩
 ##平台地址http://">
-<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/123341.PNG">
-<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/5364563.PNG">
-<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/425.PNG">
-<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/43645764777777.PNG">
-<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/5365474.PNG">
-<meta property="og:updated_time" content="2017-09-30T03:29:56.000Z">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/123341.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/5364563.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/425.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/43645764777777.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/5365474.PNG">
+<meta property="og:updated_time" content="2018-11-15T04:55:23.377Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="随笔2与个人CTF平台搭建">
 <meta name="twitter:description" content="为了促进室友一起进步，也为了锻炼一下自己的运维能力，特此用Django和apache反向代理搭了一个CTF平台（具体教程就先不贴了，毕竟用的都是github上的开源CMS）里面分享一些自己平时做过的，绕过的坑，或者是看writeup能复现出来的，觉得不太难，脑洞小，却很有价值的题，同时也为以后的自己行个方便。平台的题我会不定期的写一些writeup，欢迎小伙伴们一起来玩
 ##平台地址http://">
-<meta name="twitter:image" content="http://olgkg6ct5.bkt.clouddn.com/123341.PNG">
+<meta name="twitter:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/123341.PNG">
 
 
 
@@ -436,9 +436,9 @@
 
       
         <p>为了促进室友一起进步，也为了锻炼一下自己的运维能力，特此用Django和apache反向代理搭了一个CTF平台（具体教程就先不贴了，毕竟用的都是github上的开源CMS）里面分享一些自己平时做过的，绕过的坑，或者是看writeup能复现出来的，觉得不太难，脑洞小，却很有价值的题，同时也为以后的自己行个方便。<br>平台的题我会不定期的写一些writeup，欢迎小伙伴们一起来玩</p>
-<p>##平台地址<a href="http://ctf.pupiles.com" target="_blank" rel="external">http://ctf.pupiles.com</a><br><img src="http://olgkg6ct5.bkt.clouddn.com/123341.PNG" alt=""></p>
-<h3 id="Web01的writeup"><a href="#Web01的writeup" class="headerlink" title="Web01的writeup"></a>Web01的writeup</h3><p>先右键查看源码<br><img src="http://olgkg6ct5.bkt.clouddn.com/5364563.PNG" alt=""><br>发现要传入三个参数，首先第一层绕过就是构造txt等于welcome to the bugkuctf，这里试了一下post和get方式都不能正确的传入数据，因为file_get_content需要一个文件变量，但是利用php://input就可以构造，猜测是php://input把变量存入了一个临时文件中，所以可以file_get到<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">?txt=php://input</div></pre></td></tr></table></figure></p>
-<p>然后把welcome to the bugkuctf用post方式提交出去得到可以绕过第一层<br>然后第二层存在一个任意文件读取漏洞所以利用php://filter可以读取到hint.php的内容，这里就不贴用base64可以得到文件内容的原理了，网上一大堆。<br><img src="http://olgkg6ct5.bkt.clouddn.com/425.PNG" alt="">base64解码可得到源码<br><img src="http://olgkg6ct5.bkt.clouddn.com/43645764777777.PNG" alt=""><br>就是要我们包含一个flag.php文件，然而index.php里又有preg_match不能直接读，但是注意到$password处有一个unserialize函数，所以可以根据hint.php进行反序列化构造(这里注意只能用一次php：//filter去读文件)<br>最终payload<br><img src="http://olgkg6ct5.bkt.clouddn.com/5365474.PNG" alt=""><br>base64得出flag<br>flag{xxxxxxxxxxxxxxx}</p>
+<p>##平台地址<a href="http://ctf.pupiles.com" target="_blank" rel="external">http://ctf.pupiles.com</a><br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/123341.PNG" alt=""></p>
+<h3 id="Web01的writeup"><a href="#Web01的writeup" class="headerlink" title="Web01的writeup"></a>Web01的writeup</h3><p>先右键查看源码<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/5364563.PNG" alt=""><br>发现要传入三个参数，首先第一层绕过就是构造txt等于welcome to the bugkuctf，这里试了一下post和get方式都不能正确的传入数据，因为file_get_content需要一个文件变量，但是利用php://input就可以构造，猜测是php://input把变量存入了一个临时文件中，所以可以file_get到<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">?txt=php://input</div></pre></td></tr></table></figure></p>
+<p>然后把welcome to the bugkuctf用post方式提交出去得到可以绕过第一层<br>然后第二层存在一个任意文件读取漏洞所以利用php://filter可以读取到hint.php的内容，这里就不贴用base64可以得到文件内容的原理了，网上一大堆。<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/425.PNG" alt="">base64解码可得到源码<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/43645764777777.PNG" alt=""><br>就是要我们包含一个flag.php文件，然而index.php里又有preg_match不能直接读，但是注意到$password处有一个unserialize函数，所以可以根据hint.php进行反序列化构造(这里注意只能用一次php：//filter去读文件)<br>最终payload<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/5365474.PNG" alt=""><br>base64得出flag<br>flag{xxxxxxxxxxxxxxx}</p>
 
       
     </div>

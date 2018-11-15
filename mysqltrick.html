@@ -102,18 +102,18 @@
 12/*`
 
 判断当前库是否有字段名对于CTF">
-<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/2111.PNG">
-<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/%E6%8D%95%E8%8E%B712312312.PNG">
-<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/%E6%8D%95%E8%8E%B73.PNG">
-<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/%E6%8D%95%E8%8E%B75.PNG">
-<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/2115.PNG">
-<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/2114.PNG">
-<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/2117.PNG">
-<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/2116.PNG">
-<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/2118.PNG">
-<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/2119.PNG">
-<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/2120.PNG">
-<meta property="og:updated_time" content="2017-11-21T16:50:30.000Z">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/2111.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/%E6%8D%95%E8%8E%B712312312.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/%E6%8D%95%E8%8E%B73.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/%E6%8D%95%E8%8E%B75.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/2115.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/2114.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/2117.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/2116.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/2118.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/2119.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/2120.PNG">
+<meta property="og:updated_time" content="2018-11-15T04:54:40.407Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈mysql注入下的一点淫技">
 <meta name="twitter:description" content="最近花了一点时间总结了各大平台中注入的trick，自己还是太菜了，多半都得看题解，就特此做了一个paper方便总结
@@ -124,7 +124,7 @@
 12/*`
 
 判断当前库是否有字段名对于CTF">
-<meta name="twitter:image" content="http://olgkg6ct5.bkt.clouddn.com/2111.PNG">
+<meta name="twitter:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/2111.PNG">
 
 
 
@@ -463,13 +463,13 @@
 <h3 id="简单的绕过"><a href="#简单的绕过" class="headerlink" title="简单的绕过"></a>简单的绕过</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">双写 selselectct</div><div class="line">内联注释 /!**/</div><div class="line">大小写  Select</div><div class="line">编码</div></pre></td></tr></table></figure>
 <h3 id="注释符"><a href="#注释符" class="headerlink" title="注释符"></a>注释符</h3><p>以下是Mysql中可以用到的单行注释符：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#  </div><div class="line">-- -</div><div class="line">;%00</div></pre></td></tr></table></figure>
-<p><img src="http://olgkg6ct5.bkt.clouddn.com/2111.PNG" alt="">以下是Mysql中可以用到的多行注释符(mysql下需要闭合)：</p>
+<p><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/2111.PNG" alt="">以下是Mysql中可以用到的多行注释符(mysql下需要闭合)：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/*</div><div class="line">`</div></pre></td></tr></table></figure>
-<p><img src="http://olgkg6ct5.bkt.clouddn.com/&#37;E6&#37;8D&#37;95&#37;E8&#37;8E&#37;B712312312.PNG" alt=""></p>
-<h3 id="判断当前库是否有字段名"><a href="#判断当前库是否有字段名" class="headerlink" title="判断当前库是否有字段名"></a>判断当前库是否有字段名</h3><p>对于CTF中的题，某些可以直接判断有无flag表1’ or(flag)例如:全表<img src="http://olgkg6ct5.bkt.clouddn.com/%E6%8D%95%E8%8E%B73.PNG" alt="">用or试一下<img src="http://olgkg6ct5.bkt.clouddn.com/%E6%8D%95%E8%8E%B75.PNG" alt="">这里解释一下为什么or的结果为什么不全，说白了也就是atoi函数的特性</p>
+<p><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/&#37;E6&#37;8D&#37;95&#37;E8&#37;8E&#37;B712312312.PNG" alt=""></p>
+<h3 id="判断当前库是否有字段名"><a href="#判断当前库是否有字段名" class="headerlink" title="判断当前库是否有字段名"></a>判断当前库是否有字段名</h3><p>对于CTF中的题，某些可以直接判断有无flag表1’ or(flag)例如:全表<img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/%E6%8D%95%E8%8E%B73.PNG" alt="">用or试一下<img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/%E6%8D%95%E8%8E%B75.PNG" alt="">这里解释一下为什么or的结果为什么不全，说白了也就是atoi函数的特性</p>
 <p>or(列名)其实是遍历字段名中的每个值然后选取那些不为false的内容，因为在mysql中’ssdd’字符串默认等于0等于false所以不显示，而’4ddf’这样的字符串默认等于4，也就是true也就会返回了</p>
-<h3 id="limit下的字段数判断"><a href="#limit下的字段数判断" class="headerlink" title="limit下的字段数判断"></a>limit下的字段数判断</h3><p>众所周知where条件下的字段数可以用<code>order by</code>判断，而limit后可以利用 <code>1,into @,@</code> （@为字段数）判断字段数@为mysql临时变量，<img src="http://olgkg6ct5.bkt.clouddn.com/2115.PNG" alt="">原理请看<a href="http://www.w3school.com.cn/sql/sql_select_into.asp" target="_blank" rel="external">http://www.w3school.com.cn/sql/sql_select_into.asp</a></p>
-<h3 id="or条件下的回显"><a href="#or条件下的回显" class="headerlink" title="or条件下的回显"></a>or条件下的回显</h3><p>以前总是对<code>where id=&#39;1&#39; or &#39;1&#39;=&#39;1&#39;</code>和<code>where id=&#39;0&#39; or &#39;1&#39;=&#39;1&#39;</code>的回显一直不是很了解，所以今天搭建环境测试了一下，如下可见<img src="http://olgkg6ct5.bkt.clouddn.com/2114.PNG" alt="">所以猜测在or条件下前后如果都为真则返回所有结果，否则只返回条件为真的一方的值</p>
+<h3 id="limit下的字段数判断"><a href="#limit下的字段数判断" class="headerlink" title="limit下的字段数判断"></a>limit下的字段数判断</h3><p>众所周知where条件下的字段数可以用<code>order by</code>判断，而limit后可以利用 <code>1,into @,@</code> （@为字段数）判断字段数@为mysql临时变量，<img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/2115.PNG" alt="">原理请看<a href="http://www.w3school.com.cn/sql/sql_select_into.asp" target="_blank" rel="external">http://www.w3school.com.cn/sql/sql_select_into.asp</a></p>
+<h3 id="or条件下的回显"><a href="#or条件下的回显" class="headerlink" title="or条件下的回显"></a>or条件下的回显</h3><p>以前总是对<code>where id=&#39;1&#39; or &#39;1&#39;=&#39;1&#39;</code>和<code>where id=&#39;0&#39; or &#39;1&#39;=&#39;1&#39;</code>的回显一直不是很了解，所以今天搭建环境测试了一下，如下可见<img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/2114.PNG" alt="">所以猜测在or条件下前后如果都为真则返回所有结果，否则只返回条件为真的一方的值</p>
 <h3 id="concat与concat-ws与group-concat"><a href="#concat与concat-ws与group-concat" class="headerlink" title="concat与concat_ws与group_concat"></a>concat与concat_ws与group_concat</h3><p>1.2 MySQL的concat函数在连接字符串的时候，只要其中一个是NULL,那么将返回NULL<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt; select concat(&apos;11&apos;,&apos;22&apos;,null);+------------------------+| concat(&apos;11&apos;,&apos;22&apos;,null) |+------------------------+| NULL |+------------------------+1 row in set (0.00 sec)</div></pre></td></tr></table></figure></p>
 <p>和concat不同的是, concat_ws函数在执行的时候,不会因为NULL值而返回NULL<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt; select concat_ws(&apos;,&apos;,&apos;11&apos;,&apos;22&apos;,NULL);+-------------------------------+| concat_ws(&apos;,&apos;,&apos;11&apos;,&apos;22&apos;,NULL) |+-------------------------------+| 11,22 |+-------------------------------+1 row in set (0.00 sec)</div></pre></td></tr></table></figure></p>
 <h3 id="盲注下的条件语句和时间函数"><a href="#盲注下的条件语句和时间函数" class="headerlink" title="盲注下的条件语句和时间函数"></a>盲注下的条件语句和时间函数</h3><p>这是我前几天刷wechall碰到的题，例如一下注入语句</p>
@@ -498,13 +498,13 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$results = SELECT password FROM users WHERE username=&apos;$username&apos;</div><div class="line">if($results==$_GET[$password])&#123;</div><div class="line">    getflag();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>这里可以构造<code>username=0&#39; union select md5(1)#&amp;password=1</code></p>
 <h3 id="Mysql字符编码利用技巧"><a href="#Mysql字符编码利用技巧" class="headerlink" title="Mysql字符编码利用技巧"></a>Mysql字符编码利用技巧</h3><p>传入的username=admin%c2，php的检测if ($username === ‘admin’)自然就可以绕过的，在mysql中可以正常查出username=’admin’的结果，原理是Mysql在转换字符集的时候，将不完整的字符给忽略了。具体可参照P师傅文章<a href="https://www.leavesongs.com/PENETRATION/mysql-charset-trick.html" target="_blank" rel="external">https://www.leavesongs.com/PENETRATION/mysql-charset-trick.html</a></p>
-<h3 id="隐式类型转换"><a href="#隐式类型转换" class="headerlink" title="隐式类型转换"></a>隐式类型转换</h3><p>这里先上几个图，自行体会精神<img src="http://olgkg6ct5.bkt.clouddn.com/2117.PNG" alt=""><img src="http://olgkg6ct5.bkt.clouddn.com/2116.PNG" alt="">这里为什么我们输入为什么name=0会导致返回数据呢？其实这里跟php弱类型有异曲同工之妙，mysql在比较一个整数和一个字符串也会强制把字符串转化为整数进行比较，并返回一个warning，所以这里</p>
+<h3 id="隐式类型转换"><a href="#隐式类型转换" class="headerlink" title="隐式类型转换"></a>隐式类型转换</h3><p>这里先上几个图，自行体会精神<img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/2117.PNG" alt=""><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/2116.PNG" alt="">这里为什么我们输入为什么name=0会导致返回数据呢？其实这里跟php弱类型有异曲同工之妙，mysql在比较一个整数和一个字符串也会强制把字符串转化为整数进行比较，并返回一个warning，所以这里</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pupil</div><div class="line">admin</div></pre></td></tr></table></figure>
-<p>都会被转换为0所以与0比较相等，那么我们进一步猜想那一个非0开头的字符串强制转化是什么呢<img src="http://olgkg6ct5.bkt.clouddn.com/2118.PNG" alt="">由此可见，与PHP一样，mysql也会把字符串强制转化为开头的数字，若开头是字母则强制转化为0，那我们怎么利用这一黑魔法呢，众所周知，mysql一般都是字符型注入，很少有数字型注入的，就像<code>where username=&#39;input&#39;</code>这样，我们单纯的输入数字是会被转化成字符串的，就像这样<img src="http://olgkg6ct5.bkt.clouddn.com/2119.PNG" alt="">这时候我们就需要做一些操作来构造注入点了，比如利用算术运算符</p>
+<p>都会被转换为0所以与0比较相等，那么我们进一步猜想那一个非0开头的字符串强制转化是什么呢<img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/2118.PNG" alt="">由此可见，与PHP一样，mysql也会把字符串强制转化为开头的数字，若开头是字母则强制转化为0，那我们怎么利用这一黑魔法呢，众所周知，mysql一般都是字符型注入，很少有数字型注入的，就像<code>where username=&#39;input&#39;</code>这样，我们单纯的输入数字是会被转化成字符串的，就像这样<img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/2119.PNG" alt="">这时候我们就需要做一些操作来构造注入点了，比如利用算术运算符</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">+,-,*,/,%</div></pre></td></tr></table></figure>
 <p>又或者位操作符</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&amp;,|,^</div></pre></td></tr></table></figure>
-<p>下面我们以<code>+</code>为例进行演示<img src="http://olgkg6ct5.bkt.clouddn.com/2120.PNG" alt=""></p>
+<p>下面我们以<code>+</code>为例进行演示<img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/2120.PNG" alt=""></p>
 <h3 id="过滤了-amp-等逻辑处理字符"><a href="#过滤了-amp-等逻辑处理字符" class="headerlink" title="过滤了&amp;,|,*,/,=等逻辑处理字符"></a>过滤了&amp;,|,*,/,=等逻辑处理字符</h3><p>可以用in,exists,position..in,&gt;,&lt;,!,&lt;&gt;,like等操作符绕过这个链接有详细介绍<a href="http://www.runoob.com/mysql/mysql-like-clause.html" target="_blank" rel="external">http://www.runoob.com/mysql/mysql-like-clause.html</a>这里举一个例子，比如要使用sql盲注的话但是过滤了substr,mid，asccii,ord等函数可以使用一下语句</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">admin&apos; AND password LIKE &quot;p%&quot; --</div></pre></td></tr></table></figure>
 <h3 id="过滤了information-schema-tables-limit-这类的可以使用orderby注入，利用desc的返回值不同进行盲注。"><a href="#过滤了information-schema-tables-limit-这类的可以使用orderby注入，利用desc的返回值不同进行盲注。" class="headerlink" title="过滤了information_schema.tables,(),limit 这类的可以使用orderby注入，利用desc的返回值不同进行盲注。"></a>过滤了information_schema.tables,(),limit 这类的可以使用orderby注入，利用desc的返回值不同进行盲注。</h3><h3 id="过滤了"><a href="#过滤了" class="headerlink" title="过滤了"></a>过滤了</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">or</div><div class="line">#</div><div class="line">--</div><div class="line"> </div><div class="line">%</div></pre></td></tr></table></figure>
