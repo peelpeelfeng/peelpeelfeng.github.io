@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://pupiles.com/lctf2018.html</loc>
+    
+    <lastmod>2018-11-19T07:13:20.559Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://pupiles.com/xss.html</loc>
     
     <lastmod>2018-11-15T04:55:44.739Z</lastmod>

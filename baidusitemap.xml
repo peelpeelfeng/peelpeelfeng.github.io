@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>http://pupiles.com/lctf2018.html</loc>
+    <lastmod>2018-11-19T07:13:20.559Z</lastmod>
+    <data>
+        <display>
+        <title>谈谈LCTF2018</title>
+        <pubTime>2018-11-19T07:12:22.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+         
+           
+             
+              <breadCrumb title="writeup" url="http://pupiles.com/categories/writeup/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://pupiles.com/xss.html</loc>
     <lastmod>2018-11-15T04:55:44.739Z</lastmod>
     <data>
