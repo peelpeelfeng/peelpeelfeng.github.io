@@ -88,20 +88,20 @@
 <meta property="og:url" content="http://pupiles.com/由一道ctf题引发的思考.html">
 <meta property="og:site_name" content="Pupiles blog">
 <meta property="og:description" content="从一个非预期谈起开局先挂连接https://blog.zsxsoft.com/post/36这里zsx师傅使用了上传index.php/.+条件竞争的方法getshell真的让人眼前一亮，尤其是对于我这种连index.php/.这种绕过方法都不甚了解的菜鸡，于是在仔细google了一番，终于在wonderkun师傅的博客里找到了这种绕过方式的介绍http://wonderkun.cc/index.">
-<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/0ctf.PNG">
-<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/0ctf6.PNG">
-<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/0ctf7.PNG">
-<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/0ctf1.PNG">
-<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/0ctf2.PNG">
-<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/0ctf4.PNG">
-<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/0ctf5.PNG">
-<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/0ctf8.PNG">
-<meta property="og:image" content="http://olgkg6ct5.bkt.clouddn.com/0ctf9.PNG">
-<meta property="og:updated_time" content="2018-11-26T12:27:04.120Z">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/0ctf.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/0ctf6.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/0ctf7.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/0ctf1.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/0ctf2.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/0ctf4.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/0ctf5.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/0ctf8.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/0ctf9.PNG">
+<meta property="og:updated_time" content="2018-11-26T12:48:49.234Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="由一道CTF题目引发的思考">
 <meta name="twitter:description" content="从一个非预期谈起开局先挂连接https://blog.zsxsoft.com/post/36这里zsx师傅使用了上传index.php/.+条件竞争的方法getshell真的让人眼前一亮，尤其是对于我这种连index.php/.这种绕过方法都不甚了解的菜鸡，于是在仔细google了一番，终于在wonderkun师傅的博客里找到了这种绕过方式的介绍http://wonderkun.cc/index.">
-<meta name="twitter:image" content="http://olgkg6ct5.bkt.clouddn.com/0ctf.PNG">
+<meta name="twitter:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/0ctf.PNG">
 
 
 
@@ -326,7 +326,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Pupil">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://olgkg6ct5.bkt.clouddn.com/touxiang.jpg">
+      <meta itemprop="image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/touxiang.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -438,12 +438,12 @@
       
         <h1 id="从一个非预期谈起"><a href="#从一个非预期谈起" class="headerlink" title="从一个非预期谈起"></a>从一个非预期谈起</h1><p>开局先挂连接<a href="https://blog.zsxsoft.com/post/36" target="_blank" rel="external">https://blog.zsxsoft.com/post/36</a><br>这里zsx师傅使用了上传<code>index.php/.+条件竞争</code>的方法getshell真的让人眼前一亮，尤其是对于我这种连<code>index.php/.</code>这种绕过方法都不甚了解的菜鸡，于是在仔细google了一番，终于在wonderkun师傅的博客里找到了这种绕过方式的介绍<a href="http://wonderkun.cc/index.html/?p=626" target="_blank" rel="external">http://wonderkun.cc/index.html/?p=626</a><br>(其实这篇文章当时自己也看过，现在却完全想不起来T T)作者在文章后半段提到了利用1.php/.可以绕过后缀黑名单检测，但却不能覆盖文件。随后列出了相关的源码调用，阐述了问题形成的原因。这里我就不赘诉了。但是作者这里用的是file_put_content函数，而我们的问题是move_uploaded_file函数，这两个函数能相提并论么。其实这个问题P总在以前的小密圈里提到过，因为俩个函数都是文件读写类函数，都是需要打开文件流的，所以底层都会调用一个叫做<code>tsrm_realpath</code>的函数来将filename标准化为一个绝对路径<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">i = len;  </div><div class="line"><span class="comment">// i的初始值为字符串的长度</span></div><div class="line"> <span class="keyword">while</span> (i &gt; start &amp;&amp; !IS_SLASH(path[i<span class="number">-1</span>])) &#123;</div><div class="line">     i--;   </div><div class="line">   <span class="comment">// 把i定位到第一个/的后面</span></div><div class="line"> &#125;</div><div class="line"> <span class="keyword">if</span> (i == len ||</div><div class="line">     (i == len - <span class="number">1</span> &amp;&amp; path[i] == <span class="string">'.'</span>)) &#123;</div><div class="line">     len = i - <span class="number">1</span>;  </div><div class="line">    <span class="comment">//  删除路径中最后的 /. , 也就是 /path/test.php/. 会变为 /path/test.php  </span></div><div class="line">     is_dir = <span class="number">1</span>;</div><div class="line">     <span class="keyword">continue</span>;</div><div class="line"> &#125; <span class="keyword">else</span> <span class="keyword">if</span> (i == len - <span class="number">2</span> &amp;&amp; path[i] == <span class="string">'.'</span> &amp;&amp; path[i+<span class="number">1</span>] == <span class="string">'.'</span>) &#123;</div><div class="line">     <span class="comment">//删除路径结尾的 /.. </span></div><div class="line">     is_dir = <span class="number">1</span>;</div><div class="line">     <span class="keyword">if</span> (link_is_dir) &#123;</div><div class="line">         *link_is_dir = <span class="number">1</span>;</div><div class="line">     &#125;</div><div class="line">     <span class="keyword">if</span> (i - <span class="number">1</span> &lt;= start) &#123;</div><div class="line">         <span class="keyword">return</span> start ? start : len;</div><div class="line">     &#125;</div><div class="line">     j = tsrm_realpath_r(path, start, i<span class="number">-1</span>, ll, t, use_realpath, <span class="number">1</span>, <span class="literal">NULL</span> TSRMLS_CC);</div><div class="line">    <span class="comment">// 进行递归调用的时候，这里把strlen设置为了i-1，</span></div></pre></td></tr></table></figure></p>
 <p>所以move_uploaded_file和file_put_content都会递归删除文件名最后的<code>/.</code>导致绕过了后缀名检测。<br>按理说故事到这里就该结束了，可是直到有一天我进入了土师傅的博客…</p>
-<h1 id="半路杀出个程咬金"><a href="#半路杀出个程咬金" class="headerlink" title="半路杀出个程咬金"></a>半路杀出个程咬金</h1><p>继续挂链接<a href="https://www.lorexxar.cn/2018/04/05/0ctf2018-other/" target="_blank" rel="external">https://www.lorexxar.cn/2018/04/05/0ctf2018-other/</a><br><img src="http://olgkg6ct5.bkt.clouddn.com/0ctf.PNG" alt=""><br>看到这里的时候我就震惊了，<code>index.php/.</code>居然可以覆盖文件？？？，我前几天才看的文章是假的吧..<code>index.php/.</code>不是不可以覆盖文件么，我还本地测试过。于是怀着半信半疑的心情去测试了一下，很快发现了问题。<br><img src="http://olgkg6ct5.bkt.clouddn.com/0ctf6.PNG" alt=""><br><img src="http://olgkg6ct5.bkt.clouddn.com/0ctf7.PNG" alt=""><br>当我使用<code>index.php/.</code>是不可以覆盖的，但是使用<code>x/../index.php/.</code>就可以覆盖了，这一下勾起了我的好奇心，但是想弄懂这个问题，咱们还是得回到底层。</p>
-<h1 id="站在巨人的肩膀上"><a href="#站在巨人的肩膀上" class="headerlink" title="站在巨人的肩膀上"></a>站在巨人的肩膀上</h1><p>回到开头zsx师傅的连接，作者在文章里也从底层提到了问题的所在<br><img src="http://olgkg6ct5.bkt.clouddn.com/0ctf1.PNG" alt=""><br>这里的rename之所以会报错是因为这个函数并不会调用<code>tsrm_realpath</code>,导致当我们传入一个包含<code>/.</code>为后缀的文件时会出错<br>我们本地测试一下<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">rename(<span class="string">'test.php'</span>,<span class="string">'test.php/.'</span>);</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure></p>
-<p><img src="http://olgkg6ct5.bkt.clouddn.com/0ctf2.PNG" alt=""><br>我们先抛开这道题，这里关键问题也就像zsx师傅在博客里说的那样lstat如果判断文件存在后就不打开文件了，而这个函数在linux下其实是有问题的，因为他会逐层解析php代码，一旦遇到不存在路劲他就会返回一个warning,导致move_uploaded_file认为这个文件不存在也就可以写入，最终达到了<code>覆盖</code>的效果，我们可以测试一下lstat的功能<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">print_r(lstat($_GET[<span class="string">'test'</span>]));</div></pre></td></tr></table></figure></p>
-<p><img src="http://olgkg6ct5.bkt.clouddn.com/0ctf4.PNG" alt=""><br><img src="http://olgkg6ct5.bkt.clouddn.com/0ctf5.PNG" alt=""><br>ok，现在我们在回到这题来，我们用strace动态调试一下php，分别发送两个包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">发送name=index.php/.</div></pre></td></tr></table></figure></p>
-<p><img src="http://olgkg6ct5.bkt.clouddn.com/0ctf8.PNG" alt=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">发送name=x/../index.php/.</div></pre></td></tr></table></figure></p>
-<p><img src="http://olgkg6ct5.bkt.clouddn.com/0ctf9.PNG" alt=""><br>很明显当传入name=x/../index.php/.的时候lstat的返回结果为-1，即不存在这个文件。这时候write函数就会继续执行从而将原内容覆盖。</p>
+<h1 id="半路杀出个程咬金"><a href="#半路杀出个程咬金" class="headerlink" title="半路杀出个程咬金"></a>半路杀出个程咬金</h1><p>继续挂链接<a href="https://www.lorexxar.cn/2018/04/05/0ctf2018-other/" target="_blank" rel="external">https://www.lorexxar.cn/2018/04/05/0ctf2018-other/</a><br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/0ctf.PNG" alt=""><br>看到这里的时候我就震惊了，<code>index.php/.</code>居然可以覆盖文件？？？，我前几天才看的文章是假的吧..<code>index.php/.</code>不是不可以覆盖文件么，我还本地测试过。于是怀着半信半疑的心情去测试了一下，很快发现了问题。<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/0ctf6.PNG" alt=""><br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/0ctf7.PNG" alt=""><br>当我使用<code>index.php/.</code>是不可以覆盖的，但是使用<code>x/../index.php/.</code>就可以覆盖了，这一下勾起了我的好奇心，但是想弄懂这个问题，咱们还是得回到底层。</p>
+<h1 id="站在巨人的肩膀上"><a href="#站在巨人的肩膀上" class="headerlink" title="站在巨人的肩膀上"></a>站在巨人的肩膀上</h1><p>回到开头zsx师傅的连接，作者在文章里也从底层提到了问题的所在<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/0ctf1.PNG" alt=""><br>这里的rename之所以会报错是因为这个函数并不会调用<code>tsrm_realpath</code>,导致当我们传入一个包含<code>/.</code>为后缀的文件时会出错<br>我们本地测试一下<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">rename(<span class="string">'test.php'</span>,<span class="string">'test.php/.'</span>);</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure></p>
+<p><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/0ctf2.PNG" alt=""><br>我们先抛开这道题，这里关键问题也就像zsx师傅在博客里说的那样lstat如果判断文件存在后就不打开文件了，而这个函数在linux下其实是有问题的，因为他会逐层解析php代码，一旦遇到不存在路劲他就会返回一个warning,导致move_uploaded_file认为这个文件不存在也就可以写入，最终达到了<code>覆盖</code>的效果，我们可以测试一下lstat的功能<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">print_r(lstat($_GET[<span class="string">'test'</span>]));</div></pre></td></tr></table></figure></p>
+<p><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/0ctf4.PNG" alt=""><br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/0ctf5.PNG" alt=""><br>ok，现在我们在回到这题来，我们用strace动态调试一下php，分别发送两个包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">发送name=index.php/.</div></pre></td></tr></table></figure></p>
+<p><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/0ctf8.PNG" alt=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">发送name=x/../index.php/.</div></pre></td></tr></table></figure></p>
+<p><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/0ctf9.PNG" alt=""><br>很明显当传入name=x/../index.php/.的时候lstat的返回结果为-1，即不存在这个文件。这时候write函数就会继续执行从而将原内容覆盖。</p>
 <h1 id="来个小结"><a href="#来个小结" class="headerlink" title="来个小结"></a>来个小结</h1><p>现在看来，php还有很多的文件操作函数存在问题，譬如今年跨年夜p总小密圈发的php文件读写函数这类需要打开文件流(file_put_content)与php判断文件属性这种无需打开文件流函数(unlink,file_exists)之间的区别以及围着这点展开的一系列问题。但是本质可能也就是一两个底层函数的问题，所以在这里也希望自己以后遇到问题不要嫌麻烦，多动手试试才能出真知。<b>El psy congroo</b></p>
 
       
@@ -584,7 +584,7 @@
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
-               src="http://olgkg6ct5.bkt.clouddn.com/touxiang.jpg"
+               src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/touxiang.jpg"
                alt="Pupil" />
           <p class="site-author-name" itemprop="name">Pupil</p>
            
