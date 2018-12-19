@@ -66,7 +66,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="pupiles, CTF">
+  <meta name="keywords" content="CTF平台">
 
 
 
@@ -82,17 +82,24 @@
 
 
 
-<meta name="description" content="google-site-verification: google1bcf481140594d70.html">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Pupiles blog">
-<meta property="og:url" content="http://pupiles.com/google1bcf481140594d70.html">
+<meta name="description" content="为了促进室友一起进步，也为了锻炼一下自己的运维能力，特此用Django和apache反向代理搭了一个CTF平台（具体教程就先不贴了，毕竟用的都是github上的开源CMS）里面分享一些自己平时做过的，绕过的坑，或者是看writeup能复现出来的，觉得不太难，脑洞小，却很有价值的题，同时也为以后的自己行个方便。平台的题我会不定期的写一些writeup，欢迎小伙伴们一起来玩 ##平台地址http://">
+<meta name="keywords" content="CTF平台">
+<meta property="og:type" content="article">
+<meta property="og:title" content="随笔2与个人CTF平台搭建">
+<meta property="og:url" content="http://pupiles.com/suibi2.html">
 <meta property="og:site_name" content="Pupiles blog">
-<meta property="og:description" content="google-site-verification: google1bcf481140594d70.html">
+<meta property="og:description" content="为了促进室友一起进步，也为了锻炼一下自己的运维能力，特此用Django和apache反向代理搭了一个CTF平台（具体教程就先不贴了，毕竟用的都是github上的开源CMS）里面分享一些自己平时做过的，绕过的坑，或者是看writeup能复现出来的，觉得不太难，脑洞小，却很有价值的题，同时也为以后的自己行个方便。平台的题我会不定期的写一些writeup，欢迎小伙伴们一起来玩 ##平台地址http://">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-06-03T01:06:34.000Z">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/123341.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/5364563.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/425.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/43645764777777.PNG">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/5365474.PNG">
+<meta property="og:updated_time" content="2018-11-15T04:55:23.377Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Pupiles blog">
-<meta name="twitter:description" content="google-site-verification: google1bcf481140594d70.html">
+<meta name="twitter:title" content="随笔2与个人CTF平台搭建">
+<meta name="twitter:description" content="为了促进室友一起进步，也为了锻炼一下自己的运维能力，特此用Django和apache反向代理搭了一个CTF平台（具体教程就先不贴了，毕竟用的都是github上的开源CMS）里面分享一些自己平时做过的，绕过的坑，或者是看writeup能复现出来的，觉得不太难，脑洞小，却很有价值的题，同时也为以后的自己行个方便。平台的题我会不定期的写一些writeup，欢迎小伙伴们一起来玩 ##平台地址http://">
+<meta name="twitter:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/123341.PNG">
 
 
 
@@ -120,19 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://pupiles.com/google1bcf481140594d70.html">
+  <link rel="canonical" href="http://pupiles.com/suibi2.html">
 
 
 
 
 
-  <title>
-  
-
-  
-     | Pupiles blog
-  
-</title>
+  <title> 随笔2与个人CTF平台搭建 | Pupiles blog </title>
 </head>
 <body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -166,7 +167,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -309,18 +310,225 @@
             
 
   <div id="posts" class="posts-expand">
-  <header class="post-header">
+    
 
-	<h2 class="post-title" itemprop="name headline"></h2>
+  
 
+  
+  
+  
 
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://pupiles.com/suibi2.html">
 
-</header>
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Pupil">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pupiles blog">
+    </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                随笔2与个人CTF平台搭建
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-17T22:05:35+08:00">
+                2017-05-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/随笔/" itemprop="url" rel="index">
+                    <span itemprop="name">随笔</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/suibi2.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/suibi2.html" class="leancloud_visitors" data-flag-title="随笔2与个人CTF平台搭建">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
     
-      google-site-verification: google1bcf481140594d70.html
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>为了促进室友一起进步，也为了锻炼一下自己的运维能力，特此用Django和apache反向代理搭了一个CTF平台（具体教程就先不贴了，毕竟用的都是github上的开源CMS）里面分享一些自己平时做过的，绕过的坑，或者是看writeup能复现出来的，觉得不太难，脑洞小，却很有价值的题，同时也为以后的自己行个方便。<br>平台的题我会不定期的写一些writeup，欢迎小伙伴们一起来玩</p>
+<p>##平台地址<a href="http://ctf.pupiles.com" target="_blank" rel="noopener">http://ctf.pupiles.com</a><br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/123341.PNG" alt=""></p>
+<h3 id="Web01的writeup"><a href="#Web01的writeup" class="headerlink" title="Web01的writeup"></a>Web01的writeup</h3><p>先右键查看源码<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/5364563.PNG" alt=""><br>发现要传入三个参数，首先第一层绕过就是构造txt等于welcome to the bugkuctf，这里试了一下post和get方式都不能正确的传入数据，因为file_get_content需要一个文件变量，但是利用php://input就可以构造，猜测是php://input把变量存入了一个临时文件中，所以可以file_get到<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?txt=php://input</span><br></pre></td></tr></table></figure></p>
+<p>然后把welcome to the bugkuctf用post方式提交出去得到可以绕过第一层<br>然后第二层存在一个任意文件读取漏洞所以利用php://filter可以读取到hint.php的内容，这里就不贴用base64可以得到文件内容的原理了，网上一大堆。<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/425.PNG" alt="">base64解码可得到源码<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/43645764777777.PNG" alt=""><br>就是要我们包含一个flag.php文件，然而index.php里又有preg_match不能直接读，但是注意到$password处有一个unserialize函数，所以可以根据hint.php进行反序列化构造(这里注意只能用一次php：//filter去读文件)<br>最终payload<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/5365474.PNG" alt=""><br>base64得出flag<br>flag{xxxxxxxxxxxxxxx}</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
     
+     <div>    
+      
+      <ul class="post-copyright">
+         <li class="post-copyright-link">
+          <strong>本文作者：</strong>
+          <a href="/" title="欢迎访问 Pupil 的个人博客">Pupil</a>
+        </li>
+        <li class="post-copyright-link">
+          <strong>本文标题：</strong>
+          <a href="http://pupiles.com/suibi2.html" title="随笔2与个人CTF平台搭建">随笔2与个人CTF平台搭建</a>
+        </li>
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="http://pupiles.com/suibi2.html" title="随笔2与个人CTF平台搭建">http://pupiles.com/suibi2.html</a>
+        </li>
+        <li class="post-copyright-date">
+            <strong>发布时间：</strong>2017年5月17日 - 22时05分
+        </li>  
+        <li class="post-copyright-license">
+          <strong>版权声明： </strong>
+          本文由 Pupil 原创，采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="license" target="_blank">保留署名-非商业性使用-禁止演绎 4.0-国际许可协议</a> <br>转载请保留以上声明信息！
+        </li>
+      </ul>
+    
+  </div>
+
+    <footer class="post-footer">
+		   
+      
+        <div class="post-tags">
+          
+            <a href="/tags/随笔，writeup/" rel="tag"><i class="fa fa-tag"></i> 随笔，writeup</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Djano.html" rel="next" title="浅谈Django学习笔记">
+                <i class="fa fa-chevron-left"></i> 浅谈Django学习笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/sql.html" rel="prev" title="浅谈sql注入学习笔记与sqlmap的使用">
+                浅谈sql注入学习笔记与sqlmap的使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -356,8 +564,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/touxiang.jpg" alt="Pupil">
           <p class="site-author-name" itemprop="name">Pupil</p>
@@ -428,6 +645,22 @@
 
       </p></div></section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Web01的writeup"><span class="nav-number">1.</span> <span class="nav-text">Web01的writeup</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -538,6 +771,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
 
   
 
