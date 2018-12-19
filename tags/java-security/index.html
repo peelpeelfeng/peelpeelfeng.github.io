@@ -66,7 +66,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="trick" />
+  <meta name="keywords" content="pupiles, CTF" />
 
 
 
@@ -82,34 +82,15 @@
 
 
 
-<meta name="description" content="最近几次比赛都用到了parse_url的解析漏洞，所以我就在这里做一波总结
-
-php协议错误先放测试代码123&amp;lt;?php$url = $_GET[&apos;url&apos;];var_dump(parse_url($url));
-
-
-众所周知，parse_url在url不能被解析的时候就会返回false，然而却没有表明为什么他会爆错。我们从源码里看一下parse_url
-全版本通杀当一个url没有协议的时候">
-<meta property="og:type" content="article">
-<meta property="og:title" content="parse_url的小trick">
-<meta property="og:url" content="http://pupiles.com/谈谈parse_url.html">
+<meta name="description" content="不会开发的谈审计都是耍流氓!">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Pupiles blog">
+<meta property="og:url" content="http://pupiles.com/tags/java-security/index.html">
 <meta property="og:site_name" content="Pupiles blog">
-<meta property="og:description" content="最近几次比赛都用到了parse_url的解析漏洞，所以我就在这里做一波总结
-
-php协议错误先放测试代码123&amp;lt;?php$url = $_GET[&apos;url&apos;];var_dump(parse_url($url));
-
-
-众所周知，parse_url在url不能被解析的时候就会返回false，然而却没有表明为什么他会爆错。我们从源码里看一下parse_url
-全版本通杀当一个url没有协议的时候">
-<meta property="og:updated_time" content="2018-11-26T12:27:02.937Z">
+<meta property="og:description" content="不会开发的谈审计都是耍流氓!">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="parse_url的小trick">
-<meta name="twitter:description" content="最近几次比赛都用到了parse_url的解析漏洞，所以我就在这里做一波总结
-
-php协议错误先放测试代码123&amp;lt;?php$url = $_GET[&apos;url&apos;];var_dump(parse_url($url));
-
-
-众所周知，parse_url在url不能被解析的时候就会返回false，然而却没有表明为什么他会爆错。我们从源码里看一下parse_url
-全版本通杀当一个url没有协议的时候">
+<meta name="twitter:title" content="Pupiles blog">
+<meta name="twitter:description" content="不会开发的谈审计都是耍流氓!">
 
 
 
@@ -137,13 +118,13 @@ php协议错误先放测试代码123&amp;lt;?php$url = $_GET[&apos;url&apos;];va
 
 
 
-  <link rel="canonical" href="http://pupiles.com/谈谈parse_url.html"/>
+  <link rel="canonical" href="http://pupiles.com/tags/java-security/"/>
 
 
 
 
 
-  <title> parse_url的小trick | Pupiles blog </title>
+  <title> 标签: java security | Pupiles blog </title>
 </head>
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -177,7 +158,7 @@ php协议错误先放测试代码123&amp;lt;?php$url = $_GET[&apos;url&apos;];va
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -319,240 +300,46 @@ php协议错误先放测试代码123&amp;lt;?php$url = $_GET[&apos;url&apos;];va
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://pupiles.com/谈谈parse_url.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Pupil">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Pupiles blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-            
-            
-              
-                parse_url的小trick
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-30T20:56:22+08:00">
-                2017-11-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/learning/" itemprop="url" rel="index">
-                    <span itemprop="name">learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a class="cloud-tie-join-count" href="/谈谈parse_url.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/谈谈parse_url.html" class="leancloud_visitors" data-flag-title="parse_url的小trick">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <p>最近几次比赛都用到了parse_url的解析漏洞，所以我就在这里做一波总结</p>
-<ol>
-<li>php协议错误<br>先放测试代码<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">$url = $_GET[<span class="string">'url'</span>];</div><div class="line">var_dump(parse_url($url));</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>众所周知，parse_url在url不能被解析的时候就会返回false，然而却没有表明为什么他会爆错。<br>我们从源码里看一下parse_url</p>
-<h2 id="全版本通杀"><a href="#全版本通杀" class="headerlink" title="全版本通杀"></a>全版本通杀</h2><p>当一个url没有协议的时候，但是给一个端口url的字符串的时候parse_url就会爆错<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/pupiles.com:80</div></pre></td></tr></table></figure></p>
-<p>这个经测试在windwos下应该是php版本全通杀的(5.2-7.0),linux没测试过</p>
-<h2 id="url解析错误"><a href="#url解析错误" class="headerlink" title="url解析错误"></a>url解析错误</h2><p>接上发现只要端口后面跟字母还是会解析，比如<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">/pupiles.com:<span class="number">80</span>a</div><div class="line"><span class="keyword">array</span> (size=<span class="number">1</span>)</div><div class="line">  <span class="string">'path'</span> =&gt; string <span class="string">'/pupiles.com:80a'</span> (length=<span class="number">16</span>)</div></pre></td></tr></table></figure></p>
-<h2 id="端口解析错误"><a href="#端口解析错误" class="headerlink" title="端口解析错误"></a>端口解析错误</h2><p>php5.5以上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">//pupiles.com/about:1234</div></pre></td></tr></table></figure></p>
-<p>这样的url用parse_url解析后预测的结果是<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">array</span>(<span class="number">2</span>) &#123;</div><div class="line">  [<span class="string">"host"</span>]=&gt;</div><div class="line">  string(<span class="number">11</span>) <span class="string">"pupiles.com"</span></div><div class="line">  [<span class="string">"path"</span>]=&gt;</div><div class="line">  string(<span class="number">9</span>) <span class="string">"/about:1234"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>然而实际结果是<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">array</span>(<span class="number">3</span>) &#123;</div><div class="line">  [<span class="string">"host"</span>]=&gt;</div><div class="line">  string(<span class="number">11</span>) <span class="string">"pupiles.com"</span></div><div class="line">  [<span class="string">"port"</span>]=&gt;</div><div class="line">  int(<span class="number">1234</span>)</div><div class="line">  [<span class="string">"path"</span>]=&gt;</div><div class="line">  string(<span class="number">9</span>) <span class="string">"/about:1234"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>会默认解析出一个<code>port</code>key</p>
-<h2 id="路径解析错误"><a href="#路径解析错误" class="headerlink" title="路径解析错误"></a>路径解析错误</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;!--?php</div><div class="line"><span class="comment">// single slash case</span></div><div class="line">$uri = <span class="string">"/upload?/home/binarycloud/"</span>;</div><div class="line">$data = parse_url($uri);</div><div class="line">print_r($data);</div><div class="line"><span class="comment">// doubleslash case</span></div><div class="line">$uri = <span class="string">"//upload?/home/binarycloud/"</span>;</div><div class="line">$data = parse_url($uri);</div><div class="line">print_r($data);</div><div class="line">?--&gt;</div></pre></td></tr></table></figure>
-<p>输出结果<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">Array</span></div><div class="line">(</div><div class="line">    [path] =&gt; /upload</div><div class="line">    [query] =&gt; /home/binarycloud/</div><div class="line">)</div><div class="line"><span class="keyword">Array</span></div><div class="line">(</div><div class="line">    [host] =&gt; upload?</div><div class="line">    [path] =&gt; /home/binarycloud/</div><div class="line">)</div></pre></td></tr></table></figure></p>
-<h2 id="端口溢出"><a href="#端口溢出" class="headerlink" title="端口溢出"></a>端口溢出</h2><p>在php5.3.13版本以下，当输入如下url<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://pupiles:78325</div></pre></td></tr></table></figure></p>
-<p>按照正常来说应该会返回false，但是这里会返回<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">array</span>(<span class="number">3</span>) &#123; </div><div class="line">	[<span class="string">"scheme"</span>]=&gt; string(<span class="number">4</span>) <span class="string">"http"</span> </div><div class="line">	[<span class="string">"host"</span>]=&gt; string(<span class="number">7</span>) <span class="string">"pupiles"</span> </div><div class="line">	[<span class="string">"port"</span>]=&gt; int(<span class="number">12789</span>) </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
+  <div id="posts" class="posts-collapse">
+    <div class="collection-title">
+      <h2 >
+        java security
+        <small>标签</small>
+      </h2>
     </div>
 
     
-     <div>    
-      
-      <ul class="post-copyright">
-         <li class="post-copyright-link">
-          <strong>本文作者：</strong>
-          <a href="/" title="欢迎访问 Pupil 的个人博客">Pupil</a>
-        </li>
-        <li class="post-copyright-link">
-          <strong>本文标题：</strong>
-          <a href="http://pupiles.com/谈谈parse_url.html" title="parse_url的小trick">parse_url的小trick</a>
-        </li>
-        <li class="post-copyright-link">
-          <strong>本文链接：</strong>
-          <a href="http://pupiles.com/谈谈parse_url.html" title="parse_url的小trick">http://pupiles.com/谈谈parse_url.html</a>
-        </li>
-        <li class="post-copyright-date">
-            <strong>发布时间：</strong>2017年11月30日 - 20时11分
-        </li>  
-        <li class="post-copyright-license">
-          <strong>版权声明： </strong>
-          本文由 Pupil 原创，采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="license" target="_blank">保留署名-非商业性使用-禁止演绎 4.0-国际许可协议</a> </br>转载请保留以上声明信息！
-        </li>
-      </ul>
-    
-  </div>
-
-    <footer class="post-footer">
-		   
-      
-        <div class="post-tags">
-          
-            <a href="/tags/learning/" rel="tag"><i class="fa fa-tag"></i> learning</a>
-          
-        </div>
       
 
-      
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
         
-      
+            <a class="post-title-link" href="/java_unserialize1.html" itemprop="url">
+              
+                <span itemprop="name">从零开始的JAVA反序列化(一)</span>
+              
+            </a>
+        
+      </h2>
 
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/code-blue-ctf.html" rel="next" title="code-blueCTF-writeup">
-                <i class="fa fa-chevron-left"></i> code-blueCTF-writeup
-              </a>
-            
-          </div>
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2017-10-27T15:32:22+08:00"
+              content="2017-10-27" >
+          10-27
+        </time>
+      </div>
 
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/tpctfwp.html" rel="prev" title="TPCTF-WEBwriteup">
-                TPCTF-WEBwriteup <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
+    </header>
   </article>
 
 
-
-    <div class="post-spread">
-      
-    </div>
+    
   </div>
+
+  
 
 
           </div>
@@ -560,12 +347,6 @@ php协议错误先放测试代码123&amp;lt;?php$url = $_GET[&apos;url&apos;];va
 
 
           
-  <div class="comments" id="comments">
-    
-      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
-    
-  </div>
-
 
         </div>
         
@@ -587,17 +368,8 @@ php协议错误先放测试代码123&amp;lt;?php$url = $_GET[&apos;url&apos;];va
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/touxiang.jpg"
@@ -670,22 +442,6 @@ php协议错误先放测试代码123&amp;lt;?php$url = $_GET[&apos;url&apos;];va
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#全版本通杀"><span class="nav-number">1.</span> <span class="nav-text">全版本通杀</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#url解析错误"><span class="nav-number">2.</span> <span class="nav-text">url解析错误</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#端口解析错误"><span class="nav-number">3.</span> <span class="nav-text">端口解析错误</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#路径解析错误"><span class="nav-number">4.</span> <span class="nav-text">路径解析错误</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#端口溢出"><span class="nav-number">5.</span> <span class="nav-text">端口溢出</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -796,10 +552,6 @@ php协议错误先放测试代码123&amp;lt;?php$url = $_GET[&apos;url&apos;];va
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
-
-
 
   
 
