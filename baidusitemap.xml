@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://pupiles.com/lctf2018.html</loc>
+    <lastmod>2019-05-29T12:20:24.243Z</lastmod>
+  </url>  <url>
     <loc>http://pupiles.com/xmldecoder.html</loc>
     <lastmod>2019-05-02T12:43:08.764Z</lastmod>
   </url>  <url>
@@ -21,9 +24,6 @@
   </url>  <url>
     <loc>http://pupiles.com/qiangwangbei2.html</loc>
     <lastmod>2018-11-26T12:17:22.430Z</lastmod>
-  </url>  <url>
-    <loc>http://pupiles.com/lctf2018.html</loc>
-    <lastmod>2018-11-19T07:13:20.559Z</lastmod>
   </url>  <url>
     <loc>http://pupiles.com/xss.html</loc>
     <lastmod>2018-11-15T04:55:44.739Z</lastmod>
